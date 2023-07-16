@@ -37,8 +37,17 @@
   font-size: x-large;
 }
 
+.diagram{
+  text-align: left;
+  margin-left: 1cm;
+}
 
-.diagram {
+.position_marker{
+  margin-left: 1cm;
+}
+
+.diagram_box {
+  text-align: center;
   margin-left: 1cm;
   margin-bottom:5dvh;
   border-width: 3px;
@@ -62,6 +71,7 @@
   border-style: solid;
   width: 50px;
   flex: auto;
+  min-height: .6cm;
 
 }
 

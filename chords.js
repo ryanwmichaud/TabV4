@@ -1,6 +1,12 @@
 
+/* text based cli implementation */
 
 
+names = ["C","C#","D","D#","E","F","F#","G","G#","A","A#","B"];
+nameMap = new Map();
+for(let i=0;i<12;i++){
+    nameMap.set(names[i],i);
+}
 
 function getNoteNum(noteName){
     letterName = noteName.substring(0,noteName.length-1);
@@ -25,13 +31,6 @@ function getNoteNameNoOctave(noteNum){
     letterNoteNum = noteNum%12;
     letterName = names[letterNoteNum];
     return letterName;
-}
-
-
-names = ["C","C#","D","D#","E","F","F#","G","G#","A","A#","B"];
-nameMap = new Map();
-for(let i=0;i<12;i++){
-    nameMap.set(names[i],i);
 }
 
 class MusicString{
@@ -60,6 +59,7 @@ class MusicString{
                 current=0;
             }
         }
+        console.log(this.stringMap);
     }
 
 
@@ -87,31 +87,22 @@ class MusicString{
 
 }
 
-
-class StringSolution{
-    constructor (string){
-        this.string = string;
-        this.data = [];
-    }
-}
-
-
 function main(){
-    /*
+    
     s1= new MusicString("A4");
     s2= new MusicString("D4");
     s3= new MusicString("G3");
     s4= new MusicString("C3");
-    */
     
+   /*
     s1= new MusicString("D5");
     s2= new MusicString("B4");
     s3= new MusicString("G4");
     s4= new MusicString("D4");
-    
+    */
 
     musicStrings = [s1,s2,s3,s4];
-    chordTones = ["C","E","G"];
+    chordTones = ["E","C","G","B"];
     checklist = chordTones.slice();
     
     
@@ -124,52 +115,55 @@ function main(){
 
 
     stretch = 4;
-
-    solutions=[]
     
 
     for(let position=0;position<12;position++){  //for each position
         checklist = chordTones.slice()
-        solution = [position];
-        for (let i=0; i<musicStrings.length;i++){
-            solution.push([])
-        }
-        
         
         for(let stringNum=0;stringNum<musicStrings.length;stringNum++){      //for each string
 
             
             currentString = musicStrings[stringNum];
-           
-            if(currentString.openIsChordTone){                      //check if open is ct
-                //solution[stringNum+1].push(0);                    //add open to solution
-                //checklist.splice(checklist.indexOf(currentString.openNoOctave)); //update we have it covered - remove from checklist
+            openNum = getNoteNumNoOctave(currentString.open);
+            if(currentString.openIsChordTone){
+                currentString.addOpen(currentString.openNoOctave);
+                checklist.splice(checklist.indexOf(currentString.openNoOctave));
             }
     
-            for(let i=position;i<position+stretch;i++){             //for each fret in the position add it if were looking for it
-                note = currentString.stringMap[i];
+            for(let i=position;i<position+stretch;i++){             //for each fret in the position
+    
+                note = getNoteNameNoOctave(openNum+i);      //add it if were looking for it
                 if(chordTones.includes(note)){
-                    //add to solution and remove from checklist
-                    solution[stringNum+1].push(note);
-                    checklist.splice(checklist.indexOf(currentString.openNoOctave));
+                    if(note.length<2){currentString.add(note+" ");}
+                    else{currentString.add(note);}
+                    if(checklist.includes(note)){checklist.splice(checklist.indexOf(note));}
                 }
                 else{
-                    solution[stringNum+1].push(" ");
+                    currentString.add("- ");
                 }
+                
     
             }  
     
         }
-        if(checklist.length === 0){                     //complete solution
-            //save solution sand mark position found and add to the list os solutions
-            solutions.push(solution)
+        if(checklist.length === 0){
+            console.log("\n",position)
+            for(let stringNum=0;stringNum<musicStrings.length;stringNum++){     
+                musicStrings[stringNum].printTab();
+            }
         }else{
-            //clear solution and don't add to the list
+            for(let stringNum=0;stringNum<musicStrings.length;stringNum++){     
+                musicStrings[stringNum].clearTab();
+            }
         }
-     
+        
+        
+
+
+
     }
 
-    console.log(solutions);
-} 
+    
+}
 
 main();
