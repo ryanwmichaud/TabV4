@@ -21,10 +21,12 @@ function Row(props){
   )
 }
 
+
+
 class Diagram extends React.Component{
   constructor(props){
     super(props);
-    this.state = {data: props.data}
+    this.state = {diagram_data: props.diagram_data}
   }
   componentDidMount(){
 
@@ -35,20 +37,42 @@ class Diagram extends React.Component{
   render(){
     return(
       <div className='diagram'>
-        <p className='position_marker'>{this.state.data[0]}</p>
+        <p className='position_marker'>{this.state.diagram_data[0]}</p>
         <div className='diagram_box'>
-            <Row rowData={this.state.data[1]}></Row>
-            <Row rowData={this.state.data[2]}></Row>
-            <Row rowData={this.state.data[3]}></Row>
-            <Row rowData={this.state.data[4]}></Row>
+            <Row rowData={this.state.diagram_data[1]}></Row>
+            <Row rowData={this.state.diagram_data[2]}></Row>
+            <Row rowData={this.state.diagram_data[3]}></Row>
+            <Row rowData={this.state.diagram_data[4]}></Row>
             
         </div>
-      </div>
-      
+      </div> 
     )
+  }
+}
 
+class Results extends React.Component{
+  constructor(props){
+    super(props)
+    this.state = {data: props.data}
   }
   
+  generateDiagrams(){
+    let diagrams = [];
+    for(let i=0;i<this.state.data.length;i++){
+        diagrams = diagrams.concat(
+          <Diagram diagram_data={this.state.data[i]} key={i}/>
+        );
+    }
+    return diagrams;
+  }
+
+  render(){
+    return(
+      <div>
+        {this.generateDiagrams()}
+      </div>
+    );
+  }
 }
 
 function App() {
@@ -66,28 +90,71 @@ function App() {
           </input>
         </div>
         <div className='results'>Results:</div>
-        <Diagram  data = { [
+        <Results  data = {[
+  [
     0,
-    [ ' ', ' ', 'E', ' ' ],
-    [ ' ', 'C', ' ', ' ' ],
-    [ 'G', ' ', ' ', ' ' ],
-    [ ' ', ' ', 'E', ' ' ]
-  ]}/>
-        <Diagram  data = {[
+    [ ' ', ' ', ' ', 'C' ],
+    [ 'E', ' ', ' ', 'G' ],
+    [ 'C', ' ', 'D', ' ' ],
+    [ 'G', ' ', ' ', ' ' ]
+  ],
+  [
     1,
+    [ ' ', ' ', 'C', ' ' ],
+    [ ' ', ' ', 'G', ' ' ],
+    [ ' ', 'D', ' ', 'E' ],
+    [ ' ', ' ', ' ', ' ' ]
+  ],
+  [
+    2,
+    [ ' ', 'C', ' ', 'D' ],
+    [ ' ', 'G', ' ', ' ' ],
+    [ 'D', ' ', 'E', ' ' ],
+    [ ' ', ' ', ' ', 'C' ]
+  ],
+  [
+    3,
+    [ 'C', ' ', 'D', ' ' ],
+    [ 'G', ' ', ' ', ' ' ],
     [ ' ', 'E', ' ', ' ' ],
-    [ 'C', ' ', ' ', ' ' ],
+    [ ' ', ' ', 'C', ' ' ]
+  ],
+  [
+    4,
+    [ ' ', 'D', ' ', 'E' ],
+    [ ' ', ' ', ' ', ' ' ],
+    [ 'E', ' ', ' ', 'G' ],
+    [ ' ', 'C', ' ', 'D' ]
+  ],
+  [
+    5,
+    [ 'D', ' ', 'E', ' ' ],
+    [ ' ', ' ', ' ', 'C' ],
+    [ ' ', ' ', 'G', ' ' ],
+    [ 'C', ' ', 'D', ' ' ]
+  ],
+  [
+    6,
+    [ ' ', 'E', ' ', ' ' ],
+    [ ' ', ' ', 'C', ' ' ],
+    [ ' ', 'G', ' ', ' ' ],
+    [ ' ', 'D', ' ', 'E' ]
+  ],
+  [
+    7,
+    [ 'E', ' ', ' ', 'G' ],
+    [ ' ', 'C', ' ', 'D' ],
+    [ 'G', ' ', ' ', ' ' ],
+    [ 'D', ' ', 'E', ' ' ]
+  ],
+  [
+    8,
+    [ ' ', ' ', 'G', ' ' ],
+    [ 'C', ' ', 'D', ' ' ],
     [ ' ', ' ', ' ', ' ' ],
     [ ' ', 'E', ' ', ' ' ]
-  ]}/>
-        <Diagram  data = {  [
-    2,
-    [ 'E', ' ', ' ', 'G' ],
-    [ ' ', ' ', ' ', 'E' ],
-    [ ' ', ' ', ' ', 'C' ],
-    [ 'E', ' ', ' ', 'G' ]
-  ]}/>
-        
+  ]
+]} />
       </div>
     </div>
   );
@@ -98,7 +165,7 @@ function App() {
 [ 1, [ 2 ], [ 1, 3 ], [], [ 2 ] ]
 [ 2, [ 1, 4 ], [ 2, 4 ], [ 4 ], [ 1, 4 ] ]
 
-
+[
  [
     0,
     [ ' ', ' ', 'E', ' ' ],
@@ -120,6 +187,7 @@ function App() {
     [ ' ', ' ', ' ', 'C' ],
     [ 'E', ' ', ' ', 'G' ]
   ]
+]
 
  
 */

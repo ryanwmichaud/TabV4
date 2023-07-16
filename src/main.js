@@ -60,7 +60,7 @@ class MusicString{
                 current=0;
             }
         }
-    }
+    } 
 
 
 
@@ -87,31 +87,18 @@ class MusicString{
 
 }
 
+function generate(openStrings,chordTones){
 
-class StringSolution{
-    constructor (string){
-        this.string = string;
-        this.data = [];
+
+    musicStrings = []
+
+    for(let i=0; i<openStrings.length; i++){
+        s = new MusicString(openStrings[i]);
+        musicStrings = musicStrings.concat(s);
     }
-}
-
-
-function main(){
-    /*
-    s1= new MusicString("A4");
-    s2= new MusicString("D4");
-    s3= new MusicString("G3");
-    s4= new MusicString("C3");
-    */
     
-    s1= new MusicString("D5");
-    s2= new MusicString("B4");
-    s3= new MusicString("G4");
-    s4= new MusicString("D4");
     
-
-    musicStrings = [s1,s2,s3,s4];
-    chordTones = ["C","E","G"];
+    
     checklist = chordTones.slice();
     
     
@@ -142,16 +129,21 @@ function main(){
             currentString = musicStrings[stringNum];
            
             if(currentString.openIsChordTone){                      //check if open is ct
-                //solution[stringNum+1].push(0);                    //add open to solution
+                //solution[stringNum+1].push(0);   
+                //bug here I think                 //add open to solution
                 //checklist.splice(checklist.indexOf(currentString.openNoOctave)); //update we have it covered - remove from checklist
             }
     
             for(let i=position;i<position+stretch;i++){             //for each fret in the position add it if were looking for it
                 note = currentString.stringMap[i];
-                if(chordTones.includes(note)){
+                if(chordTones.includes(note) ){
                     //add to solution and remove from checklist
                     solution[stringNum+1].push(note);
-                    checklist.splice(checklist.indexOf(currentString.openNoOctave));
+                    if(checklist.indexOf(note) != -1){
+                        checklist.splice(checklist.indexOf(note),1);
+                    }
+                    
+                    //console.log(position,'found ', note, ' on ', stringNum, checklist);
                 }
                 else{
                     solution[stringNum+1].push(" ");
@@ -170,6 +162,12 @@ function main(){
     }
 
     console.log(solutions);
+    return(solutions);
 } 
+
+
+function main(){
+    generate(["A4","E4","C4","G5"],["C","E","G","D"])
+}
 
 main();
