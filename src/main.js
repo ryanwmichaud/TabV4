@@ -81,8 +81,6 @@ class MusicString{
         }
     }
     
-
-
 }
 
 function generate(openStrings,chordTones){

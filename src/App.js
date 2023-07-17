@@ -53,25 +53,32 @@ class Diagram extends React.Component{
 }
 
 class Results extends React.Component{
+
   constructor(props){
     super(props)
-    this.state = {data: props.data}
+    this.state = {data: generate(["C4","G4","D5","A5"],["F","A","C","G"])}
   }
+/*
+  update(){
+    this.setState({data: generate(["F4","A4","C4","G4"],["F","A","C","G"])});
+  }
+*/
   
-  generateDiagrams(){
+  createResults(){
     let diagrams = [];
     for(let i=0;i<this.state.data.length;i++){
-        diagrams = diagrams.concat(
-          <Diagram diagram_data={this.state.data[i]} key={i}/>
-        );
+        diagrams = diagrams.concat(<Diagram diagram_data={this.state.data[i]} key={i}/>);
     }
     return diagrams;
   }
 
+
+  
   render(){
+
     return(
       <div>
-        {this.generateDiagrams()}
+        {this.createResults()}
       </div>
     );
   }
@@ -92,7 +99,7 @@ function App() {
           </input>
         </div>
         <div className='results'>Results:</div>
-        <Results  data = { generate(["F4","A4","C4","G4"],["F","A","C","G"])} />
+        <Results />
       </div>
     </div>
   );
