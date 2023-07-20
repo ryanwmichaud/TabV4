@@ -24,9 +24,6 @@ class Row extends React.Component{
     for(let i=0;i<this.state.rowData.length;i++){
       boxes = boxes.concat(<Box text={this.props.rowData[i]}></Box>);
     }
-    
-    
-    console.log(boxes);
     return boxes;
   }
 
@@ -77,19 +74,23 @@ class Diagram extends React.Component{
 class Results extends React.Component{
 
   constructor(props){
-    super(props)
-    this.state = {data: generate(["C4","G4","D5","A5","E6"],["D","F#","A","C#"])}
+    super(props);
+    this.state = {
+      //do I need to save these in state or is props enough?
+      strings: this.props.strings,
+      chordTones: this.props.chordTones,
+      stretch: this.props.stretch,
+    };
+    
   }
-/*
-  update(){
-    this.setState({data: generate(["F4","A4","C4","G4"],["F","A","C","G"])});
-  }
-*/
+
   
   createResults(){
+    let data= generate(this.props.strings,this.props.chordTones,this.props.stretch);
+    console.log(data)
     let diagrams = [];
-    for(let i=0;i<this.state.data.length;i++){
-        diagrams = diagrams.concat(<Diagram diagram_data={this.state.data[i]} key={i}/>);
+    for(let i=0;i<data.length;i++){
+        diagrams = diagrams.concat(<Diagram diagram_data={data[i]} key={i}/>);
     }
     return diagrams;
   }
@@ -106,27 +107,75 @@ class Results extends React.Component{
   }
 }
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">  
-        <p>
-          Heading
-        </p>
-    
-      </header>
-      <div className="main">
-        <div className='input'>
-          <input type='text'>
-          </input>
-        </div>
-        <div className='results'>Results:</div>
-        <Results />
-      </div>
-    </div>
-  );
+
+
+
+
+
+class NameForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {value: ''};
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleChange(event) {
+    this.setState({value: event.target.value});
+  }
+
+  handleSubmit(event) {
+    alert('A name was submitted: ' + this.state.value);
+    event.preventDefault();
+  }
+
+  render() {
+    return (
+      <form className='nameform' onSubmit={this.handleSubmit}>
+        
+        <label>
+          Name:
+          <input  type="text" value={this.state.value} onChange={this.handleChange} />
+        </label>
+        
+        <input type="submit" value="Submit" />
+
+      </form>
+    );
+  }
 }
 
+
+
+
+class App extends React.Component{
+
+  constructor(props){
+    super(props);
+    this.state = {stretch:4, strings: ["E4","A4","D5","G5","B5","E6"], chordTones: ["D","F#","A","C#"]};
+  }
+
+  render(){
+    return (
+      <div className="App">
+        <header className="App-header">  
+          <p>
+            Heading
+          </p>
+      
+        </header>
+        <div className="main">
+          <div className='input'>
+            <NameForm className="nameform"></NameForm>
+          </div>
+          <div className='results'>Results:</div>
+          <Results stretch={this.state.stretch} strings={this.state.strings} chordTones={this.state.chordTones}/>
+        </div>
+      </div>
+    );
+  }
+}
 
 
 export default App;

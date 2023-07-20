@@ -84,9 +84,12 @@ class MusicString{
 }
 
 function generate(openStrings,chordTones, stretch){
+
     if(stretch===undefined){
         stretch = 4;
     }
+
+    console.log(stretch);
 
 
     let musicStrings = []
