@@ -12,15 +12,31 @@ function Box(props){
   );
 }
 
-function Row(props){
-  return(
-    <div className='row'>
-        <Box text={props.rowData[0]}></Box>
-        <Box text={props.rowData[1]}></Box>
-        <Box text={props.rowData[2]}></Box>
-        <Box text={props.rowData[3]}></Box>
-    </div>
-  )
+class Row extends React.Component{
+
+  constructor(props){
+    super(props);
+    this.state = {rowData: this.props.rowData};
+  }
+
+  createRow(){
+    let boxes = [];
+    for(let i=0;i<this.state.rowData.length;i++){
+      boxes = boxes.concat(<Box text={this.props.rowData[i]}></Box>);
+    }
+    
+    
+    console.log(boxes);
+    return boxes;
+  }
+
+  render(){
+    return(
+      <div className='row'>
+          {this.createRow()}
+      </div>
+    )
+  }
 }
 
 
@@ -36,16 +52,22 @@ class Diagram extends React.Component{
   componentWillUnmount(){
 
   }
+
+  createDiagram(){
+    let rows = [];
+    for(let i=1; i<this.state.diagram_data.length;i++){
+      rows = rows.concat(<Row rowData={this.state.diagram_data[i]}></Row>)
+    }
+    
+    return rows;
+  }
+
   render(){
     return(
       <div className='diagram'>
         <p className='position_marker'>{this.state.diagram_data[0]}</p>
         <div className='diagram_box'>
-            <Row rowData={this.state.diagram_data[1]}></Row>
-            <Row rowData={this.state.diagram_data[2]}></Row>
-            <Row rowData={this.state.diagram_data[3]}></Row>
-            <Row rowData={this.state.diagram_data[4]}></Row>
-            
+            {this.createDiagram()}
         </div>
       </div> 
     )
@@ -56,7 +78,7 @@ class Results extends React.Component{
 
   constructor(props){
     super(props)
-    this.state = {data: generate(["C4","G4","D5","A5"],["F","A","C","G"])}
+    this.state = {data: generate(["C4","G4","D5","A5","E6"],["D","F#","A","C#"])}
   }
 /*
   update(){

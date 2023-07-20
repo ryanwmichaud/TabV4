@@ -83,7 +83,10 @@ class MusicString{
     
 }
 
-function generate(openStrings,chordTones){
+function generate(openStrings,chordTones, stretch){
+    if(stretch===undefined){
+        stretch = 4;
+    }
 
 
     let musicStrings = []
@@ -106,7 +109,7 @@ function generate(openStrings,chordTones){
     }
 
 
-    const stretch = 4;
+   
 
     let solutions=[]
     
