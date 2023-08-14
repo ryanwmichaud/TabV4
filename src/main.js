@@ -163,7 +163,7 @@ function generate(openStrings,chordTones, stretch){
      
     }
 
-    console.log(solutions);
+    //console.log(solutions);
     return(solutions);
 } 
 
