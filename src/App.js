@@ -43,7 +43,7 @@ class Diagram extends React.Component{
 
   render(){
 
-    console.log("rendering diagram", this.props.diagram_data);
+
     let rows = [];
     for(let i=1; i<this.props.diagram_data.length;i++){
       rows = rows.concat(<Row rowData={this.props.diagram_data[i]}></Row>)
@@ -81,11 +81,8 @@ class Results extends React.Component{
   
   render(){
 
-    console.log("rendiering results",this.props.stretch)
-
-
-    let data= generate(this.state.strings,this.props.chordTones,this.props.stretch);
-    console.log(data);
+    let data= generate(this.state.strings,this.state.chordTones,this.state.stretch);
+    console.log(data)
     let diagrams = [];
     for(let i=0;i<data.length;i++){
         diagrams = diagrams.concat(<Diagram diagram_data={data[i]} key={i}/>);
@@ -109,17 +106,17 @@ class StretchForm extends React.Component{
 
   handleChange(e) {
     e.preventDefault();
-    this.props.onChange();
-    
+    this.props.onStretchChange(parseInt(e.target.value));  
   }
 
   render(){
     return (
       <form>
-        <select onChange={this.handleChange}>  
+        <select onChange={this.handleChange} value={this.props.stretch}>  
           <option value={2}>2</option>
           <option value={3}>3</option>
           <option value={4}>4</option>
+          <option value={5}>5</option>
         </select>
       </form>
     );
@@ -138,17 +135,14 @@ class App extends React.Component{
   }
 
 
-  changeStretch(){
-    this.setState({stretch:5})
-    
+  changeStretch(value){
+    this.setState({stretch:value});
   }
 
 
 
   render(){
-    console.log("rendering");
-    console.log(this.state);
-
+ 
     return (
       <div className="App">
         <header className="App-header">  
@@ -159,7 +153,7 @@ class App extends React.Component{
         </header>
         <div className="main">
           <div className='input'>
-          <StretchForm onChange={this.changeStretch}></StretchForm>
+          <StretchForm onStretchChange={this.changeStretch}></StretchForm>
           </div>
           <div className='results'>Results:</div>
           <Results stretch={this.state.stretch} strings={this.state.strings} chordTones={this.state.chordTones}/>
