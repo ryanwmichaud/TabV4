@@ -102,6 +102,7 @@ class StretchForm extends React.Component{
   constructor(props){
     super(props);
     this.handleChange = this.handleChange.bind(this);
+
   }
 
   handleChange(e) {
@@ -110,6 +111,7 @@ class StretchForm extends React.Component{
   }
 
   render(){
+    console.log("initiail stretchform: ",this.props.stretch);
     return (
       <form>
         <select onChange={this.handleChange} value={this.props.stretch}>  
@@ -153,7 +155,7 @@ class App extends React.Component{
         </header>
         <div className="main">
           <div className='input'>
-          <StretchForm onStretchChange={this.changeStretch}></StretchForm>
+          <StretchForm onStretchChange={this.changeStretch} stretch={this.state.stretch}></StretchForm>
           </div>
           <div className='results'>Results:</div>
           <Results stretch={this.state.stretch} strings={this.state.strings} chordTones={this.state.chordTones}/>
