@@ -175,9 +175,9 @@ function generate(openStrings,chordTones, stretch){
 
 
 openStrings = ["E4","A4","D5","G5","B5","E6"]
-cts = ["D","F#","A","C#"]
-stretch = 4
-position = 5
+cts = ["D","F#","A", "C#"]
+stretch = 2
+position = 2
 let musicStrings = []
 
 for(let i=openStrings.length-1; i>=0; i--){
@@ -186,18 +186,24 @@ for(let i=openStrings.length-1; i>=0; i--){
 }
 
 
-console.log(backtrack( musicStrings, cts, position, stretch,["X","X","X","X","X","X"], 0, 0 ))
 
-function backtrack(musicStrings, cts, position, stretch, sofar, currentCTIndex, currentStringIndex){
 
-    console.log( "looking for ", cts[currentCTIndex], " on the ",musicStrings[currentStringIndex].open," string with ",sofar )
+//for(let i=0; i<12; i++){
+    console.log(backtrack( musicStrings, cts, 10, stretch,["X","X","X","X","X","X"], 0, 0 , []))
+//}
+
+
+function backtrack(musicStrings, cts, position, stretch, sofar, currentCTIndex, currentStringIndex, solutions){
+
+    //console.log( "looking for ", cts[currentCTIndex], " on the ",musicStrings[currentStringIndex].open," string with ",sofar )
     
     if (currentCTIndex === cts.length){  //found all cts (when moves on it recurses on ct+1)
         console.log("done")
         return sofar;
     }
-    if (currentStringIndex === musicStrings.length-1){  //ran out of strings - deadend - backtrack
-        console.log("out of strings returning null")
+    if (currentStringIndex > musicStrings.length-1){  //ran out of strings - deadend - backtrack
+        console.log("back")
+
         return null;
     }
 
@@ -206,10 +212,10 @@ function backtrack(musicStrings, cts, position, stretch, sofar, currentCTIndex, 
     //if so, save fret where found in a valid way
     fretFound = null;
     for(let i=position; i<position+stretch; i++){ //can quit early
+        console.log(musicStrings[currentStringIndex].stringMap[i],cts[currentCTIndex] )
         if(musicStrings[currentStringIndex].stringMap[i] === cts[currentCTIndex]  && 
             sofar[currentStringIndex] === "X"){
                 fretFound = i  //save fret where found in a valid way
-                console.log("found it at ", fretFound)
         }
     }
 
@@ -217,15 +223,17 @@ function backtrack(musicStrings, cts, position, stretch, sofar, currentCTIndex, 
     if(fretFound!==null){
         newsofar = sofar.slice()
         newsofar[currentStringIndex] = fretFound;
-        let check = backtrack(musicStrings, cts, position, stretch, newsofar, currentCTIndex+1, 0)
+        let check = backtrack(musicStrings, cts, position, stretch, newsofar, currentCTIndex+1, 0, solutions)
         if(check !== null){ //if no dead end - this is valid solution
-            return check
+            solutions.push(check)
+            console.log(position, "--------------",solutions)
+            return backtrack(musicStrings, cts, position, stretch, sofar, currentCTIndex, currentStringIndex+1,solutions)
+
         }else{ //if branch gets to a dead end, move on to next string
-            console.log("backtrack and keep looking", check)
-            backtrack(musicStrings, cts, position, stretch, sofar, currentCTIndex, currentStringIndex+1)
+            return backtrack(musicStrings, cts, position, stretch, sofar, currentCTIndex, currentStringIndex+1,solutions)
         }
     }else{ //if not found there, move on to next string
-        return backtrack(musicStrings, cts, position, stretch, sofar, currentCTIndex, currentStringIndex+1);
+        return backtrack(musicStrings, cts, position, stretch, sofar, currentCTIndex, currentStringIndex+1,solutions);
     }
 }
 

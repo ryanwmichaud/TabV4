@@ -111,7 +111,6 @@ class StretchForm extends React.Component{
   }
 
   render(){
-    console.log("initiail stretchform: ",this.props.stretch);
     return (
       <form>
         <select onChange={this.handleChange} value={this.props.stretch}>  
