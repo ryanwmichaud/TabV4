@@ -188,9 +188,9 @@ for(let i=openStrings.length-1; i>=0; i--){
 
 
 
-//for(let i=0; i<12; i++){
-    console.log(backtrack( musicStrings, cts, 10, stretch,["X","X","X","X","X","X"], 0, 0 , []))
-//}
+for(let i=0; i<12; i++){
+    console.log(backtrack( musicStrings, cts, i, stretch,["X","X","X","X","X","X"], 0, 0 , []))
+}
 
 
 function backtrack(musicStrings, cts, position, stretch, sofar, currentCTIndex, currentStringIndex, solutions){
@@ -198,12 +198,9 @@ function backtrack(musicStrings, cts, position, stretch, sofar, currentCTIndex, 
     //console.log( "looking for ", cts[currentCTIndex], " on the ",musicStrings[currentStringIndex].open," string with ",sofar )
     
     if (currentCTIndex === cts.length){  //found all cts (when moves on it recurses on ct+1)
-        console.log("done")
         return sofar;
     }
     if (currentStringIndex > musicStrings.length-1){  //ran out of strings - deadend - backtrack
-        console.log("back")
-
         return null;
     }
 
@@ -212,7 +209,6 @@ function backtrack(musicStrings, cts, position, stretch, sofar, currentCTIndex, 
     //if so, save fret where found in a valid way
     fretFound = null;
     for(let i=position; i<position+stretch; i++){ //can quit early
-        console.log(musicStrings[currentStringIndex].stringMap[i],cts[currentCTIndex] )
         if(musicStrings[currentStringIndex].stringMap[i] === cts[currentCTIndex]  && 
             sofar[currentStringIndex] === "X"){
                 fretFound = i  //save fret where found in a valid way
