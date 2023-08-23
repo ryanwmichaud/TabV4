@@ -83,89 +83,72 @@ class MusicString{
     
 }
 
-function generate(openStrings,chordTones, stretch){
 
-    if(stretch===undefined){
-        stretch = 4;
+function backtrack(musicStrings, cts, position, stretch, sofar, currentCTIndex, currentStringIndex, solutions){
+
+    //console.log( "looking for ", cts[currentCTIndex], " on the ",musicStrings[currentStringIndex].open," string with ",sofar )
+    
+    if (currentCTIndex === cts.length){  //found all cts (when moves on it recurses on ct+1)
+        return sofar;
+    }
+    if (currentStringIndex > musicStrings.length-1){  //ran out of strings - deadend - backtrack
+        return null;
     }
 
-    console.log(stretch);
+    
+    //can current ct can be found on current string in current position and current string is not already taken? 
+    //if so, save fret where found in a valid way
+    let fretFound = null;
+    for(let i=position; i<position+stretch; i++){ //can quit early
+        let toFind = cts[currentCTIndex]
+        if(musicStrings[currentStringIndex].stringMap[i] === toFind  && 
+            sofar[currentStringIndex+1] === "X"){
+                fretFound = [i-position,toFind]  //save fret where found in a valid way
+        }
+    }
+
+    //if can be found, update sofar solution to choose it, next ct, first string, recurse
+    if(fretFound!==null){
+        let newsofar = sofar.slice()
+        newsofar[currentStringIndex+1] = fretFound;
+        let check = backtrack(musicStrings, cts, position, stretch, newsofar, currentCTIndex+1, 0, solutions)
+        if(check !== null){ //if no dead end - this is valid solution
+            solutions.push(check)
+            //if(check!==null){console.log(check, ",")}
+            return backtrack(musicStrings, cts, position, stretch, sofar, currentCTIndex, currentStringIndex+1,solutions)
+
+        }else{ //if branch gets to a dead end, move on to next string
+            return backtrack(musicStrings, cts, position, stretch, sofar, currentCTIndex, currentStringIndex+1,solutions)
+        }
+    }else{ //if not found there, move on to next string
+        return backtrack(musicStrings, cts, position, stretch, sofar, currentCTIndex, currentStringIndex+1,solutions);
+    }
+}
 
 
+function solve(openStrings, cts, stretch){
+    
     let musicStrings = []
 
     for(let i=openStrings.length-1; i>=0; i--){
-        let s = new MusicString(openStrings[i]);
-        musicStrings = musicStrings.concat(s);
-    }
-    
-    
-    
-    let checklist = chordTones.slice();
-    
-    
-    for(let stringNum=0;stringNum<musicStrings.length;stringNum++){ //set if any open strings are cts
-        let currentString = musicStrings[stringNum];
-        if(chordTones.includes(currentString.openNoOctave)){
-            currentString.openIsChordTone = true;
-        }
+            let s = new MusicString(openStrings[i]);
+            musicStrings = musicStrings.concat(s);
     }
 
+    let solutions = [];
 
-   
-
-    let solutions=[]
-    
-
-    for(let position=0;position<12;position++){  //for each position
-        checklist = chordTones.slice()
-        let solution = [position];
-        for (let i=0; i<musicStrings.length;i++){
-            solution.push([])
+    for(let i=0; i<12; i++){
+        let startSolve = [i]
+        for(let j=0; j<openStrings.length; j++){
+            startSolve.push("X")
         }
-        
-        
-        for(let stringNum=0;stringNum<musicStrings.length;stringNum++){      //for each string
-
-            
-            let currentString = musicStrings[stringNum];
-           
-            if(currentString.openIsChordTone){                      //check if open is ct
-                //solution[stringNum+1].push(0);   
-                //bug here I think                 //add open to solution
-                //checklist.splice(checklist.indexOf(currentString.openNoOctave)); //update we have it covered - remove from checklist
-            }
-    
-            for(let i=position;i<position+stretch;i++){             //for each fret in the position add it if were looking for it
-                let note = currentString.stringMap[i];
-                if(chordTones.includes(note) ){
-                    //add to solution and remove from checklist
-                    solution[stringNum+1].push(note);
-                    if(checklist.indexOf(note) !== -1){
-                        checklist.splice(checklist.indexOf(note),1);
-                    }
-                    
-                    //console.log(position,'found ', note, ' on ', stringNum, checklist);
-                }
-                else{
-                    solution[stringNum+1].push(" ");
-                }
-    
-            }  
-    
-        }
-        if(checklist.length === 0){                     //complete solution
-            //save solution sand mark position found and add to the list os solutions
-            solutions.push(solution)
-        }else{
-            //clear solution and don't add to the list
-        }
-     
+        backtrack( musicStrings, cts, i, stretch, startSolve, 0, 0 , solutions)
     }
+    return solutions
 
-    //console.log(solutions);
-    return(solutions);
-} 
+}
 
 
-export {generate};
+
+
+export {solve};

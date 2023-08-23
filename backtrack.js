@@ -128,11 +128,8 @@ function backtrack(musicStrings, cts, position, stretch, sofar, currentCTIndex, 
 }
 
 
-function solve(){
-    openStrings = ["D4","G4","B4","D5"]
-    cts = ["G","B","D"]
-    stretch = 4
-    position = 2
+function solve(openStrings, cts, stretch){
+    
     let musicStrings = []
 
     for(let i=openStrings.length-1; i>=0; i--){
@@ -141,7 +138,6 @@ function solve(){
     }
 
     let solutions = [];
-
 
     for(let i=0; i<12; i++){
         startSolve = [i]
@@ -155,4 +151,3 @@ function solve(){
 }
 
 
-console.log(solve())

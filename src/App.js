@@ -1,6 +1,6 @@
 import './App.css';
 import React from 'react';
-import { generate} from './main';
+import { solve} from './main';
 
 
 
@@ -84,20 +84,7 @@ class Results extends React.Component{
   
   render(){
 
-    //let data= generate(this.state.strings,this.state.chordTones,this.state.stretch);
-    let data = [
-      [ 0, [ 0, 'D' ], [ 0, 'B' ], [ 0, 'G' ], 'X' ],
-      [ 0, 'X', [ 0, 'B' ], [ 0, 'G' ], [ 0, 'D' ] ],
-      [ 2, [ 3, 'G' ], [ 1, 'D' ], [ 2, 'B' ], 'X' ],
-      [ 2, 'X', [ 1, 'D' ], [ 2, 'B' ], [ 3, 'G' ] ],
-      [ 3, [ 2, 'G' ], [ 0, 'D' ], [ 1, 'B' ], 'X' ],
-      [ 3, 'X', [ 0, 'D' ], [ 1, 'B' ], [ 2, 'G' ] ],
-      [ 6, [ 3, 'B' ], [ 2, 'G' ], [ 1, 'D' ], 'X' ],
-      [ 6, 'X', [ 2, 'G' ], [ 1, 'D' ], [ 3, 'B' ] ],
-      [ 7, [ 2, 'B' ], [ 1, 'G' ], [ 0, 'D' ], 'X' ],
-      [ 7, 'X', [ 1, 'G' ], [ 0, 'D' ], [ 2, 'B' ] ]
-    ]
-   
+    let data= solve(this.state.strings,this.state.chordTones,this.state.stretch);
     
     console.log(data)
     let diagrams = [];
