@@ -22,8 +22,12 @@ class Row extends React.Component{
   render(){
 
     let boxes = [];
-    for(let i=0;i<this.props.rowData.length;i++){
-      boxes = boxes.concat(<Box text={this.props.rowData[i]}></Box>);
+    for(let i=0;i<this.props.stretch;i++){
+      if(i === this.props.rowData[0]){
+        boxes = boxes.concat(<Box text={this.props.rowData[1]}></Box>);
+      }else{
+        boxes = boxes.concat(<Box text=""></Box>);
+      }
     }
     return(
       <div className='row'>
@@ -46,7 +50,7 @@ class Diagram extends React.Component{
 
     let rows = [];
     for(let i=1; i<this.props.diagram_data.length;i++){
-      rows = rows.concat(<Row rowData={this.props.diagram_data[i]}></Row>)
+      rows = rows.concat(<Row stretch={this.props.stretch} rowData={this.props.diagram_data[i]}></Row>)
     }
 
     return(
@@ -65,7 +69,6 @@ class Results extends React.Component{
   constructor(props){
     super(props);
     this.state = {
-      //do I need to save these in state or is props enough?
       strings: props.strings,
       chordTones: props.chordTones,
       stretch: props.stretch,
@@ -81,11 +84,25 @@ class Results extends React.Component{
   
   render(){
 
-    let data= generate(this.state.strings,this.state.chordTones,this.state.stretch);
+    //let data= generate(this.state.strings,this.state.chordTones,this.state.stretch);
+    let data = [
+      [ 0, [ 0, 'D' ], [ 0, 'B' ], [ 0, 'G' ], 'X' ],
+      [ 0, 'X', [ 0, 'B' ], [ 0, 'G' ], [ 0, 'D' ] ],
+      [ 2, [ 3, 'G' ], [ 1, 'D' ], [ 2, 'B' ], 'X' ],
+      [ 2, 'X', [ 1, 'D' ], [ 2, 'B' ], [ 3, 'G' ] ],
+      [ 3, [ 2, 'G' ], [ 0, 'D' ], [ 1, 'B' ], 'X' ],
+      [ 3, 'X', [ 0, 'D' ], [ 1, 'B' ], [ 2, 'G' ] ],
+      [ 6, [ 3, 'B' ], [ 2, 'G' ], [ 1, 'D' ], 'X' ],
+      [ 6, 'X', [ 2, 'G' ], [ 1, 'D' ], [ 3, 'B' ] ],
+      [ 7, [ 2, 'B' ], [ 1, 'G' ], [ 0, 'D' ], 'X' ],
+      [ 7, 'X', [ 1, 'G' ], [ 0, 'D' ], [ 2, 'B' ] ]
+    ]
+   
+    
     console.log(data)
     let diagrams = [];
     for(let i=0;i<data.length;i++){
-        diagrams = diagrams.concat(<Diagram diagram_data={data[i]} key={i}/>);
+        diagrams = diagrams.concat(<Diagram stretch={this.state.stretch} diagram_data={data[i]} key={i}/>);
     }
 
     return(
@@ -148,7 +165,7 @@ class App extends React.Component{
       <div className="App">
         <header className="App-header">  
           <p>
-            Heading
+            Chords
           </p>
       
         </header>
