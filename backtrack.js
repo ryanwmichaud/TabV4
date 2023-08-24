@@ -117,7 +117,6 @@ function backtrack(musicStrings, cts, position, stretch, sofar, currentCTIndex, 
         if(check !== null){ //if no dead end - this is valid solution
             let duplicate = true;
             for(let i=1; i<sofar.length; i++){
-                console.log(sofar[i][0] )
                 if(sofar[i][0] === position){
                     duplicate = false;
                 }

@@ -93,7 +93,7 @@ function backtrack(musicStrings, cts, position, stretch, sofar, currentCTIndex, 
     if (currentStringIndex > musicStrings.length-1){  //ran out of strings - deadend - backtrack
         return null;
     }
-    console.log( "looking for ", cts[currentCTIndex], " on the ",musicStrings[currentStringIndex].open," string with ",sofar )
+    //console.log( "looking for ", cts[currentCTIndex], " on the ",musicStrings[currentStringIndex].open," string with ",sofar )
 
 
     
@@ -102,7 +102,6 @@ function backtrack(musicStrings, cts, position, stretch, sofar, currentCTIndex, 
     let fretFound = null;
     for(let i=position; i<position+stretch; i++){ //can quit early
         let toFind = cts[currentCTIndex]
-        console.log(musicStrings[currentStringIndex].stringMap[i])
         if(musicStrings[currentStringIndex].stringMap[i] === toFind  && 
             sofar[currentStringIndex+1][0] === "X"){
                 fretFound = [i-position,toFind]  //save fret where found in a valid way

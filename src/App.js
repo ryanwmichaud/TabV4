@@ -136,7 +136,7 @@ class App extends React.Component{
   constructor(props){
     super(props);
     this.changeStretch = this.changeStretch.bind(this);
-    this.state = {stretch:4, strings: ["D4","G4","B5","D5"], chordTones: ["D","F#","A","C#"]};
+    this.state = {stretch:4, strings: ["D4","G4","B5","D5"], chordTones: ["D","F#","C#"]};
   }
 
 
