@@ -40,7 +40,7 @@ class MusicString{
         this.openIsChordTone=false;
         this.stringMap = new Map();
         if(frets===undefined){
-            this.frets=12;
+            this.frets=24;
         }else{
             this.frets = frets;
         }
@@ -86,7 +86,6 @@ class MusicString{
 
 function backtrack(musicStrings, cts, position, stretch, sofar, currentCTIndex, currentStringIndex, solutions){
 
-    //console.log( "looking for ", cts[currentCTIndex], " on the ",musicStrings[currentStringIndex].open," string with ",sofar )
     
     if (currentCTIndex === cts.length){  //found all cts (when moves on it recurses on ct+1)
         return sofar;
@@ -94,6 +93,8 @@ function backtrack(musicStrings, cts, position, stretch, sofar, currentCTIndex, 
     if (currentStringIndex > musicStrings.length-1){  //ran out of strings - deadend - backtrack
         return null;
     }
+    console.log( "looking for ", cts[currentCTIndex], " on the ",musicStrings[currentStringIndex].open," string with ",sofar )
+
 
     
     //can current ct can be found on current string in current position and current string is not already taken? 
@@ -101,6 +102,7 @@ function backtrack(musicStrings, cts, position, stretch, sofar, currentCTIndex, 
     let fretFound = null;
     for(let i=position; i<position+stretch; i++){ //can quit early
         let toFind = cts[currentCTIndex]
+        console.log(musicStrings[currentStringIndex].stringMap[i])
         if(musicStrings[currentStringIndex].stringMap[i] === toFind  && 
             sofar[currentStringIndex+1][0] === "X"){
                 fretFound = [i-position,toFind]  //save fret where found in a valid way
@@ -116,9 +118,9 @@ function backtrack(musicStrings, cts, position, stretch, sofar, currentCTIndex, 
             
             //don't include solution if its a duplicate - doesn't use the first fret - appears shifted up
             let duplicate = true;
-            console.log("soltion: ",newsofar)
+            //console.log("soltion: ",newsofar)
             for(let i=1; i<newsofar.length; i++){
-                console.log(newsofar[i][0])
+                //console.log(newsofar[i][0])
                 if(newsofar[i][0] === 0){
                     duplicate = false;
                 }
@@ -126,7 +128,7 @@ function backtrack(musicStrings, cts, position, stretch, sofar, currentCTIndex, 
             if(!duplicate){
                 solutions.push(check);
             }else{
-                console.log("blocked: ", newsofar);
+                //console.log("blocked: ", newsofar);
             }
             /**? */
             //if(check!==null){console.log(check, ",")}
@@ -152,7 +154,7 @@ function solve(openStrings, cts, stretch){
 
     let solutions = [];
 
-    for(let i=0; i<12; i++){
+    for(let i=0; i<=15; i++){
         let startSolve = [i]
         for(let j=0; j<openStrings.length; j++){
             startSolve.push(["X","X"])
