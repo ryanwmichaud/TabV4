@@ -115,7 +115,16 @@ function backtrack(musicStrings, cts, position, stretch, sofar, currentCTIndex, 
         newsofar[currentStringIndex+1] = fretFound;
         let check = backtrack(musicStrings, cts, position, stretch, newsofar, currentCTIndex+1, 0, solutions)
         if(check !== null){ //if no dead end - this is valid solution
-            solutions.push(check)
+            let duplicate = true;
+            for(let i=1; i<sofar.length; i++){
+                console.log(sofar[i][0] )
+                if(sofar[i][0] === position){
+                    duplicate = false;
+                }
+            }
+            if(!duplicate){
+                solutions.push(check)
+            }
             //if(check!==null){console.log(check, ",")}
             return backtrack(musicStrings, cts, position, stretch, sofar, currentCTIndex, currentStringIndex+1,solutions)
 

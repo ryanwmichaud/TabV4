@@ -86,7 +86,7 @@ class Results extends React.Component{
 
     let data= solve(this.state.strings,this.state.chordTones,this.state.stretch);
     
-    console.log(data)
+    //console.log(data)
     let diagrams = [];
     for(let i=0;i<data.length;i++){
         diagrams = diagrams.concat(<Diagram stretch={this.state.stretch} diagram_data={data[i]} key={i}/>);
@@ -136,7 +136,7 @@ class App extends React.Component{
   constructor(props){
     super(props);
     this.changeStretch = this.changeStretch.bind(this);
-    this.state = {stretch:4, strings: ["E4","A4","D5","G5","B5","E6"], chordTones: ["D","F#","A","C#"]};
+    this.state = {stretch:4, strings: ["E4","A4","D5","G5"], chordTones: ["D","F#","A","C#"]};
   }
 
 

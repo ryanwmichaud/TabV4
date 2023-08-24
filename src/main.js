@@ -102,7 +102,7 @@ function backtrack(musicStrings, cts, position, stretch, sofar, currentCTIndex, 
     for(let i=position; i<position+stretch; i++){ //can quit early
         let toFind = cts[currentCTIndex]
         if(musicStrings[currentStringIndex].stringMap[i] === toFind  && 
-            sofar[currentStringIndex+1] === "X"){
+            sofar[currentStringIndex+1][0] === "X"){
                 fretFound = [i-position,toFind]  //save fret where found in a valid way
         }
     }
@@ -113,7 +113,22 @@ function backtrack(musicStrings, cts, position, stretch, sofar, currentCTIndex, 
         newsofar[currentStringIndex+1] = fretFound;
         let check = backtrack(musicStrings, cts, position, stretch, newsofar, currentCTIndex+1, 0, solutions)
         if(check !== null){ //if no dead end - this is valid solution
-            solutions.push(check)
+            
+            //don't include solution if its a duplicate - doesn't use the first fret - appears shifted up
+            let duplicate = true;
+            console.log("soltion: ",newsofar)
+            for(let i=1; i<newsofar.length; i++){
+                console.log(newsofar[i][0])
+                if(newsofar[i][0] === 0){
+                    duplicate = false;
+                }
+            }
+            if(!duplicate){
+                solutions.push(check);
+            }else{
+                console.log("blocked: ", newsofar);
+            }
+            /**? */
             //if(check!==null){console.log(check, ",")}
             return backtrack(musicStrings, cts, position, stretch, sofar, currentCTIndex, currentStringIndex+1,solutions)
 
@@ -140,7 +155,7 @@ function solve(openStrings, cts, stretch){
     for(let i=0; i<12; i++){
         let startSolve = [i]
         for(let j=0; j<openStrings.length; j++){
-            startSolve.push("X")
+            startSolve.push(["X","X"])
         }
         backtrack( musicStrings, cts, i, stretch, startSolve, 0, 0 , solutions)
     }
