@@ -6,18 +6,16 @@ class StringInput extends React.Component{
         super(props);
     }
     
-
-    handleChange(e){
-        this.props.changeNumStrings(e.target.value);
-    }
-
+    //handleChange(e) {
+    //    e.preventDefault();
+    //    this.setState({numStrings: e.target.value})
+    //}
 
     render(){
 
-
-        let strings=[];
-        for(let i=0;i<3;i++){
-            strings.concat(<StringSelect></StringSelect>);
+        let stringSelects=[];
+        for(let i=0;i<this.props.strings.length;i++){
+            stringSelects = stringSelects.concat(<StringSelect/>);
         }
 
         return( 
@@ -33,7 +31,7 @@ class StringInput extends React.Component{
                 </select>
             </label>
             <div>
-                {strings}
+                {stringSelects}
             </div>
         </div>
         )

@@ -53,8 +53,7 @@ class InputSection extends React.Component{
       <form onSubmit={this.handleSubmit}>
         <StretchInput changeStretch={this.props.changeStretch} stretch={this.props.stretch}></StretchInput>
         <ChordToneInput changeChordTones={this.props.changeChordTones} chordTones={this.props.chordTones}></ChordToneInput>
-        
-        <StringInput></StringInput>
+        <StringInput strings = {this.props.strings} handleChange={this.props.changeNumStrings}></StringInput>
 
         <input type='submit' value={"Go"}></input>
 
@@ -69,16 +68,15 @@ class App extends React.Component{
   constructor(props){
     super(props);
     this.changeStretch = this.changeStretch.bind(this);
-    this.state = {stretch:4, strings: ["E5","A4","D4","G4","B5","D5"], chordTones: ["G","B","D"]};
+    this.state = {stretch:4, strings: ["E5","A4","D4","G4","B5"], chordTones: ["G","B","D"]};
   }
 
 
   changeStretch(value){
     this.setState({stretch:value});
   }
-  changeChordTones(x){
-    this.setState({chordTones: x});
-  }
+  
+ 
 
 
 
@@ -96,9 +94,8 @@ class App extends React.Component{
           <div className='input'>
           <InputSection 
             changeStretch={this.changeStretch} 
-            stretch={this.state.stretch}>
-            changeChordTones={this.changeChordTones}
-            chordTones={this.chordTones}
+            stretch={this.state.stretch}
+            strings={this.state.strings}>
           </InputSection>
           </div>
           <div> 
