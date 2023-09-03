@@ -16,10 +16,10 @@ function Box(props){
   
       let boxes = [];
       for(let i=0;i<this.props.stretch;i++){
-        if(i === this.props.rowData[0]){
-          boxes = boxes.concat(<Box text={this.props.rowData[1]}></Box>);
+        if(i === this.props.rowData[0]){  //if ct is there, add it. else blank box
+          boxes = boxes.concat(<Box text={this.props.rowData[1]} key={i}></Box>);
         }else{
-          boxes = boxes.concat(<Box text=""></Box>);
+          boxes = boxes.concat(<Box text="" key={i}></Box>);
         }
       }
       return(
@@ -41,7 +41,7 @@ function Box(props){
   
       let rows = [];
       for(let i=1; i<this.props.diagram_data.length;i++){
-        rows = rows.concat(<Row stretch={this.props.stretch} rowData={this.props.diagram_data[i]}></Row>)
+        rows = rows.concat(<Row stretch={this.props.stretch} rowData={this.props.diagram_data[i]} key={i}></Row>)
       }
   
       return(

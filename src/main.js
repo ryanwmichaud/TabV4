@@ -1,3 +1,4 @@
+import { toBeRequired } from "@testing-library/jest-dom/matchers";
 
 
 function getNoteNum(noteName){
@@ -142,8 +143,15 @@ function backtrack(musicStrings, cts, position, stretch, sofar, currentCTIndex, 
 }
 
 
-function solve(openStrings, cts, stretch){
+function solve(openStrings, ctList, stretch){
     
+    let cts=[];
+    for(let i=0;i<12;i++){
+        if(ctList[i] === true){
+            cts = cts.concat(names[i]);
+        }
+    }
+
     let musicStrings = []
 
     for(let i=openStrings.length-1; i>=0; i--){

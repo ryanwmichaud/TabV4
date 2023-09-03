@@ -18,12 +18,10 @@ class ResultsSection extends React.Component{
     
   }
 
-  componentWillReceiveProps(props){
-    this.setState({stretch: props.stretch});
+  componentWillReceiveProps(props){  //update state when parent state changes
+    this.setState({stretch: props.stretch, chordTones:props.chordTones});
   }
 
-
-  
   render(){
 
     let data= solve(this.state.strings,this.state.chordTones,this.state.stretch);
@@ -46,18 +44,13 @@ class ResultsSection extends React.Component{
 
 class InputSection extends React.Component{
   
-  
-  
   render(){
     return(
-      <form onSubmit={this.handleSubmit}>
+      <div >
         <StretchInput changeStretch={this.props.changeStretch} stretch={this.props.stretch}></StretchInput>
-        <ChordToneInput changeChordTones={this.props.changeChordTones} chordTones={this.props.chordTones}></ChordToneInput>
+        <ChordToneInput addChordTone={this.props.addChordTone} removeChordTone={this.props.removeChordTone} chordTones={this.props.chordTones}></ChordToneInput>
         <StringInput strings = {this.props.strings} handleChange={this.props.changeNumStrings}></StringInput>
-
-        <input type='submit' value={"Go"}></input>
-
-      </form>
+      </div>
       
     )
   }
@@ -68,17 +61,31 @@ class App extends React.Component{
   constructor(props){
     super(props);
     this.changeStretch = this.changeStretch.bind(this);
-    this.state = {stretch:4, strings: ["E5","A4","D4","G4","B5"], chordTones: ["G","B","D"]};
+    this.addChordTone = this.addChordTone.bind(this);
+    this.removeChordTone = this.removeChordTone.bind(this);
+    this.state = {stretch:4, strings: ["E4","A4","D4","G4","B4","E4"], chordTones: [true,false,false,false,true,false,false,false,false,false,false,false]};
   }
 
 
   changeStretch(value){
-    this.setState({stretch:value});
+    this.setState({stretch: value});
   }
+
   
+  addChordTone(index){
+    let newChordTones = this.state.chordTones.slice();
+    newChordTones[index] = true;
+    this.setState({chordTones: newChordTones});
+  }
+
+  
+  removeChordTone(index){
+    let newChordTones = this.state.chordTones.slice();
+    newChordTones[index]=false;
+    this.setState({chordTones: newChordTones});
+  }
+
  
-
-
 
   render(){
  
@@ -92,15 +99,19 @@ class App extends React.Component{
         </header>
         <div className="main">
           <div className='input'>
-          <InputSection 
-            changeStretch={this.changeStretch} 
-            stretch={this.state.stretch}
-            strings={this.state.strings}>
-          </InputSection>
+            Input:
+            <InputSection 
+              changeStretch={this.changeStretch} 
+              stretch={this.state.stretch}
+              chordTones={this.state.chordTones}
+              addChordTone={this.addChordTone}
+              removeChordTone={this.removeChordTone}
+              strings={this.state.strings} >
+            </InputSection>
           </div>
           <div> 
             Results:
-            <ResultsSection 
+            <ResultsSection
               stretch={this.state.stretch} 
               strings={this.state.strings} 
               chordTones={this.state.chordTones}>

@@ -15,7 +15,7 @@ class StringInput extends React.Component{
 
         let stringSelects=[];
         for(let i=0;i<this.props.strings.length;i++){
-            stringSelects = stringSelects.concat(<StringSelect/>);
+            stringSelects = stringSelects.concat(<StringSelect key={i}/>);
         }
 
         return( 

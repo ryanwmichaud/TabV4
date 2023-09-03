@@ -2,30 +2,39 @@ import React from 'react';
 
 class ChordToneInput extends React.Component{
 
-    handleChange(){
-      this.props.changeChordTones();
+  constructor(props){
+    super(props);
+    this.handleClick=this.handleClick.bind(this);
+  }
+
+    handleClick(e){
+      e.preventDefault();
+      let box = e.target;
+      let index = e.target.id;
+      if(this.props.chordTones[index] === true){
+       this.props.removeChordTone(index);      
+      }else{
+        this.props.addChordTone(index);
+      }
+      
     }
-  
   
     render(){
       return(
-        <div >
-          <fieldset className='ctinput'> 
+        <div className='ctinput'> 
               <legend>Chord Tones: </legend>
-              <label>A<input type='checkbox' id='A' name='ct'/></label>
-              <label>A#<input type='checkbox' id='A#' name='ct'/></label>
-              <label>B<input type='checkbox' id='B' name='ct'/></label>
-              <label>C<input type='checkbox' id='C' name='ct'/></label>
-              <label>C#<input type='checkbox' id='C#' name='ct'/></label>
-              <label>D<input type='checkbox' id='D' name='ct'/></label>
-              <label>D#<input type='checkbox' id='D#' name='ct'/></label>
-              <label>E<input type='checkbox' id='E' name='ct'/></label>
-              <label>F<input type='checkbox' id='F' name='ct'/></label>
-              <label>F#<input type='checkbox' id='F#' name='ct'/></label>
-              <label>G<input type='checkbox' id='G' name='ct'/></label>
-              <label>G#<input type='checkbox' id='G#' name='ct'/></label>
-            </fieldset>         
-          
+              <label>C<input type='checkbox' id='0' name='ct' onClick={this.handleClick}/></label>
+              <label>C#<input type='checkbox' id='1' name='ct' onClick={this.handleClick}/></label>
+              <label>D<input type='checkbox' id='2' name='ct' onClick={this.handleClick}/></label>
+              <label>D#<input type='checkbox' id='3' name='ct' onClick={this.handleClick}/></label>
+              <label>E<input type='checkbox' id='4' name='ct' onClick={this.handleClick} /></label>
+              <label>F<input type='checkbox' id='5' name='ct' onClick={this.handleClick}/></label>
+              <label>F#<input type='checkbox' id='6' name='ct' onClick={this.handleClick}/></label>
+              <label>G<input type='checkbox' id='7' name='ct' onClick={this.handleClick}/></label>
+              <label>G#<input type='checkbox' id='8' name='ct' onClick={this.handleClick}/></label>
+              <label>A<input type='checkbox' id='9' name='ct' onClick={this.handleClick}/></label>
+              <label>A#<input type='checkbox' id='10' name='ct' onClick={this.handleClick}/></label>
+              <label>B<input type='checkbox' id='11' name='ct' onClick={this.handleClick}/></label>          
         </div>
   
         
