@@ -34,6 +34,13 @@
   margin-left: 0cm;
 }
 
+.stringinput{
+  
+}
+
+.ctinput{
+  border-style: hidden;
+}
 
 .results {
   height:10vmin;

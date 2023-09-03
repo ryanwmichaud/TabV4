@@ -98,24 +98,24 @@ class StringInput extends React.Component{
   render(){
 
     return( 
-    <div>
+    <div className='stringinput'>
       <label> 
-        Number of Strings:
-        <select>
-          <option value={2}>2</option>
-          <option value={3}>3</option>
-          <option value={4}>4</option>
-          <option value={5}>5</option>
-          <option value={6}>6</option>
-        </select>
-      </label>
-      
+          Number of Strings:
+          <select>
+            <option value={2}>2</option>
+            <option value={3}>3</option>
+            <option value={4}>4</option>
+            <option value={5}>5</option>
+            <option value={6}>6</option>
+          </select>
+        </label>
       <StringSelect></StringSelect>
       <StringSelect></StringSelect>
       <StringSelect></StringSelect>
       <StringSelect></StringSelect>
       <StringSelect></StringSelect>
       <StringSelect></StringSelect>
+
     </div>
     )
   }
@@ -145,28 +145,31 @@ class StringSelect extends React.Component{
   }
 }
 
-class CTInput extends React.Component{
+class ChordToneInput extends React.Component{
+
+  handleChange(){
+    this.props.changeChordTones();
+  }
 
 
   render(){
     return(
-      <div className='ctinput'>
-          <fieldset>
+      <div >
+        <fieldset className='ctinput'> 
             <legend>Chord Tones: </legend>
-            <label>A<input type='checkbox' name='A'></input></label>
-            <label>A#<input type='checkbox' name='A#'></input></label>
-            <label>B<input type='checkbox' name='B'></input></label>
-            <label>C<input type='checkbox' name='C'></input></label>
-            <label>C#<input type='checkbox' name='C#'></input></label>
-            <label>D<input type='checkbox' name='D'></input></label>
-            <label>D#<input type='checkbox' name='D#'></input></label>
-            <label>E<input type='checkbox' name='E'></input></label>
-            <label>F<input type='checkbox' name='F'></input></label>
-            <label>F#<input type='checkbox' name='F#'></input></label>
-            <label>G<input type='checkbox' name='G'></input></label>
-            <label>G#<input type='checkbox' name='G#'></input></label>
-          </fieldset>
-        
+            <label>A<input type='checkbox' id='A' name='ct'></input></label>
+            <label>A#<input type='checkbox' id='A#' name='ct'></input></label>
+            <label>B<input type='checkbox' id='B' name='ct'></input></label>
+            <label>C<input type='checkbox' id='C' name='ct'></input></label>
+            <label>C#<input type='checkbox' id='C#' name='ct'></input></label>
+            <label>D<input type='checkbox' id='D' name='ct'></input></label>
+            <label>D#<input type='checkbox' id='D#' name='ct'></input></label>
+            <label>E<input type='checkbox' id='E' name='ct'></input></label>
+            <label>F<input type='checkbox' id='F' name='ct'></input></label>
+            <label>F#<input type='checkbox' id='F#' name='ct'></input></label>
+            <label>G<input type='checkbox' id='G' name='ct'></input></label>
+            <label>G#<input type='checkbox' id='G#' name='ct'></input></label>
+          </fieldset>         
         
       </div>
 
@@ -214,14 +217,18 @@ class StretchInput extends React.Component{
 class InputSection extends React.Component{
 
 
-  
+
   render(){
     return(
-      <div>
+      <form onSubmit={this.handleSubmit}>
         <StretchInput changeStretch={this.props.changeStretch} stretch={this.props.stretch}></StretchInput>
-        <CTInput ></CTInput>
+        <ChordToneInput changeChordTones={this.props.changeChordTones} chordTones={this.props.chordTones}></ChordToneInput>
+        
         <StringInput></StringInput>
-      </div>
+
+        <input type='submit' value={"Go"}></input>
+
+      </form>
       
     )
   }
@@ -241,6 +248,9 @@ class App extends React.Component{
   changeStretch(value){
     this.setState({stretch:value});
   }
+  changeChordTones(x){
+    this.setState({chordTones: x});
+  }
 
 
 
@@ -259,6 +269,8 @@ class App extends React.Component{
           <InputSection 
             changeStretch={this.changeStretch} 
             stretch={this.state.stretch}>
+            changeChordTones={this.changeChordTones}
+            chordTones={this.chordTones}
           </InputSection>
           </div>
           <div className='results'>Results:</div>
