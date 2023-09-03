@@ -153,7 +153,7 @@ function solve(openStrings, cts, stretch){
 
     let solutions = [];
 
-    for(let i=0; i<=15; i++){
+    for(let i=0; i<=12; i++){
         let startSolve = [i]
         for(let j=0; j<openStrings.length; j++){
             startSolve.push(["X","X"])

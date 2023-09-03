@@ -20,22 +20,19 @@
 
 .main {
   background-color: #61dafb;
-  margin: 0;
   display: flex;
   flex-direction: column;
   
 }
 
 .input{
-  height: 20vh;
   background-color: #282c34;
+  color: white
 }
 
-.stretchform{
-  color:white;
+.stretchinput{
+  margin-left: 0cm;
 }
-
-
 
 
 .results {
