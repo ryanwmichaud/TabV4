@@ -11,6 +11,7 @@ class InputSection extends React.Component{
   render(){
     return(
       <div >
+        <div className='inputTitle'> Input: </div>
         <StretchInput changeStretch={this.props.changeStretch} stretch={this.props.stretch}></StretchInput>
         <ChordToneInput addChordTone={this.props.addChordTone} removeChordTone={this.props.removeChordTone} chordTones={this.props.chordTones}></ChordToneInput>
         <StringInput strings={this.props.strings} changeNumStrings={this.props.changeNumStrings} changeOpen={this.props.changeOpen}></StringInput>
@@ -46,8 +47,12 @@ class ResultsSection extends React.Component{
     }
 
     return(
+      
       <div>
+        <div className='resultsTitle'> Results: </div>
+        <div>
         {diagrams}
+        </div>
       </div>
     );
   }
@@ -112,7 +117,6 @@ class App extends React.Component{
         </header>
         <div className="main">
           <div className='input'>
-            Input:
             <InputSection 
               changeStretch={this.changeStretch} 
               stretch={this.state.stretch}

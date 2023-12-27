@@ -1,6 +1,7 @@
 .App {
   text-align: center;
   height: 100%;
+  font-family:Georgia, 'Times New Roman', Times, serif;
 }
 
 
@@ -11,10 +12,13 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: 5vi;
+  font-size: 3.5vi;
+  font-weight: bold;
   color: white;
   position: relative;
-  z-index: 10;
+  border-style: solid;
+  border-color: black;
+  border-width: 2px;
 }
 
 .App-link {
@@ -27,45 +31,83 @@
   overflow: hidden;
   height: 80vh;
   position: relative;
-  width: 100%;
   
 }
 
+
+
 .input{
+  padding-top: 5vh;
   background-color: #282c34;
   color: white;
   width: 25%;
+  overflow: auto;
 }
+
+
+
 
 .results{
+  display: flex;
   overflow: auto;
   width: 75%;
-  padding: .5rem;
+  justify-content: center;
+  padding-right: 10%;
+  
+}
+
+.resultsTitle{
+  
+  margin:  0px 100px 0px 100px;
+  margin-top: 3vh;
+  font-size:x-large;
+  font-weight: bold;
+
 
 }
 
-.stretchinput{
+.inputTitle{
+  margin: 10px;
+  margin-bottom: 20px;
+  font-size: medium;
+  border-style:double;
+  border-width: 7px;
+  border-radius: 3px;
+  border-color: white;
 }
 
-.stringinput{
+.stretchinput, .stringinput, .ctinput{
+  margin: 10px 20px 0px 20px;
+  padding: 5px;
+  border-style:double;
+  border-width: 5px;
+  border-radius: 3px;
 }
 
-.ctinput{
-}
 
+.diagram, .resultsTitle{
+  border-style:double;
+  border-width: 10px;
+  border-radius: 3px;
+  border-color: black;
+  background-color: gray;
+}
 
 .diagram{
+  margin-top: 15px;
+
   text-align: left;
-  margin-left: 1cm;
+  justify-content: center;
+  width: 45vw;
 }
 
 .position_marker{
-  margin-left: 1cm;
+  margin-left: .5cm;
 }
 
 .diagram_box {
   text-align: center;
-  margin-left: 1cm;
+  margin-left: .5cm;
   margin-bottom:5dvh;
   border-width: 3px;
   border-style: solid;

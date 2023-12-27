@@ -14,7 +14,7 @@ class StretchInput extends React.Component{
   
     render(){
       return (
-        <div>
+        <div className='stretchinput'>
           <label>
             Max number of frets: 
             <select id='Stretch Select' onChange={this.handleChange} value={this.props.stretch}>  
