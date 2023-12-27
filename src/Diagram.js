@@ -46,7 +46,7 @@ function Box(props){
   
       return(
         <div className='diagram'>
-          <p className='position_marker'>{this.props.diagram_data[0]}</p>
+          <p className='position_marker'>{"Position " + this.props.diagram_data[0]}</p>
           <div className='diagram_box'>
               {rows}
           </div>

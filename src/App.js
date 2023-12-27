@@ -124,8 +124,7 @@ class App extends React.Component{
               changeNumStrings={this.changeNumStrings}>
             </InputSection>
           </div>
-          <div> 
-            Results:
+          <div className="results"> 
             <ResultsSection
               stretch={this.state.stretch} 
               strings={this.state.strings} 
