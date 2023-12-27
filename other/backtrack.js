@@ -1,4 +1,4 @@
-
+/*
 
 function getNoteNum(noteName){
     let letterName = noteName.substring(0,noteName.length-1);
@@ -158,4 +158,4 @@ function solve(openStrings, cts, stretch){
 
 }
 
-
+*/

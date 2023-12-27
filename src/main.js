@@ -125,16 +125,19 @@ function backtrack(musicStrings, cts, position, stretch, sofar, currentCTIndex, 
                     duplicate = false;
                 }
             }
+            
             if(!duplicate){
                 solutions.push(check);
+                //console.log("not blocked: ", check);
             }else{
-                //console.log("blocked: ", newsofar);
+                //console.log("blocked: ", check);
             }
             /**? */
             //if(check!==null){console.log(check, ",")}
             return backtrack(musicStrings, cts, position, stretch, sofar, currentCTIndex, currentStringIndex+1,solutions)
 
         }else{ //if branch gets to a dead end, move on to next string
+            //console.log("deadend")
             return backtrack(musicStrings, cts, position, stretch, sofar, currentCTIndex, currentStringIndex+1,solutions)
         }
     }else{ //if not found there, move on to next string

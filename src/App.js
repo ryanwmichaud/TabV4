@@ -6,6 +6,20 @@ import { ChordToneInput } from './ChordTone';
 import { StretchInput } from './Stretch';
 import { StringInput, StringSelect } from './String';
 
+class InputSection extends React.Component{
+  
+  render(){
+    return(
+      <div >
+        <StretchInput changeStretch={this.props.changeStretch} stretch={this.props.stretch}></StretchInput>
+        <ChordToneInput addChordTone={this.props.addChordTone} removeChordTone={this.props.removeChordTone} chordTones={this.props.chordTones}></ChordToneInput>
+        <StringInput strings={this.props.strings} changeNumStrings={this.props.changeNumStrings} changeOpen={this.props.changeOpen}></StringInput>
+      </div>
+      
+    )
+  }
+}
+
 class ResultsSection extends React.Component{
 
   constructor(props){
@@ -18,15 +32,14 @@ class ResultsSection extends React.Component{
     
   }
 
-  componentWillReceiveProps(props){  //update state when parent state changes
-    this.setState({stretch: props.stretch, chordTones:props.chordTones});
+  static getDerivedStateFromProps(props){  //update state when parent state changes
+    return {stretch: props.stretch, chordTones:props.chordTones, strings: props.strings};
   }
 
   render(){
 
     let data= solve(this.state.strings,this.state.chordTones,this.state.stretch);
     
-    //console.log(data)
     let diagrams = [];
     for(let i=0;i<data.length;i++){
         diagrams = diagrams.concat(<Diagram stretch={this.state.stretch} diagram_data={data[i]} key={i}/>);
@@ -42,19 +55,7 @@ class ResultsSection extends React.Component{
 
 
 
-class InputSection extends React.Component{
-  
-  render(){
-    return(
-      <div >
-        <StretchInput changeStretch={this.props.changeStretch} stretch={this.props.stretch}></StretchInput>
-        <ChordToneInput addChordTone={this.props.addChordTone} removeChordTone={this.props.removeChordTone} chordTones={this.props.chordTones}></ChordToneInput>
-        <StringInput strings = {this.props.strings} handleChange={this.props.changeNumStrings}></StringInput>
-      </div>
-      
-    )
-  }
-}
+
 
 class App extends React.Component{
 
@@ -63,12 +64,24 @@ class App extends React.Component{
     this.changeStretch = this.changeStretch.bind(this);
     this.addChordTone = this.addChordTone.bind(this);
     this.removeChordTone = this.removeChordTone.bind(this);
-    this.state = {stretch:4, strings: ["E4","A4","D4","G4","B4","E4"], chordTones: [true,false,false,false,true,false,false,false,false,false,false,false]};
+    this.changeNumStrings = this.changeNumStrings.bind(this);
+    this.changeOpen = this.changeOpen.bind(this);
+    this.state = {stretch:4, strings: ["E4","A4","D4","G4","B4","E4"], chordTones: [false,false,false,false,false,false,false,false,false,false,false,false]};
   }
 
 
   changeStretch(value){
     this.setState({stretch: value});
+  }
+
+  changeNumStrings(newStrings){
+    this.setState({strings: newStrings});
+  }
+
+  changeOpen(index, newOpen){
+    const newStrings = this.state.strings.slice();
+    newStrings[index] = newOpen;
+    this.setState({strings: newStrings});
   }
 
   
@@ -106,7 +119,9 @@ class App extends React.Component{
               chordTones={this.state.chordTones}
               addChordTone={this.addChordTone}
               removeChordTone={this.removeChordTone}
-              strings={this.state.strings} >
+              strings={this.state.strings} 
+              changeOpen={this.changeOpen}
+              changeNumStrings={this.changeNumStrings}>
             </InputSection>
           </div>
           <div> 

@@ -8,7 +8,6 @@ class ChordToneInput extends React.Component{
   }
 
     handleClick(e){
-      e.preventDefault();
       let box = e.target;
       let index = e.target.id;
       if(this.props.chordTones[index] === true){
@@ -19,7 +18,8 @@ class ChordToneInput extends React.Component{
       
     }
   
-    render(){
+    render(){ 
+
       return(
         <div className='ctinput'> 
               <legend>Chord Tones: </legend>

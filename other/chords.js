@@ -1,6 +1,6 @@
 
 /* text based cli implementation */
-
+/*
 
 names = ["C","C#","D","D#","E","F","F#","G","G#","A","A#","B"];
 nameMap = new Map();
@@ -93,6 +93,8 @@ function main(){
     s2= new MusicString("D4");
     s3= new MusicString("G3");
     s4= new MusicString("C3");
+
+    */
     
    /*
     s1= new MusicString("D5");
@@ -100,7 +102,7 @@ function main(){
     s3= new MusicString("G4");
     s4= new MusicString("D4");
     */
-
+/*
     musicStrings = [s1,s2,s3,s4];
     chordTones = ["E","C","G","B"];
     checklist = chordTones.slice();
@@ -167,3 +169,5 @@ function main(){
 }
 
 main();
+
+*/
