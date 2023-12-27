@@ -17,7 +17,7 @@ class StretchInput extends React.Component{
         <div>
           <label>
             Max number of frets: 
-            <select onChange={this.handleChange} value={this.props.stretch}>  
+            <select id='Stretch Select' onChange={this.handleChange} value={this.props.stretch}>  
               <option value={2}>2</option>
               <option value={3}>3</option>
               <option value={4}>4</option>
