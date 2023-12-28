@@ -56,4 +56,4 @@ function Box(props){
   }
 
   
-  export {Box, Row, Diagram}
+  export {Diagram}

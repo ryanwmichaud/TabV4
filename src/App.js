@@ -1,10 +1,10 @@
 import './App.css';
 import React from 'react';
-import { solve} from './main';
-import {Box, Row, Diagram} from './Diagram.js';
+import {solve} from './main';
+import {Diagram} from './Diagram.js';
 import { ChordToneInput } from './ChordTone';
 import { StretchInput } from './Stretch';
-import { StringInput, StringSelect } from './String';
+import { StringInput,  } from './String';
 
 class InputSection extends React.Component{
   
@@ -34,6 +34,7 @@ class ResultsSection extends React.Component{
   }
 
   static getDerivedStateFromProps(props){  //update state when parent state changes
+    console.log("updated")
     return {stretch: props.stretch, chordTones:props.chordTones, strings: props.strings};
   }
 
@@ -81,11 +82,16 @@ class App extends React.Component{
 
   changeNumStrings(n){
     this.setState({numStringSelects: n});
+    const newStrings = [];
+    for(let i=0;i<n;i++){
+      newStrings.push("A1")
+    }
+    this.setState({strings: newStrings})
   }
 
-  changeOpen(index, newOpen){
+  changeOpen(index, newOpen){ 
     const newStrings = this.state.strings.slice();
-    newStrings[index] = newOpen;
+    newStrings[index] = newOpen+"1";
     this.setState({strings: newStrings});
   }
 
@@ -106,6 +112,7 @@ class App extends React.Component{
  
 
   render(){
+    console.log(this.state.strings)
     return (
       <div className="App">
         <header className="App-header">  

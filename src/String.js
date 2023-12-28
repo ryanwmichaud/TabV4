@@ -16,11 +16,10 @@ class StringInput extends React.Component{
     render(){
         
         let stringSelects=[];
-        for(let i=0;i<this.props.n;i++){        
-            stringSelects = stringSelects.concat(<StringSelect name={"String Select "+i} changeOpen={this.props.changeOpen} key={i} displayed={this.props.strings[i]} />);
+        for(let i=this.props.n-1;i>=0;i--){        
+            stringSelects = stringSelects.concat(<StringSelect name={"String Select "+i}  index={i} changeOpen={this.props.changeOpen} key={i} displayed={this.props.strings[i]} />);
         }
 
-        console.log(this.props.n)
 
         return( 
         <div className='stringinput'>
@@ -54,7 +53,7 @@ class StringInput extends React.Component{
 
     changeOpen(e) {
       e.preventDefault();
-      this.props.changeOpen(e.target.key, e.target.value);
+      this.props.changeOpen(this.props.index, e.target.value);
     }
 
 
