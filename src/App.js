@@ -14,7 +14,7 @@ class InputSection extends React.Component{
         <div className='inputTitle'> Input: </div>
         <StretchInput changeStretch={this.props.changeStretch} stretch={this.props.stretch}></StretchInput>
         <ChordToneInput addChordTone={this.props.addChordTone} removeChordTone={this.props.removeChordTone} chordTones={this.props.chordTones}></ChordToneInput>
-        <StringInput strings={this.props.strings} changeNumStrings={this.props.changeNumStrings} changeOpen={this.props.changeOpen}></StringInput>
+        <StringInput strings={this.props.strings} n={this.props.n} changeNumStrings={this.props.changeNumStrings} changeOpen={this.props.changeOpen}></StringInput>
       </div>
       
     )
@@ -71,7 +71,7 @@ class App extends React.Component{
     this.removeChordTone = this.removeChordTone.bind(this);
     this.changeNumStrings = this.changeNumStrings.bind(this);
     this.changeOpen = this.changeOpen.bind(this);
-    this.state = {stretch:4, strings: ["E4","A4","D4","G4","B4","E4"], chordTones: [false,false,false,false,false,false,false,false,false,false,false,false]};
+    this.state = {stretch:4, strings: ["E4","A4","D4","G4","B4","E4"], chordTones: [false,false,false,false,false,false,false,false,false,false,false,false], numStringSelects:6};
   }
 
 
@@ -79,8 +79,8 @@ class App extends React.Component{
     this.setState({stretch: value});
   }
 
-  changeNumStrings(newStrings){
-    this.setState({strings: newStrings});
+  changeNumStrings(n){
+    this.setState({numStringSelects: n});
   }
 
   changeOpen(index, newOpen){
@@ -106,7 +106,6 @@ class App extends React.Component{
  
 
   render(){
- 
     return (
       <div className="App">
         <header className="App-header">  
@@ -125,7 +124,11 @@ class App extends React.Component{
               removeChordTone={this.removeChordTone}
               strings={this.state.strings} 
               changeOpen={this.changeOpen}
-              changeNumStrings={this.changeNumStrings}>
+              changeNumStrings={this.changeNumStrings}
+              n={this.state.numStringSelects}
+
+              >
+              
             </InputSection>
           </div>
           <div className="results"> 
