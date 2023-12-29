@@ -1,10 +1,11 @@
 import './App.css';
-import React from 'react';
+import React, {  useEffect } from "react";
 import {solve} from './main';
 import {Diagram} from './Diagram.js';
 import { ChordToneInput } from './ChordTone';
 import { StretchInput } from './Stretch';
 import { StringInput,  } from './String';
+
 
 class InputSection extends React.Component{
   
@@ -63,6 +64,7 @@ class ResultsSection extends React.Component{
 
 
 
+
 class App extends React.Component{
 
   constructor(props){
@@ -72,7 +74,7 @@ class App extends React.Component{
     this.removeChordTone = this.removeChordTone.bind(this);
     this.changeNumStrings = this.changeNumStrings.bind(this);
     this.changeOpen = this.changeOpen.bind(this);
-    this.state = {stretch:4, strings: ["E4","A4","D4","G4","B4","E4"], chordTones: [false,false,false,false,false,false,false,false,false,false,false,false], numStringSelects:6};
+    this.state = {test:"test", stretch:4, strings: ["E4","A4","D4","G4","B4","E4"], chordTones: [false,false,false,false,false,false,false,false,false,false,false,false], numStringSelects:6};
   }
 
 
@@ -109,7 +111,7 @@ class App extends React.Component{
     this.setState({chordTones: newChordTones});
   }
 
- 
+
 
   render(){
     console.log(this.state.strings)
@@ -117,10 +119,13 @@ class App extends React.Component{
       <div className="App">
         <header className="App-header">  
           <p>
-            Chords
+            Fretbchord Explchorder
           </p>
       
         </header>
+
+        <div> {this.state.test} </div>
+
         <div className="main">
           <div className='input'>
             <InputSection 
