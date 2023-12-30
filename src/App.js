@@ -55,6 +55,7 @@ class ResultsSection extends React.Component{
   render(){
 
     let data = this.props.res;
+    //console.log(this.props.res)
     let error = this.props.error;
 
     if(error){
@@ -65,9 +66,12 @@ class ResultsSection extends React.Component{
       return <div>Loading...</div>;
     } else{
         let diagrams = [];
+        
+
         for(let i=0;i<data.length;i++){
-            diagrams = diagrams.concat(<Diagram stretch={this.props.stretch} diagram_data={data[i]} key={i}/>);
+          diagrams = diagrams.concat(<Diagram stretch={this.props.req.stretch} diagram_data={data[i]} key={i}/>);
         }
+        
         
         return(
           <div>
@@ -115,7 +119,7 @@ class App extends React.Component{
 
 
   handlePostRequest = () => { //gonna need to call this from app not input section. then we can call it from state change mathods at the top. 
-   
+    
     fetch('http://localhost:8000/calculate', {
       method: 'POST',
       headers: {
@@ -132,7 +136,9 @@ class App extends React.Component{
       })
       .then(data => {
         // Update state with the response data
-        this.setState({ res: data, error: null });
+        console.log(data.message)
+        this.setState({ res: data.message, error: null });
+        
       })
       .catch(error => {
         // Handle and store the error
@@ -146,8 +152,7 @@ class App extends React.Component{
       stretch:value, 
       strings: this.state.req.strings, 
       chordTones: this.state.req.chordTones, 
-      }});
-    this.handlePostRequest();
+      }}, ()=>{ this.handlePostRequest()});
   }
 
   changeNumStrings(n){
@@ -160,8 +165,7 @@ class App extends React.Component{
       stretch:this.state.req.stretch, 
       strings: newStrings, 
       chordTones: this.state.req.chordTones, 
-      }});
-    this.handlePostRequest();
+      }}, ()=>{ this.handlePostRequest();});
   }
 
   changeOpen(index, newOpen){ 
@@ -171,8 +175,8 @@ class App extends React.Component{
       stretch:this.state.req.stretch, 
       strings: newStrings, 
       chordTones: this.state.req.chordTones, 
-      }});
-    this.handlePostRequest();
+      }}, ()=>{ this.handlePostRequest();});
+   
   }
 
   
@@ -183,9 +187,10 @@ class App extends React.Component{
       stretch:this.state.req.stretch, 
       strings: this.state.req.strings, 
       chordTones: newChordTones, 
-      }});
-    console.log("Add new ct", newChordTones,this.state.req.chordTones)
-    this.handlePostRequest();
+      }}, () => {
+        this.handlePostRequest();
+      });
+    
   }
 
   
@@ -196,9 +201,10 @@ class App extends React.Component{
       stretch:this.state.req.stretch, 
       strings: this.state.req.strings, 
       chordTones: newChordTones, 
-      }});
-    console.log("rem old ct", newChordTones,this.state.req.chordTones)
-    this.handlePostRequest();
+      }}, ()=>{
+        this.handlePostRequest();
+      });
+    
   }
 
   
