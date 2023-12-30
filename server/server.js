@@ -10,9 +10,8 @@ app.use(cors());
 app.use(express.json());
 
 app.post('/calculate', (req, res) => {
-    console.log(req.body)
     const data = solve(req.body.strings, req.body.chordTones,req.body.stretch);
-
+    console.log(req.body, "--> ", data)
     
     res.json({ message: data});
 });
