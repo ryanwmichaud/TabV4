@@ -142,7 +142,11 @@ class App extends React.Component{
 
 
   changeStretch(value){
-    this.setState({stretch: value});
+    this.setState( {req: {
+      stretch:value, 
+      strings: this.state.req.strings, 
+      chordTones: this.state.req.chordTones, 
+      }});
     this.handlePostRequest();
   }
 
@@ -152,14 +156,22 @@ class App extends React.Component{
     for(let i=0;i<n;i++){
       newStrings.push("A1")
     }
-    this.setState({strings: newStrings})
+    this.setState( {req: {
+      stretch:this.state.req.stretch, 
+      strings: newStrings, 
+      chordTones: this.state.req.chordTones, 
+      }});
     this.handlePostRequest();
   }
 
   changeOpen(index, newOpen){ 
     const newStrings = this.state.req.strings.slice();
     newStrings[index] = newOpen+"1";
-    this.setState({strings: newStrings});
+    this.setState( {req: {
+      stretch:this.state.req.stretch, 
+      strings: newStrings, 
+      chordTones: this.state.req.chordTones, 
+      }});
     this.handlePostRequest();
   }
 
