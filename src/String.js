@@ -14,10 +14,9 @@ class StringInput extends React.Component{
     }
 
     render(){
-        
         let stringSelects=[];
         for(let i=this.props.n-1;i>=0;i--){        
-            stringSelects = stringSelects.concat(<StringSelect name={"String Select "+i}  index={i} changeOpen={this.props.changeOpen} key={i} displayed={this.props.strings[i]} />);
+            stringSelects = stringSelects.concat(<StringSelect name={"String Select "+i}  index={i} changeOpen={this.props.changeOpen} key={i} displayed={this.props.strings[i].slice(0,-1)} />);
         }
 
 
@@ -63,7 +62,7 @@ class StringInput extends React.Component{
     render(){
       return(
         <div className='stringselect'>
-            <select  aria-label={this.props.name} id={this.props.name} onChange={this.changeOpen} value={this.props.displayed.slice(0,-1)}> 
+            <select  aria-label={this.props.name} id={this.props.name} onChange={this.changeOpen} value={this.props.displayed}> 
               
               <option value={'A'}> A </option>
               <option value={'A#'}> A# </option>

@@ -1,13 +1,20 @@
-const express = require('express');
-const cors = require('cors');
+import {solve} from './main.js';
+
+import express  from 'express';
+import cors from 'cors';
 
 const app = express();
+
 
 app.use(cors());
 app.use(express.json());
 
-app.get('/message', (req, res) => {
-    res.json({ message: "Hello from server!" });
+app.post('/calculate', (req, res) => {
+    console.log(req.body)
+    const data = solve(req.body.strings, req.body.chordTones,req.body.stretch);
+
+    
+    res.json({ message: data});
 });
 
 
