@@ -1,6 +1,5 @@
 import './App.css';
-import React, {  useEffect } from "react";
-import {solve} from './main';
+import React from "react";
 import {Diagram} from './Diagram.js';
 import { ChordToneInput } from './ChordTone';
 import { StretchInput } from './Stretch';
