@@ -54,16 +54,27 @@ class ResultsSection extends React.Component{
   render(){
 
     let data = this.props.res;
-    //console.log(this.props.res)
+    console.log(this.props.req.chordTones);
     let error = this.props.error;
+
+    let noChordTones = true;
+    for(let i=0;i<12;i++){
+        if (this.props.req.chordTones[i]===true){
+          noChordTones = false;
+          break;
+
+        }
+    }
+    
 
     if(error){
       return <div>Error: {error}</div>
     }
-    else if (!data) {
+    else if (!data | noChordTones) {
       // Render a loading state while waiting for the data
-      return <div>Loading...</div>;
-    } else{
+      return <div>Enter some chord tones to see how you can voice them on your instrument</div>;
+    } 
+    else{
         let diagrams = [];
         
 
@@ -135,7 +146,7 @@ class App extends React.Component{
       })
       .then(data => {
         // Update state with the response data
-        console.log(data.message)
+        //console.log(data.message)
         this.setState({ res: data.message, error: null });
         
       })

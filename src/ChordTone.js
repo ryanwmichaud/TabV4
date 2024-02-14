@@ -8,7 +8,7 @@ class ChordToneInput extends React.Component{
   }
 
     handleClick(e){
-      let box = e.target;
+      //let box = e.target;
       let index = e.target.id;
       if(this.props.chordTones[index] === true){
        this.props.removeChordTone(index);      
