@@ -28,28 +28,9 @@ class ResultsSection extends React.Component{
 
   constructor(props){
     super(props);
-    //this.state = {
-    //  req: props.req,
-    //  res: props.res,
-    //  error: props.error 
-    //};
-    
+
   }
 
-  //static getDerivedStateFromProps(props){  //update state when parent state changes
-  //  return {
-  //    req: props.req,
-  //    res: props.res,
-  //    error: props.error 
-  //  };
-  //}
-
-
-  
-  //componentDidMount() {
-  //this.handlePostRequest();
-  //}
-  
 
   render(){
 
@@ -68,7 +49,9 @@ class ResultsSection extends React.Component{
     
 
     if(error){
-      return <div>Error: {error}</div>
+      console.log("h");
+      return <div>Error: {error}</div>;
+      
     }
     else if (!data | noChordTones) {
       // Render a loading state while waiting for the data
@@ -130,7 +113,7 @@ class App extends React.Component{
 
   handlePostRequest = () => { //gonna need to call this from app not input section. then we can call it from state change mathods at the top. 
     
-    fetch('http://localhost:8000/calculate', {
+    fetch(`http://${REACT_APP_IP}:8000/calculate`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -139,7 +122,7 @@ class App extends React.Component{
       body: JSON.stringify(this.state.req),
     })
       .then(response => {
-        if (!response.ok) {
+        if (!response.ok) { 
           throw new Error('Network response was not ok');
         }
         return response.json();
@@ -224,7 +207,7 @@ class App extends React.Component{
       <div className="App">
         <header className="App-header">  
           <p>
-            Fretbchord Explchorder
+            Fretbchord Explchorder - changed
           </p>
       
         </header>

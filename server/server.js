@@ -26,7 +26,7 @@ app.post('/calculate', async (req, res) => {
 
 app.get('*', async (req,res)=>{
     //res.json({ message: "data"});
-    //console.log("hello s ");
+    console.log("sent page");
     res.sendFile(path.join(__dirname,"..", "build", "index.html")) 
 });
 
