@@ -1,9 +1,9 @@
 import {solve} from './main.js';
-
 import express  from 'express';
 import cors from 'cors';
 import  path from "path";
 import { fileURLToPath } from 'url';
+import mysql from mysql
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -15,6 +15,12 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '..','build')));
 
+const db = mysql.createConnection({
+    host: "localhost",
+    username: "root",
+    password: process.env.MYSQL_PASSWORD,
+    database: "users"
+})
 
 app.post('/calculate', async (req, res) => {
     const data = solve(req.body.strings, req.body.chordTones,req.body.stretch);

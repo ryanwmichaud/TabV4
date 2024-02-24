@@ -1,9 +1,10 @@
 import './App.css';
 import React from "react";
-import {Diagram} from './Diagram.js';
-import { ChordToneInput } from './ChordTone';
-import { StretchInput } from './Stretch';
-import { StringInput,  } from './String';
+import {Diagram} from './components/Diagram.js';
+import { ChordToneInput } from './components/ChordTone.js';
+import { StretchInput } from './components/Stretch.js';
+import { StringInput,  } from './components/String.js';
+import Navbar from './components/Navbar.js';
 
 
 class InputSection extends React.Component{
@@ -25,12 +26,6 @@ class InputSection extends React.Component{
 }
 
 class ResultsSection extends React.Component{
-
-  constructor(props){
-    super(props);
-
-  }
-
 
   render(){
 
@@ -87,7 +82,6 @@ class ResultsSection extends React.Component{
 
 
 
-
 class App extends React.Component{
 
   constructor(props){
@@ -113,7 +107,7 @@ class App extends React.Component{
 
   handlePostRequest = () => { //gonna need to call this from app not input section. then we can call it from state change mathods at the top. 
     
-    fetch(`http://localhost:8000/calculate`, {
+    fetch(`http://${process.env.REACT_APP_IP}:8000/calculate`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -205,16 +199,11 @@ class App extends React.Component{
   render(){
     return (
       <div className="App">
-        <header className="App-header">  
-          <p>
-            Fretbchord Explchorder - changed
-          </p>
-      
-        </header>
-
+        
+        <Navbar></Navbar>
 
         <div className="main">
-          <div className='input'>
+          <div className='input'> 
             <InputSection 
               req= {this.state.req}
               changeStretch={this.changeStretch} 

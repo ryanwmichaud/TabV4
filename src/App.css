@@ -5,31 +5,46 @@
 }
 
 
-.App-header {
+.navbar {
   background-color: grey;
-  height: 20vh;
+  height: 100px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  justify-content: center;
-  font-size:3em;
-  font-weight: bold;
-  color: white;
+  justify-content: left;
   position: relative;
   border-style: solid;
   border-color: black;
   border-width: 2px;
+
 }
 
-.App-link {
-  color: #61dafb;
+.title {
+  font-size:2em;
+  font-weight: bold;
+  margin-left: 3%;
+  text-decoration: none;
+  color: white;
 }
+
+.login, .other{
+  color: white;
+  font-size: medium;
+  width: 10%;
+  text-decoration: none;
+}
+
+.login:hover, .other:hover{
+  color: bisque;
+}
+
+
 
 .main {
   background-color: #61dafb;
   display: flex;
   overflow: hidden;
-  height: 80vh;
+  height: 100vh;
   position: relative;
   
 }
