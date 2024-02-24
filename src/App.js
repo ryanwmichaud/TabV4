@@ -111,9 +111,9 @@ class App extends React.Component{
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        // Add any other headers if needed
       },
-      body: JSON.stringify(this.state.req),
+      body: JSON.stringify(this.state.req)
+      
     })
       .then(response => {
         if (!response.ok) { 
