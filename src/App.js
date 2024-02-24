@@ -113,7 +113,7 @@ class App extends React.Component{
 
   handlePostRequest = () => { //gonna need to call this from app not input section. then we can call it from state change mathods at the top. 
     
-    fetch(`http://${REACT_APP_IP}:8000/calculate`, {
+    fetch(`http://localhost:8000/calculate`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
