@@ -6,7 +6,7 @@ To serve react app from localhost:8000:
     from root 
         - "npm run build" to build latest app
     from server folder 
-        - "npm run" to serve latest build from express localhost:8000
+        - "npm start" to serve latest build from express localhost:8000
 
 To develop react app and express backend
     from root 

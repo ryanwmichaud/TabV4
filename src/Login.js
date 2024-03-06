@@ -18,12 +18,12 @@ function Login() {
             if (!response.ok) { 
               throw new Error('Network response was not ok');
             }
-            console.log(response)
+            //console.log(response)
             return response.json();
           })
           .then(data => {
             // log data
-            console.log(data)
+            //console.log(data)
           })
           .catch(error => {
             // log error

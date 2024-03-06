@@ -30,7 +30,7 @@ class ResultsSection extends React.Component{
   render(){
 
     let data = this.props.res;
-    console.log(this.props.req.chordTones);
+    //console.log(this.props.req.chordTones);
     let error = this.props.error;
 
     let noChordTones = true;

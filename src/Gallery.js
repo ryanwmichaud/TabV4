@@ -7,7 +7,7 @@ function Gallery() {
     <div>
         <Navbar></Navbar>
         Test
-        <Diagram stretch={4} diagramData={[1, [0,'E'],[1,'C'],[0,'G'],['X','X']]}/>
+        <Diagram diagramData={[1, 4, [0,'E'],[1,'C'],[0,'G'],[null,null]]}/>
     </div>
     )
 }
