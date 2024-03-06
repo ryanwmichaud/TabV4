@@ -54,7 +54,7 @@ class ResultsSection extends React.Component{
         let diagrams = [];
         
         for(let i=0;i<data.length;i++){
-          diagrams = diagrams.concat(<Diagram stretch={this.props.req.stretch} diagramData={data[i]} key={i}/>);
+          diagrams = diagrams.concat(<Diagram diagramData={data[i]} key={i}/>);
         }
         
         

@@ -48,17 +48,19 @@ function Box(props){
   
   
     render(){
-      
-      console.log(this.props.stretch, this.props.diagramData)
+      let position=this.props.diagramData[0]
+      let stretch=this.props.diagramData[1]
+      console.log(stretch, this.props.diagramData)
   
       let rows = [];
-      for(let i=1; i<this.props.diagramData.length;i++){
-        rows = rows.concat(<Row stretch={this.props.stretch} rowData={this.props.diagramData[i]} key={i}></Row>)
+      for(let i=2; i<this.props.diagramData.length;i++){
+        console.log("row ", i, " ",this.props.diagramData[i])
+        rows = rows.concat(<Row stretch={stretch} rowData={this.props.diagramData[i]} key={i}></Row>)
       }
   
       return(
         <div className='diagram'>
-          <p className='position_marker'>{"Position " + this.props.diagramData[0]}</p>
+          <p className='position_marker'>{"Position " + position}</p>
           <div className='diagram_box'>
               {rows}
           </div>

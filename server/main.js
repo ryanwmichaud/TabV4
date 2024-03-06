@@ -165,10 +165,9 @@ function solve(openStrings, ctList, stretch){
     let solutions = [];
 
     for(let i=0; i<=12; i++){ //check at each position
-        let startSolve = [i]
+        let startSolve = [i, stretch]
         for(let j=0; j<openStrings.length; j++){  //check each string
             startSolve.push([null,null]) 
-            console.log(startSolve)
         }
         backtrack( musicStrings, cts, i, stretch, startSolve, 0, 0 , solutions)
     }
