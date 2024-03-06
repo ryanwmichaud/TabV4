@@ -1,6 +1,17 @@
 
 import React from 'react'
 
+/*
+
+Takes int stretch and diagramData
+
+Diagram data given as:  
+  [int position, int[] row1, int[] row2, int[] row3]
+Where rows are:   
+  [int fretoffset, String note] and X if string not used
+
+*/
+
 function Box(props){
     return(
       <div className='box'>
@@ -37,16 +48,17 @@ function Box(props){
   
   
     render(){
-  
+      
+      console.log(this.props.stretch, this.props.diagramData)
   
       let rows = [];
-      for(let i=1; i<this.props.diagram_data.length;i++){
-        rows = rows.concat(<Row stretch={this.props.stretch} rowData={this.props.diagram_data[i]} key={i}></Row>)
+      for(let i=1; i<this.props.diagramData.length;i++){
+        rows = rows.concat(<Row stretch={this.props.stretch} rowData={this.props.diagramData[i]} key={i}></Row>)
       }
   
       return(
         <div className='diagram'>
-          <p className='position_marker'>{"Position " + this.props.diagram_data[0]}</p>
+          <p className='position_marker'>{"Position " + this.props.diagramData[0]}</p>
           <div className='diagram_box'>
               {rows}
           </div>

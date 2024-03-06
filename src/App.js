@@ -44,9 +44,7 @@ class ResultsSection extends React.Component{
     
 
     if(error){
-      console.log("h");
       return <div>Error: {error}</div>;
-      
     }
     else if (!data | noChordTones) {
       // Render a loading state while waiting for the data
@@ -55,9 +53,8 @@ class ResultsSection extends React.Component{
     else{
         let diagrams = [];
         
-
         for(let i=0;i<data.length;i++){
-          diagrams = diagrams.concat(<Diagram stretch={this.props.req.stretch} diagram_data={data[i]} key={i}/>);
+          diagrams = diagrams.concat(<Diagram stretch={this.props.req.stretch} diagramData={data[i]} key={i}/>);
         }
         
         

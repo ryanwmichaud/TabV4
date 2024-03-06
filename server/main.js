@@ -104,7 +104,7 @@ function backtrack(musicStrings, cts, position, stretch, sofar, currentCTIndex, 
     for(let i=position; i<position+stretch; i++){ //can quit early
         let toFind = cts[currentCTIndex]
         if(musicStrings[currentStringIndex].stringMap[i] === toFind  && 
-            sofar[currentStringIndex+1][0] === "X"){
+            sofar[currentStringIndex+1][0] === null){
                 fretFound = [i-position,toFind]  //save fret where found in a valid way
         }
     }
@@ -164,14 +164,18 @@ function solve(openStrings, ctList, stretch){
 
     let solutions = [];
 
-    for(let i=0; i<=12; i++){
+    for(let i=0; i<=12; i++){ //check at each position
         let startSolve = [i]
-        for(let j=0; j<openStrings.length; j++){
-            startSolve.push(["X","X"])
+        for(let j=0; j<openStrings.length; j++){  //check each string
+            startSolve.push([null,null]) 
+            console.log(startSolve)
         }
         backtrack( musicStrings, cts, i, stretch, startSolve, 0, 0 , solutions)
     }
+    
+   
     return solutions
+    
 
 }
 

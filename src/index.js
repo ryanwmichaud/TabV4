@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import Login from './Login.js';
+import Gallery from './Gallery.js';
 import reportWebVitals from './reportWebVitals';
 import {
   createBrowserRouter,
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login />
+  },
+  {
+    path: "/gallery",
+    element: <Gallery />
   }
 ]);
 
