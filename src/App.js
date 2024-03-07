@@ -75,11 +75,8 @@ class ResultsSection extends React.Component{
 
 }
 
-
-
-
-
 class App extends React.Component{
+
 
   constructor(props){
     super(props);
@@ -113,8 +110,10 @@ class App extends React.Component{
       
     })
       .then(response => {
+        
         if (!response.ok) { 
           throw new Error('Network response was not ok');
+          
         }
         return response.json();
       })
@@ -191,9 +190,12 @@ class App extends React.Component{
     
   }
 
-  
+
 
   render(){
+
+
+
     return (
       <div className="App">
         

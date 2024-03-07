@@ -12,6 +12,6 @@ To develop react app and express backend
     from root 
         - "npm start" to start react development server on localhost:3000
     from server folder in different terminal
-        - "npm run" to enable backend to do calculations
+        - "npm start" to enable backend to do calculations
         - "npm run dev" to use a nodemon server to restart with every save
 
