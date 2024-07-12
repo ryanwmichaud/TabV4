@@ -200,6 +200,14 @@ class App extends React.Component{
       <div className="App">
         
         <Navbar></Navbar>
+        <header className="App-header">  
+          <p>
+            Fretbchord Explchorder
+          </p>
+      
+        </header>
+
+
 
         <div className="main">
           <div className='input'> 
