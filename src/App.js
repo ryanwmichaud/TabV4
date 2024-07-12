@@ -207,7 +207,7 @@ class App extends React.Component{
       <div className="App">
         <header className="App-header">  
           <p>
-            Fretbchord Explchorder - changed
+            Fretbchord Explchorder
           </p>
       
         </header>
