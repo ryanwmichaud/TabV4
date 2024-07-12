@@ -34,3 +34,5 @@ then I hope you find this app helpful!
   - `npm start` to enable backend to do calculations
   - `npm run dev` to start a nodemon development server
 
+Feel free to reach out to ryanwilliammichaud@gmail.com with any additional questions!
+
