@@ -7,17 +7,22 @@ function Login() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
+
+
     useEffect(()=>{   //runs once when rendered. google will be defined when script runs in public/index.html before loading  
         /*global google*/
         google.accounts.id.initialize({
           client_id: "308435068693-g84mg566ut43fg1k48guf2q2rod2bg3o.apps.googleusercontent.com",
-          callback: handleCallbackResponse
+          callback: handleCallbackResponse,
+          
         })
 
         google.accounts.id.renderButton(
             document.getElementById("signInDiv"),
             {theme: "outline", size: "large"}
-          )
+        )
+
+        google.accounts.id.prompt(); // also display the One Tap dialog
       },[])
 
     function handleSubmit(event){

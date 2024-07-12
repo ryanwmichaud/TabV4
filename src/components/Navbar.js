@@ -10,7 +10,7 @@ function Navbar(){
         <div className="navbar">  
           <Link className='title' to={"/"}> Fretbchord Explchorder </Link>
           <Link className="other" to={"/gallery"}>  Gallery</Link>
-          <Link className='login' to={"/Login"}> Login </Link> 
+          <Link className='login' to={"/login"}> Login </Link> 
 
         </div>
     );

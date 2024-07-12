@@ -13,7 +13,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '..','build')));
-
+app.use((req, res, next) => {
+    res.setHeader('Cross-Origin-Opener-Policy','same-origin', 'same-origin-allow-popups');
+    next();
+});
 
 const connection = mysql.createConnection({
     host: process.env.MYSQL_HOST,
