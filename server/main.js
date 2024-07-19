@@ -1,7 +1,4 @@
 //import { toBeRequired } from "@testing-library/jest-dom/matchers";
-function arraysEqual(arr1, arr2) {
-    return arr1.length === arr2.length && arr1.every((value, index) => value === arr2[index]);
-}
 
 function getNoteNum(noteName){
     let letterName = noteName.substring(0,noteName.length-1);
@@ -128,7 +125,7 @@ function solve(openStrings, ctList, stretch){
     function backtrack(position, sofar, currentCTIndex, currentStringIndex, duplicate){
 
     
-        if (currentCTIndex === cts.length && !duplicate){  //found all cts (when moves on it recurses on ct+1)
+        if (currentCTIndex === cts.length && !duplicate){  //found all cts (when moves on it recurses on ct+1). also, did we find at least one note on the first position fret? if not its shifted up
             return sofar;
         }
         if (currentStringIndex > musicStrings.length-1){  //ran out of strings - deadend - backtrack
@@ -144,11 +141,10 @@ function solve(openStrings, ctList, stretch){
         let fretFound = null;
     
         if( sofar[currentStringIndex+1][0] === "X"){
-            for(let i=position; i<position+stretch; i++){ //can quit early
+            for(let i=position; i<position+stretch; i++){ //theres def a better way
                 let toFind = cts[currentCTIndex]
                 if(musicStrings[currentStringIndex].stringMap[i] === toFind){
                         fretFound = [i-position,toFind]  //save fret where found in a valid way
-                        //console.log(musicStrings[currentStringIndex].openNumNoOctave)
                 }
             }
     
@@ -173,11 +169,11 @@ function solve(openStrings, ctList, stretch){
                solutions.push(check)
                 return backtrack(position, sofar, currentCTIndex, currentStringIndex+1, duplicate)
     
-            }else{ //if branch gets to a dead end, move on to next string
-                //console.log("deadend")
+            }else{ //this possible choice leads to a dead end, move on to next string
+               
                 return backtrack(position, sofar, currentCTIndex, currentStringIndex+1, duplicate)
             }
-        }else{ //if not found there, move on to next string
+        }else{ //there was no possible choice, move on to next string
             return backtrack(position, sofar, currentCTIndex, currentStringIndex+1, duplicate);
         }
     }
