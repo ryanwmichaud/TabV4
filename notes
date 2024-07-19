@@ -1,0 +1,37 @@
+notes 
+
+hashmaps can be enum - numbers are consecutive...
+
+musicstring class doesnt really need hashmaps either - just open string
+    we only really need to do subtraction
+    is that more efficient?
+    
+    FINDING FRETS
+
+        1. doing now
+            declare and fill hashmap
+            iteration
+                look through position to position+stretch
+                    if hashmap[curr] = noteToFind
+                    iterate ...
+        2.  better 
+            declare and fill hashmap
+            hashmap lookuptime
+                foundAt = hashmap[notenum]   (right now I iterate through all)
+                if it found it AND foundAt >= positionnotnum  AND  notenum <= positionnotnum +stretch 
+        3.  maybe even better
+            no map decalre or fill, just open
+            is notenum between position and position notenum + stretch
+                if notenum >= positionnotnum  AND  notenum <= positionnotnum +stretch
+    
+    RECURSION
+        def a constant that the rec calls can access so that I dont need to keep passing the same variables!
+        
+
+
+
+front end
+
+frets could have no borders - continuous chunk of neck - with a line through the middle - string. 
+
+refactor with functional components with hooks rather than classes
