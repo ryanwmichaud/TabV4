@@ -1,5 +1,7 @@
 //import { toBeRequired } from "@testing-library/jest-dom/matchers";
-
+function arraysEqual(arr1, arr2) {
+    return arr1.length === arr2.length && arr1.every((value, index) => value === arr2[index]);
+}
 
 function getNoteNum(noteName){
     let letterName = noteName.substring(0,noteName.length-1);
@@ -123,17 +125,19 @@ function solve(openStrings, ctList, stretch){
     let solutions = [];
 
 
-    function backtrack(position, sofar, currentCTIndex, currentStringIndex, solutions){
+    function backtrack(position, sofar, currentCTIndex, currentStringIndex, duplicate){
 
     
-        if (currentCTIndex === cts.length){  //found all cts (when moves on it recurses on ct+1)
+        if (currentCTIndex === cts.length && !duplicate){  //found all cts (when moves on it recurses on ct+1)
             return sofar;
         }
         if (currentStringIndex > musicStrings.length-1){  //ran out of strings - deadend - backtrack
             return null;
         }
-        //console.log( "looking for ", cts[currentCTIndex], " on the ",musicStrings[currentStringIndex].open," string with ",sofar )
-    
+
+        //if (position == 2){
+        //    console.log( "looking for ", cts[currentCTIndex], " on the ",musicStrings[currentStringIndex].open," string with ",sofar , duplicate)
+        //}
         
         //can current ct can be found on current string in current position and current string is not already taken? 
         //if so, save fret where found in a valid way
@@ -144,45 +148,37 @@ function solve(openStrings, ctList, stretch){
                 let toFind = cts[currentCTIndex]
                 if(musicStrings[currentStringIndex].stringMap[i] === toFind){
                         fretFound = [i-position,toFind]  //save fret where found in a valid way
-                        console.log(musicStrings[currentStringIndex].openNumNoOctave)
+                        //console.log(musicStrings[currentStringIndex].openNumNoOctave)
                 }
             }
     
         }
     
         //if can be found, update sofar solution to choose it, next ct, first string, recurse
+       
+        
+
         if(fretFound!==null){
+            let newDuplicate = duplicate
+            if (fretFound[0] == 0){
+                newDuplicate = false
+            }
+
             let newsofar = sofar.slice()
             newsofar[currentStringIndex+1] = fretFound;
-            let check = backtrack(position, newsofar, currentCTIndex+1, 0, solutions)
+            let check = backtrack(position, newsofar, currentCTIndex+1, 0,  newDuplicate)
             if(check !== null){ //if no dead end - this is valid solution
                 
-                //don't include solution if its a duplicate - doesn't use the first fret - appears shifted up
-                let duplicate = true;
-                console.log("soltion: ",newsofar)
-                for(let i=1; i<newsofar.length; i++){
-                    //console.log(newsofar[i][0])
-                    if(newsofar[i][0] === 0){
-                        duplicate = false;
-                    }
-                }
-                
-                if(!duplicate){
-                    solutions.push(check);
-                    //console.log("not blocked: ", check);
-                }else{
-                    //console.log("blocked: ", check);
-                }
-                /**? */
-                //if(check!==null){console.log(check, ",")}
-                return backtrack(position, sofar, currentCTIndex, currentStringIndex+1,solutions)
+              
+               solutions.push(check)
+                return backtrack(position, sofar, currentCTIndex, currentStringIndex+1, duplicate)
     
             }else{ //if branch gets to a dead end, move on to next string
                 //console.log("deadend")
-                return backtrack(position, sofar, currentCTIndex, currentStringIndex+1,solutions)
+                return backtrack(position, sofar, currentCTIndex, currentStringIndex+1, duplicate)
             }
         }else{ //if not found there, move on to next string
-            return backtrack(position, sofar, currentCTIndex, currentStringIndex+1,solutions);
+            return backtrack(position, sofar, currentCTIndex, currentStringIndex+1, duplicate);
         }
     }
     
@@ -192,7 +188,7 @@ function solve(openStrings, ctList, stretch){
         for(let j=0; j<openStrings.length; j++){    //start solve starts like {positionnumber, [[X,X],[X,X],[X,X],...,[X,X]}
             startSolve.push(["X","X"])
         }
-        backtrack(i, startSolve, 0, 0 , solutions)
+        backtrack(i, startSolve, 0, 0 , solutions, true)
     }
     return solutions
 
