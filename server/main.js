@@ -100,10 +100,7 @@ class MusicString{
 }
 
 
-
-
 function solve(openStrings, ctList, stretch){
-
     
     let cts=[];
     for(let i=0;i<12;i++){
@@ -122,10 +119,10 @@ function solve(openStrings, ctList, stretch){
     let solutions = [];
 
 
-    function backtrack(position, sofar, currentCTIndex, currentStringIndex, duplicate){
+    function backtrack(position, sofar, currentCTIndex, currentStringIndex){
 
     
-        if (currentCTIndex === cts.length && !duplicate){  //found all cts (when moves on it recurses on ct+1). also, did we find at least one note on the first position fret? if not its shifted up
+        if (currentCTIndex === cts.length){  //found all cts (when moves on it recurses on ct+1). also, did we find at least one note on the first position fret? if not its shifted up
             return sofar;
         }
         if (currentStringIndex > musicStrings.length-1){  //ran out of strings - deadend - backtrack
@@ -155,40 +152,60 @@ function solve(openStrings, ctList, stretch){
         
 
         if(fretFound!==null){
-            let newDuplicate = duplicate
-            if (fretFound[0] == 0){
-                newDuplicate = false
-            }
+            
 
             let newsofar = sofar.slice()
             newsofar[currentStringIndex+1] = fretFound;
-            let check = backtrack(position, newsofar, currentCTIndex+1, 0,  newDuplicate)
+            let check = backtrack(position, newsofar, currentCTIndex+1, 0  )
             if(check !== null){ //if no dead end - this is valid solution
                 
-              
-               solutions.push(check)
-                return backtrack(position, sofar, currentCTIndex, currentStringIndex+1, duplicate)
+                let duplicate = true
+                for(let i=1; i<newsofar.length; i++){
+                    //console.log(newsofar[i][0])
+                    if(newsofar[i][0] === 0){
+                        duplicate = false;
+                        break
+                    }
+                }
+                if (!duplicate){
+                    solutions.push(check)
+                }
+
+                return backtrack(position, sofar, currentCTIndex, currentStringIndex+1)
     
             }else{ //this possible choice leads to a dead end, move on to next string
                
-                return backtrack(position, sofar, currentCTIndex, currentStringIndex+1, duplicate)
+                return backtrack(position, sofar, currentCTIndex, currentStringIndex+1)
             }
         }else{ //there was no possible choice, move on to next string
-            return backtrack(position, sofar, currentCTIndex, currentStringIndex+1, duplicate);
+            return backtrack(position, sofar, currentCTIndex, currentStringIndex+1);
         }
     }
     
 
-    for(let i=0; i<=12; i++){
-        let startSolve = [i]
-        for(let j=0; j<openStrings.length; j++){    //start solve starts like {positionnumber, [[X,X],[X,X],[X,X],...,[X,X]}
-            startSolve.push(["X","X"])
+    for(let position=0; position<=12; position++){
+              
+        let possible = false    //if can't use first fret of the position, can't produce a valid, nonduplicate voicing
+        for(let stringIndex=0; stringIndex<musicStrings.length; stringIndex++){
+            if( cts.includes(musicStrings[stringIndex].stringMap[position]) ){
+                possible = true;
+            }
         }
-        backtrack(i, startSolve, 0, 0 , solutions, true)
+
+        if (possible){
+            let startSolve = [position]
+            for(let j=0; j<openStrings.length; j++){    //start solve starts like {positionnumber, [[X,X],[X,X],[X,X],...,[X,X]}
+                startSolve.push(["X","X"])
+            }
+            backtrack(position, startSolve, 0, 0 , solutions, true)
+        }
+        
     }
     return solutions
 
 }
+
+
 
 
 

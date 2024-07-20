@@ -26,11 +26,25 @@ musicstring class doesnt really need hashmaps either - just open string
     
     RECURSION
         def a constant that the rec calls can access so that I dont need to keep passing the same variables!
-        
+
+        1. dupliacte checking after finding a solution. 
+        does it use the first fret of the positon? if not, its shifted up version of somtehing else
+        n checks for n strings 
+
+        2. dupliacte check as part of feasible function
+        when we use the first fret of a posiiotn, mark it as feasible, when to the end and well already know
+        n checks for n recursions of backtrack...
+
+        **add to one of these: at each postion check if first fret of any string even CAN be used for a chordtone BEFORE we backtrack. 
+            n*12 checks for n strings, but could save us a ton of backtracking 
 
 
+bruteforce is better than keeptrack 
+preprocessing makes both faster - about the same - cant say which is better.
+seems to hold for big and small practical numbers of chord tones and strings
 
-front end
+
+FRONT END
 
 frets could have no borders - continuous chunk of neck - with a line through the middle - string. 
 

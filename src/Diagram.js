@@ -2,11 +2,24 @@
 import React from 'react'
 
 function Box(props){
+  if (props.text == ""){
     return(
       <div className='box'>
-        {props.text}
+        <div className='string'> </div>
+      </div>
+    )
+    
+  }
+  else{
+    return(
+      <div className='box'>
+        <div className='string'> </div>
+        <div className='note'> {props.text}</div>
       </div>
     );
+
+  }
+    
   }
   
   class Row extends React.Component{

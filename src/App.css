@@ -4,9 +4,15 @@
   font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
+:root {
+  --primary-color: rgb(75, 174, 213);
+  --secondary-color: grey;
+  --input-primary-color: white;
+  --input-secondary-color: #2c3037;
+}
 
 .App-header {
-  background-color: grey;
+  background-color: var(--secondary-color);
   height: 20vh;
   display: flex;
   flex-direction: column;
@@ -26,7 +32,7 @@
 }
 
 .main {
-  background-color: #61dafb;
+  background-color: var(--primary-color);
   display: flex;
   overflow: hidden;
   height: 80vh;
@@ -38,8 +44,8 @@
 
 .input{
   padding-top: 5vh;
-  background-color: #282c34;
-  color: white;
+  background-color: var(--input-secondary-color);
+  color: var(--input-primary-color);
   width: 25%;
   overflow: auto;
 }
@@ -73,7 +79,7 @@
   border-style:double;
   border-width: 7px;
   border-radius: 3px;
-  border-color: white;
+  border-color: var(--input-primary-color);
 }
 
 .stretchinput, .stringinput, .ctinput{
@@ -82,6 +88,7 @@
   border-style:double;
   border-width: 5px;
   border-radius: 3px;
+  accent-color: var(--primary-color);
 }
 
 
@@ -90,7 +97,7 @@
   border-width: 10px;
   border-radius: 3px;
   border-color: black;
-  background-color: gray;
+  background-color: var(--secondary-color);
 }
 
 .diagram{
@@ -125,12 +132,41 @@
 
 .box {
   background-color: burlywood;
-  border-width: 1px;
-  border-color: black;
-  border-style: solid;
+  border-left: 2px solid #000;
+  border-right: 2px solid #000;
+  border-top: none;
+  border-bottom: none;
   width: 50px;
   flex: auto;
-  min-height: .6cm;
+  min-height: 0.6cm;
+  margin: 0px;
+  padding: 0px;
+}
 
+.string {
+  position: relative;
+  top: 50%;
+  left: 0;
+
+  height: 2px;
+  background-color: gray;
+  transform: translateY(-50%);
+  z-index: 0; /* Ensure the line is below the text */
+}
+
+.note {
+  font-size: 15px;
+  z-index: 1; 
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px; 
+  height: 18px; 
+  margin: auto; /* Center the circle horizontally */
+  background-color: var(--primary-color);
+  border: 1px solid #000;;
+  border-radius: 50%; 
+ 
 }
 
