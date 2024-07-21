@@ -76,6 +76,7 @@ class StringInput extends React.Component{
               <option value={'F#'}> F# </option>
               <option value={'G'}> G </option>
               <option value={'G#'}> G# </option>
+              <option value={null}> Ignore </option>
             </select>
         </div>
       )

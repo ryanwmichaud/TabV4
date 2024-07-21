@@ -4,7 +4,7 @@ import {Diagram} from './Diagram.js';
 import { ChordToneInput } from './ChordTone';
 import { StretchInput } from './Stretch';
 import { StringInput,  } from './String';
-
+const ip = process.env.REACT_APP_IP;
 
 class InputSection extends React.Component{
   
@@ -113,7 +113,7 @@ class App extends React.Component{
 
   handlePostRequest = () => { //gonna need to call this from app not input section. then we can call it from state change mathods at the top. 
     
-    fetch(`http://localhost:8000/calculate`, {
+    fetch(`http://${ip}:8000/calculate`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

@@ -46,6 +46,16 @@ seems to hold for big and small practical numbers of chord tones and strings
 
 FRONT END
 
-frets could have no borders - continuous chunk of neck - with a line through the middle - string. 
-
 refactor with functional components with hooks rather than classes
+
+
+FEATURES
+
+no string skips
+bass note 
+doubling
+toggle enharmic equivalents
+toggle box w text or string w circle note view?
+toggle notes or scale degree view w a given root
+fret markers. could be customizable
+only choose certain string sets to look at - tuning select ignore!

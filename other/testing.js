@@ -212,7 +212,6 @@ function solve1(openStrings, ctList, stretch){
 
     function backtrack(position, sofar, currentCTIndex, currentStringIndex){
 
-    
         if (currentCTIndex === cts.length){  //found all cts (when moves on it recurses on ct+1). also, did we find at least one note on the first position fret? if not its shifted up
             return sofar;
         }
@@ -285,7 +284,7 @@ function solve1(openStrings, ctList, stretch){
 
 }
 
-function solve4(openStrings, ctList, stretch){
+function solve3(openStrings, ctList, stretch){
 
 
     
@@ -386,7 +385,7 @@ function solve4(openStrings, ctList, stretch){
 
 }
 
-function solve3(openStrings, ctList, stretch){
+function solve4(openStrings, ctList, stretch){
     
     let cts=[];
     for(let i=0;i<12;i++){
@@ -495,10 +494,15 @@ function solve3(openStrings, ctList, stretch){
 
 
 
-let p1 = ["C4","G4","D4","A4","E4","B4","F#4","C#4"] //strings
-let p2 = ["C","D","E"]
+let p1 = ["C4","G4","D4","A4"] //strings
+let p2 = [
+    true,  false, false,
+    false, true,  false,
+    false, true,  false,
+    true,  false, false
+  ] 
 let p3 = 4
-let iterations = 50000
+let iterations = 10000
 
 let sum1 = 0 
 for(let i = 0;i<iterations;i++){
@@ -551,4 +555,3 @@ console.log( sum4/iterations, "keep track w preprocessing")
 
 
 
-export {solve};

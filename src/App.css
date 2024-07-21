@@ -5,7 +5,7 @@
 }
 
 :root {
-  --primary-color: rgb(75, 174, 213);
+  --primary-color: rgb(196, 103, 103);
   --secondary-color: grey;
   --input-primary-color: white;
   --input-secondary-color: #2c3037;
@@ -90,6 +90,9 @@
   border-radius: 3px;
   accent-color: var(--primary-color);
 }
+
+
+
 
 
 .diagram, .resultsTitle{
