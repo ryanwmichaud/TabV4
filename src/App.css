@@ -14,21 +14,21 @@
 .App-header {
   background-color: var(--secondary-color);
   height: 15vh;
+
   display: flex;
   flex-direction: column;
   justify-content: center;
+
   font-size:3rem;
   font-weight: bold;
   color: white;
-  position: relative;
+
   border-style: solid;
   border-color: black;
   border-width: 2px;
 }
 
-.App-link {
-  color: #61dafb;
-}
+
 
 .main {
   background-color: var(--primary-color);
@@ -88,6 +88,11 @@
   accent-color: var(--primary-color);
 }
 
+.ctinput{
+  display: flex;
+  flex-wrap: wrap;
+}
+
 
 
 
@@ -140,19 +145,21 @@
 }
 
 .string {
+  z-index: 0; /*below text*/
   position: relative;
+  
   top: 50%;
-  left: 0;
-  height: 2px;
+  height: 2px; /* tring thickness*/
+
   background-color: gray;
-  transform: translateY(-50%);
-  z-index: 0; /* Ensure the line is below the text */
 }
 
 .note {
   font-size: .9rem;
-  z-index: 1; 
+  
+  z-index: 1;  /*above string*/
   position: relative;
+
   display: flex;
   align-items: center;
   justify-content: center;
@@ -160,6 +167,7 @@
   margin-bottom: 2px;
   width: 20px; 
   height: 20px; 
+
   background-color: var(--primary-color);
   border: 1px solid #000;;
   border-radius: 50%; 

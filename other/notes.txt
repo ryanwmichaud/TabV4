@@ -56,6 +56,6 @@ bass note
 doubling
 toggle enharmic equivalents
 toggle box w text or string w circle note view?
-toggle notes or scale degree view w a given root
-fret markers. could be customizable
+drop down to view notes names or scale degree view w any given root
+position markers. could be customizable
 only choose certain string sets to look at - tuning select ignore!
