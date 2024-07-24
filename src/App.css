@@ -13,12 +13,11 @@
 
 .App-header {
   background-color: var(--secondary-color);
-  height: 20vh;
+  height: 15vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size:3em;
+  font-size:3rem;
   font-weight: bold;
   color: white;
   position: relative;
@@ -35,7 +34,7 @@
   background-color: var(--primary-color);
   display: flex;
   overflow: hidden;
-  height: 80vh;
+  height: 85vh;
   position: relative;
   
 }
@@ -55,36 +54,34 @@
 
 .results{
   display: flex;
-  overflow: auto;
+  overflow: auto; /*scroll inside*/
   width: 75%;
   justify-content: center;
-  padding-right: 10%;
   
 }
 
 .resultsTitle{
-  
-  margin:  0px 100px 0px 100px;
-  margin-top: 3vh;
-  font-size:x-large;
+  margin: 0 auto 0 auto;
+  width: 50%;
+  margin-top: 5%;
+  font-size: 1.5rem;
   font-weight: bold;
-
 
 }
 
 .inputTitle{
-  margin: 10px;
-  margin-bottom: 20px;
-  font-size: medium;
-  border-style:double;
-  border-width: 7px;
+  margin: 8%;
+  margin-bottom: 8%;
+  font-size: 1rem;
+  border-style: double;
+  border-width: 5px;
   border-radius: 3px;
   border-color: var(--input-primary-color);
 }
 
 .stretchinput, .stringinput, .ctinput{
-  margin: 10px 20px 0px 20px;
-  padding: 5px;
+  margin: 10% 16% 0px 16%;
+  padding: 5%;
   border-style:double;
   border-width: 5px;
   border-radius: 3px;
@@ -104,11 +101,10 @@
 }
 
 .diagram{
-  margin-top: 15px;
-
+  margin-top: 3%;
   text-align: left;
   justify-content: center;
-  width: 45vw;
+  width: 100%;
 }
 
 .position_marker{
@@ -123,8 +119,6 @@
   border-style: solid;
   border-color: black;
   border-radius: 5px;
-  display: flex;
-  flex-direction: column;
   width: 40vw;
 }
 
@@ -139,9 +133,8 @@
   border-right: 2px solid #000;
   border-top: none;
   border-bottom: none;
-  width: 50px;
-  flex: auto;
-  min-height: 0.6cm;
+  width: 100%;
+  min-height: 24px;
   margin: 0px;
   padding: 0px;
 }
@@ -150,7 +143,6 @@
   position: relative;
   top: 50%;
   left: 0;
-
   height: 2px;
   background-color: gray;
   transform: translateY(-50%);
@@ -158,18 +150,18 @@
 }
 
 .note {
-  font-size: 15px;
+  font-size: 1rem;
   z-index: 1; 
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 18px; 
-  height: 18px; 
-  margin: auto; /* Center the circle horizontally */
+  margin: auto;
+  margin-bottom: 2px;
+  width: 20px; 
+  height: 20px; 
   background-color: var(--primary-color);
   border: 1px solid #000;;
   border-radius: 50%; 
- 
 }
 

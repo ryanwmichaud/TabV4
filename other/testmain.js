@@ -1,4 +1,7 @@
 //import { toBeRequired } from "@testing-library/jest-dom/matchers";
+
+
+
 const names = ["C","C#","D","D#","E","F","F#","G","G#","A","A#","B"];
 let nameMap = Object.freeze({
     "C":0,
@@ -141,4 +144,13 @@ function solve(openStrings, ctList, stretch){
 
 }
 
-export {solve};
+let p1 = ["C","G","D","A"] //strings
+let p2 = [
+    true,  false, false,
+    false, true,  false,
+    false, true,  false,
+    true,  false, false
+  ] 
+let p3 = 4
+console.log(solve(p1,p2,p3))
+

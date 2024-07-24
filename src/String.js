@@ -16,7 +16,7 @@ class StringInput extends React.Component{
     render(){
         let stringSelects=[];
         for(let i=this.props.n-1;i>=0;i--){        
-            stringSelects = stringSelects.concat(<StringSelect name={"String Select "+i}  index={i} changeOpen={this.props.changeOpen} key={i} displayed={this.props.strings[i].slice(0,-1)} />);
+            stringSelects = stringSelects.concat(<StringSelect name={"String Select "+i}  index={i} changeOpen={this.props.changeOpen} key={i} displayed={this.props.strings[i]} />);
         }
 
 
@@ -76,7 +76,7 @@ class StringInput extends React.Component{
               <option value={'F#'}> F# </option>
               <option value={'G'}> G </option>
               <option value={'G#'}> G# </option>
-              <option value={null}> Ignore </option>
+              <option value={"Ignore"}> Ignore </option>
             </select>
         </div>
       )

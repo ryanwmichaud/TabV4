@@ -70,7 +70,7 @@ class ResultsSection extends React.Component{
           <div>
             <div className='resultsTitle'> Results: </div>
             <div>
-            {diagrams}
+              {diagrams}
             </div>
           </div>
         );
@@ -101,7 +101,7 @@ class App extends React.Component{
     this.state = {
       req: {
         stretch:4, 
-        strings: ["E4","A4","D4","G4","B4","E4"], 
+        strings: ["E","A","D","G","B","E"], 
         chordTones: [false,false,false,false,false,false,false,false,false,false,false,false], 
         },
       numStringSelects:6,
@@ -111,7 +111,7 @@ class App extends React.Component{
   }
 
 
-  handlePostRequest = () => { //gonna need to call this from app not input section. then we can call it from state change mathods at the top. 
+  handlePostRequest = () => { //need to call this from app not input section. then we can call it from state change mathods at the top. 
     
     fetch(`http://${ip}:8000/calculate`, {
       method: 'POST',
@@ -152,7 +152,7 @@ class App extends React.Component{
     this.setState({numStringSelects: n});
     const newStrings = [];
     for(let i=0;i<n;i++){
-      newStrings.push("A1")
+      newStrings.push("A")
     }
     this.setState( {req: {
       stretch:this.state.req.stretch, 
@@ -163,7 +163,7 @@ class App extends React.Component{
 
   changeOpen(index, newOpen){ 
     const newStrings = this.state.req.strings.slice();
-    newStrings[index] = newOpen+"1";
+    newStrings[index] = newOpen;
     this.setState( {req: {
       stretch:this.state.req.stretch, 
       strings: newStrings, 
