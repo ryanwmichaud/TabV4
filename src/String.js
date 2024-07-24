@@ -23,19 +23,20 @@ class StringInput extends React.Component{
         return( 
         <div className='stringinput'>
           <div>
-              <label> 
+              <label for="num-strings-selects"> 
                   Number of Strings:
-                  <select id='Num Strings Select'  value={this.props.n} onChange={this.changeNumStrings}>
-                  <option value={2}>2</option>
-                  <option value={3}>3</option>
-                  <option value={4}>4</option>
-                  <option value={5}>5</option>
-                  <option value={6}>6</option>
-                  <option value={7}>7</option>
-                  <option value={8}>8</option>
-                  <option value={9}>9</option>
-                  </select>
               </label>
+              <select id='num-strings-select' value={this.props.n} onChange={this.changeNumStrings}>
+              <option value={2}>2</option>
+              <option value={3}>3</option>
+              <option value={4}>4</option>
+              <option value={5}>5</option>
+              <option value={6}>6</option>
+              <option value={7}>7</option>
+              <option value={8}>8</option>
+              <option value={9}>9</option>
+              </select>
+              
             </div>
             <div>
                 {stringSelects}

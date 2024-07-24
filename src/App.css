@@ -88,11 +88,15 @@
   accent-color: var(--primary-color);
 }
 
-.ctinput{
+.ct-boxes{
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
+#num-strings-select{
+  margin-left: 5px;
+}
 
 
 
