@@ -9,6 +9,8 @@
   --secondary-color: grey;
   --input-primary-color: rgb(218, 217, 217);
   --input-secondary-color: rgb(44, 48, 55);
+    box-sizing: border-box;
+
 }
 
 .app-header {
@@ -23,9 +25,13 @@
   font-weight: bold;
   color: white;
 
+  box-sizing: border-box;
+
   border-style: solid;
   border-color: black;
-  border-width: 2px;
+  border-width: 1px;
+  margin: 0;
+  padding: 0;
 }
 
 
@@ -36,13 +42,15 @@
   overflow: hidden;
   height: 85vh;
   position: relative;
+  margin: 0;
+  padding: 0;
   
 }
 
 
 
 .input{
-  padding-top: 5vh;
+  padding-top: 5%;
   background-color: var(--input-secondary-color);
   color: var(--input-primary-color);
   width: 25%;
