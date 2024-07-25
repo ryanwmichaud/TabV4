@@ -46,7 +46,7 @@
   background-color: var(--input-secondary-color);
   color: var(--input-primary-color);
   width: 25%;
-  overflow: auto;
+  overflow: hidden;
 }
 
 
@@ -79,7 +79,7 @@
   border-color: var(--input-primary-color);
 }
 
-.stretchinput, .stringinput, .ctinput{
+.stretchinput, .stringinput, .ctinput, .no-ct-message{
   margin: 10% 16% 0px 16%;
   padding: 5%;
   border-style:double;
@@ -103,12 +103,18 @@
 
 
 
-.diagram, .resultsTitle{
+.diagram, .resultsTitle, .no-ct-message{
   border-style:double;
   border-width: 10px;
   border-radius: 3px;
   border-color: black;
   background-color: var(--secondary-color);
+}
+
+.no-ct-message{
+  width: 90%;
+  height: 10%;
+  
 }
 
 .diagram{

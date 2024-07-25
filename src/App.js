@@ -6,80 +6,55 @@ import { StretchInput } from './Stretch';
 import { StringInput,  } from './String';
 const ip = process.env.REACT_APP_IP;
 
-class InputSection extends React.Component{
+const InputSection = ({changeStretch, changeNumStrings, addChordTone, removeChordTone, req, n, changeOpen}) => {
   
-
-  
-  render(){
-    
-    return(
+  return(
       <div >
         <div className='inputTitle'> Input: </div>
-        <StretchInput changeStretch={this.props.changeStretch} stretch={this.props.req.stretch}></StretchInput>
-        <ChordToneInput addChordTone={this.props.addChordTone} removeChordTone={this.props.removeChordTone} chordTones={this.props.req.chordTones}></ChordToneInput>
-        <StringInput strings={this.props.req.strings} n={this.props.n} changeNumStrings={this.props.changeNumStrings} changeOpen={this.props.changeOpen}></StringInput>
+        <StretchInput changeStretch={changeStretch} stretch={req.stretch}></StretchInput>
+        <ChordToneInput addChordTone={addChordTone} removeChordTone={removeChordTone} chordTones={req.chordTones}></ChordToneInput>
+        <StringInput strings={req.strings} n={n} changeNumStrings={changeNumStrings} changeOpen={changeOpen}></StringInput>
       </div>
       
-    )
-  }
+  )
+  
 }
 
-class ResultsSection extends React.Component{
+const ResultsSection = ({res, req, error}) => {
 
-  constructor(props){
-    super(props);
+  let data = res;
+  console.log(req.chordTones);
 
+  const noChordTones = req.chordTones.every(ct => ct !== true);
+
+
+  if(error){
+    console.log("h");
+    return <div>Error: {error}</div>;
+    
   }
-
-
-  render(){
-
-    let data = this.props.res;
-    console.log(this.props.req.chordTones);
-    let error = this.props.error;
-
-    let noChordTones = true;
-    for(let i=0;i<12;i++){
-        if (this.props.req.chordTones[i]===true){
-          noChordTones = false;
-          break;
-
-        }
-    }
+  else if (!data | noChordTones) {
+    // Render a loading state while waiting for the data
+    return <div className='no-ct-message'> Enter some chord tones to see how you can voice them on your instrument </div>;
+  } 
+  else{
+    let diagrams = [];
     
 
-    if(error){
-      console.log("h");
-      return <div>Error: {error}</div>;
-      
+    for(let i=0;i<data.length;i++){
+      diagrams = diagrams.concat(<Diagram stretch={req.stretch} diagram_data={data[i]} key={i}/>);
     }
-    else if (!data | noChordTones) {
-      // Render a loading state while waiting for the data
-      return <div>Enter some chord tones to see how you can voice them on your instrument</div>;
-    } 
-    else{
-        let diagrams = [];
-        
-
-        for(let i=0;i<data.length;i++){
-          diagrams = diagrams.concat(<Diagram stretch={this.props.req.stretch} diagram_data={data[i]} key={i}/>);
-        }
-        
-        
-        return(
-          <div>
-            <div className='resultsTitle'> Results: </div>
-            <div>
-              {diagrams}
-            </div>
-          </div>
-        );
-      }
-      
-    }
-
-
     
+    
+    return(
+      <div>
+        <div className='resultsTitle'> Results: </div>
+        <div>
+          {diagrams}
+        </div>
+      </div>
+    );
+  }
 
 }
 
