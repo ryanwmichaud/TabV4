@@ -67,35 +67,22 @@ const ResultsSection = ({res, stretch, strings, chordTones, error}) => {
 
 
 
-class App extends React.Component{
+const App = () =>{
 
-  constructor(props){
-    super(props);
-    this.changeStretch = this.changeStretch.bind(this);
-    this.addChordTone = this.addChordTone.bind(this);
-    this.removeChordTone = this.removeChordTone.bind(this);
-    this.changeNumStrings = this.changeNumStrings.bind(this);
-    this.changeOpen = this.changeOpen.bind(this);
-
-    this.state = {
-     
-      stretch:4, 
-      strings: ["E","A","D","G","B","E"], 
-      chordTones: [false,false,false,false,false,false,false,false,false,false,false,false], 
-      numStringSelects:6,
-      res: null,
-      error: null 
-    };
-  }
+  const [stretch, setStretch] = useState(4)
+  const [strings, setstrings] = useState(["E","A","D","G","B","E"])
+  const [chordTones, setChordTones] = [false,false,false,false,false,false,false,false,false,false,false,false]
+  const [numStringSelects, setNumStringSelects] = 6
+  const [res, setRes] = useState(null)
+  const [error, setError] = useState(null)
 
 
-  handlePostRequest = () => { //need to call this from app not input section. then we can call it from state change mathods at the top. 
+  const handlePostRequest = () => { //need to call this from app not input section. then we can call it from state change mathods at the top. 
     
     const req = {
       stretch: this.state.stretch,
       strings: this.state.strings,
       chordTones: this.state.chordTones,
-
     }
 
     fetch(`http://${ip}:8000/calculate`, {
@@ -106,72 +93,62 @@ class App extends React.Component{
       },
       body: JSON.stringify(req),
     })
-      .then(response => {
-        if (!response.ok) { 
-          throw new Error('Network response was not ok');
-        }
-        return response.json();
-      })
-      .then(data => {
-        // Update state with the response data
-        //console.log(data.message)
-        this.setState({ res: data.message, error: null });
-        
-      })
-      .catch(error => {
-        // Handle and store the error
-        this.setState({ res: null, error: error.message });
-      });
+    .then(response => {
+      if (!response.ok) { 
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(data => {
+      // Update state with the response data
+      //console.log(data.message)
+      this.setState({ res: data.message, error: null });
+      
+    })
+    .catch(error => {
+      // Handle and store the error
+      this.setState({ res: null, error: error.message });
+    });
   };
 
 
-  changeStretch(value){
-    this.setState( {stretch: value}, ()=>{ this.handlePostRequest()});
+  const changeStretch = (value) => {
+    setStretch(stretch)
+    handlePostRequest()
   }
 
 
-
-  
-  addChordTone(index){
-    let newChordTones = this.state.chordTones.slice();
-    newChordTones[index] = true;
-    this.setState( {chordTones: newChordTones}, () => {
-        this.handlePostRequest();
-      });
-    
+  const addChordTone = (index) => {
+    const newChordTones = chordTones.map((value, i) => (i === index ? true : value)); //if i is the index, make it true, else keep it
+    setChordTones(newChordTones)
+    handlePostRequest()
   }
 
   
-  removeChordTone(index){
-    let newChordTones = this.state.chordTones.slice();
-    newChordTones[index]=false;
-    this.setState( {chordTones: newChordTones}, ()=>{
-        this.handlePostRequest();
-      });
+  const removeChordTone = (index) => {
+    const newChordTones = chordTones.map((value, i) => (i === index ? false : value)); //if i is the index, make it false, else keep it
+    setChordTones(newChordTones)
+    handlePostRequest()
     
   }
 
 
-  changeNumStrings(n){
-    this.setState({numStringSelects: n});
-    const newStrings = [];
-    for(let i=0;i<n;i++){
-      newStrings.push("A")
-    }
-    this.setState( {strings: newStrings}, ()=>{ this.handlePostRequest();});
+  const changeNumStrings = (n) => {
+    setNumStringSelects(n)
+    const newStrings = Array(n).fill("A")
+    setstrings(newStrings)
+    handlePostRequest()
   }
 
-  changeOpen(index, newOpen){ 
-    const newStrings = this.state.strings.slice();
-    newStrings[index] = newOpen;
-    this.setState( {strings: newStrings}, ()=>{ this.handlePostRequest();});
-   
+  const changeOpen = (index, newOpen) => { 
+    const newStrings = strings.map((string, i) => (i === index ? newOpen : string)) //if i is the target string, make it the new open value, else keep it
+    setstrings(newStrings)
+    handlePostRequest()
   }
 
   
 
-  render(){
-    return (
+  return (
       <div className="app">
         <header className="app-header">  
           <p>
@@ -208,8 +185,7 @@ class App extends React.Component{
           </div>
         </div>
       </div>
-    );
-  }
+    )
 }
 
 
