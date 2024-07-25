@@ -39,7 +39,7 @@ const Diagram = ({diagram_data, stretch}) => {
   
     return(
       <div className='diagram'>
-        <p className='position_marker'>{"Position " + diagram_data[0]}</p>
+        <p className='position-marker'>{"Position " + diagram_data[0]}</p>
         <div className='diagram_box'>
             {rows}
         </div>

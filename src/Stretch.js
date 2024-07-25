@@ -8,7 +8,7 @@ const StretchInput = ({changeStretch, stretch}) => {
     }
 
     return (
-      <div className='stretchinput'>
+      <div className='stretch-input'>
         <label>
           Max number of frets: 
           <select id='stretch-select' onChange={handleChange} value={stretch}>  

@@ -1,4 +1,4 @@
-.App {
+.app {
   text-align: center;
   height: 100%;
   font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
@@ -7,11 +7,11 @@
 :root {
   --primary-color: rgb(73, 154, 172);
   --secondary-color: grey;
-  --input-primary-color: white;
-  --input-secondary-color: #2c3037;
+  --input-primary-color: rgb(218, 217, 217);
+  --input-secondary-color: rgb(44, 48, 55);
 }
 
-.App-header {
+.app-header {
   background-color: var(--secondary-color);
   height: 15vh;
 
@@ -60,16 +60,9 @@
   
 }
 
-.resultsTitle{
-  margin: 0 auto 0 auto;
-  width: 50%;
-  margin-top: 5%;
-  font-size: 1.5rem;
-  font-weight: bold;
 
-}
 
-.inputTitle{
+.input-title{
   margin: 8%;
   margin-bottom: 8%;
   font-size: 1rem;
@@ -79,7 +72,7 @@
   border-color: var(--input-primary-color);
 }
 
-.stretchinput, .stringinput, .ctinput, .no-ct-message{
+.stretch-input, .string-input, .ctinput, .no-ct-message{
   margin: 10% 16% 0px 16%;
   padding: 5%;
   border-style:double;
@@ -103,12 +96,21 @@
 
 
 
-.diagram, .resultsTitle, .no-ct-message{
+.diagram, .results-title, .no-ct-message{
   border-style:double;
   border-width: 10px;
   border-radius: 3px;
   border-color: black;
   background-color: var(--secondary-color);
+}
+
+.results-title{
+  margin: 0 auto 0 auto;
+  width: 50%;
+  margin-top: 5%;
+  font-size: 1.5rem;
+  font-weight: bold;
+
 }
 
 .no-ct-message{
@@ -124,7 +126,7 @@
   width: 100%;
 }
 
-.position_marker{
+.position-marker{
   margin-left: .5cm;
 }
 
@@ -142,18 +144,19 @@
 .row {
   display: flex;
   flex-direction: row;
+  align-items: stretch;
+  justify-content: flex-start;
+  gap: 0;
 }
 
 .box {
   background-color: burlywood;
-  border-left: 2px solid #000;
-  border-right: 2px solid #000;
-  border-top: none;
-  border-bottom: none;
+  border-left: 2px solid black;
+  border-right: 2px solid black;
   width: 100%;
-  min-height: 24px;
-  margin: 0px;
-  padding: 0px;
+  min-height: 26px;
+  margin: 0;
+  padding: 0;
 }
 
 .string {

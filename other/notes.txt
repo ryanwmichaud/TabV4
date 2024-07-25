@@ -46,10 +46,12 @@ seems to hold for big and small practical numbers of chord tones and strings
 
 FRONT END
 
-refactor with functional components with hooks rather than classes
 when it gets too narrow switch to mobile - hide and show left side menu
 when it gets to one column of ct checkboxes - strighten left align
 
+think about verticle squish too
+
+lines btwn boxes
 
 FEATURES
 

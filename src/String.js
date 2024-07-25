@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react"
 
 const StringInput = ({changeNumStrings, changeOpen, n, strings}) => {
 
@@ -19,12 +19,12 @@ const StringInput = ({changeNumStrings, changeOpen, n, strings}) => {
 
 
     return( 
-    <div className='stringinput'>
+    <div className="string-input">
       <div>
           <label for="num-strings-selects"> 
               Number of Strings:
           </label>
-          <select id='num-strings-select' value={n} onChange={handleNumStringsChange}>
+          <select id="num-strings-selects" value={n} onChange={handleNumStringsChange}>
           <option value={2}>2</option>
           <option value={3}>3</option>
           <option value={4}>4</option>
@@ -54,21 +54,21 @@ const StringInput = ({changeNumStrings, changeOpen, n, strings}) => {
 
 
     return(
-        <div className='stringselect'>
+        <div className="stringselect">
             <select  aria-label={name} id={name} onChange={handleChange} value={displayed}> 
               
-              <option value={'A'}> A </option>
-              <option value={'A#'}> A# </option>
-              <option value={'B'}> B </option>
-              <option value={'C'}> C </option>
-              <option value={'C#'}> C# </option>
-              <option value={'D'}> D </option>
-              <option value={'D#'}> D# </option>
-              <option value={'E'}> E </option>
-              <option value={'F'}> F </option>
-              <option value={'F#'}> F# </option>
-              <option value={'G'}> G </option>
-              <option value={'G#'}> G# </option>
+              <option value={"A"}> A </option>
+              <option value={"A#"}> A# </option>
+              <option value={"B"}> B </option>
+              <option value={"C"}> C </option>
+              <option value={"C#"}> C# </option>
+              <option value={"D"}> D </option>
+              <option value={"D#"}> D# </option>
+              <option value={"E"}> E </option>
+              <option value={"F"}> F </option>
+              <option value={"F#"}> F# </option>
+              <option value={"G"}> G </option>
+              <option value={"G#"}> G# </option>
               <option value={"Ignore"}> Ignore </option>
             </select>
         </div>

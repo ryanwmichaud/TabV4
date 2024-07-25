@@ -10,7 +10,7 @@ const InputSection = ({changeStretch, changeNumStrings, addChordTone, removeChor
   
   return(
       <div >
-        <div className='inputTitle'> Input: </div>
+        <div className='input-title'> Input: </div>
         <StretchInput changeStretch={changeStretch} stretch={req.stretch}></StretchInput>
         <ChordToneInput addChordTone={addChordTone} removeChordTone={removeChordTone} chordTones={req.chordTones}></ChordToneInput>
         <StringInput strings={req.strings} n={n} changeNumStrings={changeNumStrings} changeOpen={changeOpen}></StringInput>
@@ -48,7 +48,7 @@ const ResultsSection = ({res, req, error}) => {
     
     return(
       <div>
-        <div className='resultsTitle'> Results: </div>
+        <div className='results-title'> Results: </div>
         <div>
           {diagrams}
         </div>
@@ -179,8 +179,8 @@ class App extends React.Component{
 
   render(){
     return (
-      <div className="App">
-        <header className="App-header">  
+      <div className="app">
+        <header className="app-header">  
           <p>
             Fretbchord Explchorder
           </p>
