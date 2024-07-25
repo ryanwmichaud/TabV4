@@ -23,13 +23,12 @@ const InputSection = ({changeStretch, changeNumStrings, addChordTone, removeChor
 const ResultsSection = ({res, req, error}) => {
 
   let data = res;
-  console.log(req.chordTones);
 
   const noChordTones = req.chordTones.every(ct => ct !== true);
 
 
   if(error){
-    console.log("h");
+    console.log("error", error);
     return <div>Error: {error}</div>;
     
   }
@@ -45,15 +44,21 @@ const ResultsSection = ({res, req, error}) => {
       diagrams = diagrams.concat(<Diagram stretch={req.stretch} diagram_data={data[i]} key={i}/>);
     }
     
-    
-    return(
-      <div>
-        <div className='results-title'> Results: </div>
+    if(diagrams.length === 0){
+      console.log(req)
+      return  <div className='no-results-message'>  No possible voicings - try changing the input </div>;
+
+    }else{
+      return(
         <div>
-          {diagrams}
+          <div className='results-title'> Results: </div>
+          <div>
+            {diagrams}
+          </div>
         </div>
-      </div>
-    );
+      );
+    }
+    
   }
 
 }
@@ -123,29 +128,7 @@ class App extends React.Component{
       }}, ()=>{ this.handlePostRequest()});
   }
 
-  changeNumStrings(n){
-    this.setState({numStringSelects: n});
-    const newStrings = [];
-    for(let i=0;i<n;i++){
-      newStrings.push("A")
-    }
-    this.setState( {req: {
-      stretch:this.state.req.stretch, 
-      strings: newStrings, 
-      chordTones: this.state.req.chordTones, 
-      }}, ()=>{ this.handlePostRequest();});
-  }
 
-  changeOpen(index, newOpen){ 
-    const newStrings = this.state.req.strings.slice();
-    newStrings[index] = newOpen;
-    this.setState( {req: {
-      stretch:this.state.req.stretch, 
-      strings: newStrings, 
-      chordTones: this.state.req.chordTones, 
-      }}, ()=>{ this.handlePostRequest();});
-   
-  }
 
   
   addChordTone(index){
@@ -173,6 +156,31 @@ class App extends React.Component{
         this.handlePostRequest();
       });
     
+  }
+
+
+  changeNumStrings(n){
+    this.setState({numStringSelects: n});
+    const newStrings = [];
+    for(let i=0;i<n;i++){
+      newStrings.push("A")
+    }
+    this.setState( {req: {
+      stretch:this.state.req.stretch, 
+      strings: newStrings, 
+      chordTones: this.state.req.chordTones, 
+      }}, ()=>{ this.handlePostRequest();});
+  }
+
+  changeOpen(index, newOpen){ 
+    const newStrings = this.state.req.strings.slice();
+    newStrings[index] = newOpen;
+    this.setState( {req: {
+      stretch:this.state.req.stretch, 
+      strings: newStrings, 
+      chordTones: this.state.req.chordTones, 
+      }}, ()=>{ this.handlePostRequest();});
+   
   }
 
   

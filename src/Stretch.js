@@ -4,7 +4,7 @@ const StretchInput = ({changeStretch, stretch}) => {
   
     const handleChange = (e) => {
       e.preventDefault()
-      this.props.changeStretch(parseInt(e.target.value))  
+      changeStretch(parseInt(e.target.value))  
     }
 
     return (
