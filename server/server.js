@@ -18,9 +18,10 @@ app.use(express.static(path.join(__dirname, '..','build')));
 
 
 app.post('/calculate', async (req, res) => {
+    console.log(req)
     const data = solve(req.body.strings, req.body.chordTones,req.body.stretch);
     //console.log(req.body, "--> ", data)
-    console.log("got req and sent res")
+    //console.log("got req and sent res")
     res.json({ message: data});
 });
 

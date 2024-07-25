@@ -24,7 +24,7 @@ const StringInput = ({changeNumStrings, changeOpen, n, strings}) => {
           <label for="num-strings-selects"> 
               Number of Strings:
           </label>
-          <select id="num-strings-selects" value={n} onChange={handleNumStringsChange}>
+          <select id="num-strings-select" value={n} onChange={handleNumStringsChange}>
           <option value={2}>2</option>
           <option value={3}>3</option>
           <option value={4}>4</option>

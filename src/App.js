@@ -1,30 +1,30 @@
 import './App.css';
-import React from "react";
 import {Diagram} from './Diagram.js';
 import { ChordToneInput } from './ChordTone';
 import { StretchInput } from './Stretch';
 import { StringInput,  } from './String';
+import React, { useEffect, useState } from 'react';
 const ip = process.env.REACT_APP_IP;
 
-const InputSection = ({changeStretch, changeNumStrings, addChordTone, removeChordTone, req, n, changeOpen}) => {
+const InputSection = ({changeStretch, changeNumStrings, addChordTone, removeChordTone, changeOpen, stretch, strings, chordTones, n}) => {
   
   return(
       <div >
         <div className='input-title'> Input: </div>
-        <StretchInput changeStretch={changeStretch} stretch={req.stretch}></StretchInput>
-        <ChordToneInput addChordTone={addChordTone} removeChordTone={removeChordTone} chordTones={req.chordTones}></ChordToneInput>
-        <StringInput strings={req.strings} n={n} changeNumStrings={changeNumStrings} changeOpen={changeOpen}></StringInput>
+        <StretchInput changeStretch={changeStretch} stretch={stretch}></StretchInput>
+        <ChordToneInput addChordTone={addChordTone} removeChordTone={removeChordTone} chordTones={chordTones}></ChordToneInput>
+        <StringInput strings={strings} n={n} changeNumStrings={changeNumStrings} changeOpen={changeOpen}></StringInput>
       </div>
       
   )
   
 }
 
-const ResultsSection = ({res, req, error}) => {
+const ResultsSection = ({res, stretch, strings, chordTones, error}) => {
 
   let data = res;
 
-  const noChordTones = req.chordTones.every(ct => ct !== true);
+  const noChordTones = chordTones.every(ct => ct !== true);
 
 
   if(error){
@@ -41,11 +41,10 @@ const ResultsSection = ({res, req, error}) => {
     
 
     for(let i=0;i<data.length;i++){
-      diagrams = diagrams.concat(<Diagram stretch={req.stretch} diagram_data={data[i]} key={i}/>);
+      diagrams = diagrams.concat(<Diagram stretch={stretch} diagram_data={data[i]} key={i}/>);
     }
     
     if(diagrams.length === 0){
-      console.log(req)
       return  <div className='error-message'>  No possible voicings - try changing the input </div>;
 
     }else{
@@ -79,11 +78,10 @@ class App extends React.Component{
     this.changeOpen = this.changeOpen.bind(this);
 
     this.state = {
-      req: {
-        stretch:4, 
-        strings: ["E","A","D","G","B","E"], 
-        chordTones: [false,false,false,false,false,false,false,false,false,false,false,false], 
-        },
+     
+      stretch:4, 
+      strings: ["E","A","D","G","B","E"], 
+      chordTones: [false,false,false,false,false,false,false,false,false,false,false,false], 
       numStringSelects:6,
       res: null,
       error: null 
@@ -93,13 +91,20 @@ class App extends React.Component{
 
   handlePostRequest = () => { //need to call this from app not input section. then we can call it from state change mathods at the top. 
     
+    const req = {
+      stretch: this.state.stretch,
+      strings: this.state.strings,
+      chordTones: this.state.chordTones,
+
+    }
+
     fetch(`http://${ip}:8000/calculate`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         // Add any other headers if needed
       },
-      body: JSON.stringify(this.state.req),
+      body: JSON.stringify(req),
     })
       .then(response => {
         if (!response.ok) { 
@@ -121,24 +126,16 @@ class App extends React.Component{
 
 
   changeStretch(value){
-    this.setState( {req: {
-      stretch:value, 
-      strings: this.state.req.strings, 
-      chordTones: this.state.req.chordTones, 
-      }}, ()=>{ this.handlePostRequest()});
+    this.setState( {stretch: value}, ()=>{ this.handlePostRequest()});
   }
 
 
 
   
   addChordTone(index){
-    let newChordTones = this.state.req.chordTones.slice();
+    let newChordTones = this.state.chordTones.slice();
     newChordTones[index] = true;
-    this.setState( {req: {
-      stretch:this.state.req.stretch, 
-      strings: this.state.req.strings, 
-      chordTones: newChordTones, 
-      }}, () => {
+    this.setState( {chordTones: newChordTones}, () => {
         this.handlePostRequest();
       });
     
@@ -146,13 +143,9 @@ class App extends React.Component{
 
   
   removeChordTone(index){
-    let newChordTones = this.state.req.chordTones.slice();
+    let newChordTones = this.state.chordTones.slice();
     newChordTones[index]=false;
-    this.setState( {req: {
-      stretch:this.state.req.stretch, 
-      strings: this.state.req.strings, 
-      chordTones: newChordTones, 
-      }}, ()=>{
+    this.setState( {chordTones: newChordTones}, ()=>{
         this.handlePostRequest();
       });
     
@@ -165,21 +158,13 @@ class App extends React.Component{
     for(let i=0;i<n;i++){
       newStrings.push("A")
     }
-    this.setState( {req: {
-      stretch:this.state.req.stretch, 
-      strings: newStrings, 
-      chordTones: this.state.req.chordTones, 
-      }}, ()=>{ this.handlePostRequest();});
+    this.setState( {strings: newStrings}, ()=>{ this.handlePostRequest();});
   }
 
   changeOpen(index, newOpen){ 
-    const newStrings = this.state.req.strings.slice();
+    const newStrings = this.state.strings.slice();
     newStrings[index] = newOpen;
-    this.setState( {req: {
-      stretch:this.state.req.stretch, 
-      strings: newStrings, 
-      chordTones: this.state.req.chordTones, 
-      }}, ()=>{ this.handlePostRequest();});
+    this.setState( {strings: newStrings}, ()=>{ this.handlePostRequest();});
    
   }
 
@@ -199,7 +184,9 @@ class App extends React.Component{
         <div className="main">
           <div className='input'>
             <InputSection 
-              req= {this.state.req}
+              chordTones={this.state.chordTones} 
+              stretch={this.state.stretch}
+              strings={this.state.strings}
               changeStretch={this.changeStretch} 
               addChordTone={this.addChordTone}
               removeChordTone={this.removeChordTone}
@@ -211,7 +198,9 @@ class App extends React.Component{
           </div>
           <div className="results"> 
             <ResultsSection
-              req={this.state.req} 
+              chordTones={this.state.chordTones} 
+              stretch={this.state.stretch}
+              strings={this.state.strings}
               res={this.state.res} 
               error={this.state.error}
             >
