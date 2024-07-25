@@ -5,7 +5,7 @@
 }
 
 :root {
-  --primary-color: rgb(196, 103, 103);
+  --primary-color: rgb(73, 154, 172);
   --secondary-color: grey;
   --input-primary-color: white;
   --input-secondary-color: #2c3037;
@@ -88,13 +88,15 @@
   accent-color: var(--primary-color);
 }
 
+
+
 .ct-boxes{
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
 }
 
-#num-strings-select{
+#num-strings-select, #stretch-select{
   margin-left: 5px;
 }
 

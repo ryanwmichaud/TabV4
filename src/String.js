@@ -1,69 +1,61 @@
-import React from 'react';
+import React from 'react'
 
-class StringInput extends React.Component{
+const StringInput = ({changeNumStrings, changeOpen, n, strings}) => {
 
-    constructor(props){
-      super(props);
-      this.changeNumStrings=this.changeNumStrings.bind(this);
 
-    }
     
-    changeNumStrings(e) {
-      e.preventDefault();
-      this.props.changeNumStrings(e.target.value)
+    const handleNumStringsChange  = (e) => {
+      e.preventDefault()
+      changeNumStrings(e.target.value)
     }
 
-    render(){
-        let stringSelects=[];
-        for(let i=this.props.n-1;i>=0;i--){        
-            stringSelects = stringSelects.concat(<StringSelect name={"String Select "+i}  index={i} changeOpen={this.props.changeOpen} key={i} displayed={this.props.strings[i]} />);
-        }
+    
+    let stringSelects=[]
+    for(let i=n-1;i>=0;i--){        
+        stringSelects = stringSelects.concat(
+        <StringSelect name={"String Select "+i}  index={i} changeOpen={changeOpen} key={i} displayed={strings[i]} />)
+        
+    }
 
 
-        return( 
-        <div className='stringinput'>
-          <div>
-              <label for="num-strings-selects"> 
-                  Number of Strings:
-              </label>
-              <select id='num-strings-select' value={this.props.n} onChange={this.changeNumStrings}>
-              <option value={2}>2</option>
-              <option value={3}>3</option>
-              <option value={4}>4</option>
-              <option value={5}>5</option>
-              <option value={6}>6</option>
-              <option value={7}>7</option>
-              <option value={8}>8</option>
-              <option value={9}>9</option>
-              </select>
-              
-            </div>
-            <div>
-                {stringSelects}
-            </div>
+    return( 
+    <div className='stringinput'>
+      <div>
+          <label for="num-strings-selects"> 
+              Number of Strings:
+          </label>
+          <select id='num-strings-select' value={n} onChange={handleNumStringsChange}>
+          <option value={2}>2</option>
+          <option value={3}>3</option>
+          <option value={4}>4</option>
+          <option value={5}>5</option>
+          <option value={6}>6</option>
+          <option value={7}>7</option>
+          <option value={8}>8</option>
+          <option value={9}>9</option>
+          </select>
+          
         </div>
-        )
-    }
+        <div>
+            {stringSelects}
+        </div>
+    </div>
+    )
 }
   
-  class StringSelect extends React.Component{
+  const StringSelect = ({ name, changeOpen, index, displayed }) => {
 
-    constructor(props){
-      super(props);
-      this.changeOpen=this.changeOpen.bind(this);
 
-    }
 
-    changeOpen(e) {
-      e.preventDefault();
-      this.props.changeOpen(this.props.index, e.target.value);
+    const handleChange = (e) => {
+      e.preventDefault()
+      changeOpen(index, e.target.value)
     }
 
 
-    render(){
-      return(
+    return(
         <div className='stringselect'>
-            <select  aria-label={this.props.name} id={this.props.name} onChange={this.changeOpen} value={this.props.displayed}> 
+            <select  aria-label={name} id={name} onChange={handleChange} value={displayed}> 
               
               <option value={'A'}> A </option>
               <option value={'A#'}> A# </option>
@@ -80,8 +72,8 @@ class StringInput extends React.Component{
               <option value={"Ignore"}> Ignore </option>
             </select>
         </div>
-      )
-    }
+    )
+    
   }
   
   

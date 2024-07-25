@@ -1,5 +1,5 @@
-//import { toBeRequired } from "@testing-library/jest-dom/matchers";
-const names = ["C","C#","D","D#","E","F","F#","G","G#","A","A#","B"];
+//import { toBeRequired } from "@testing-library/jest-dom/matchers"
+const names = ["C","C#","D","D#","E","F","F#","G","G#","A","A#","B"]
 let nameMap = Object.freeze({
     "C":0,
     "C#":1,
@@ -17,18 +17,18 @@ let nameMap = Object.freeze({
 
 class MusicString{
     constructor (open){
-        this.open = open;
-        this.stringMap = new Map();
-        this.buildMap();
+        this.open = open
+        this.stringMap = new Map()
+        this.buildMap()
     }
 
     buildMap(){
-        let current = nameMap[this.open];
+        let current = nameMap[this.open]
         for(let i=0;i<17;i++){  //12th fret + max stretch of 6
-            this.stringMap[i] = names[current];
-            current+=1;
+            this.stringMap[i] = names[current]
+            current+=1
             if (current === 12){
-                current=0;
+                current=0
             }
         }
     } 
@@ -37,31 +37,31 @@ class MusicString{
 
 function solve(openStrings, ctList, stretch){
     console.log(openStrings)
-    let cts=[];
+    let cts=[]
     for(let i=0;i<12;i++){
         if(ctList[i] === true){
-            cts = cts.concat(names[i]);
+            cts = cts.concat(names[i])
         }
     }
 
     let musicStrings = []
 
     for(let i=openStrings.length-1; i>=0; i--){
-            let s = new MusicString(openStrings[i]);
-            musicStrings = musicStrings.concat(s);
+            let s = new MusicString(openStrings[i])
+            musicStrings = musicStrings.concat(s)
     }
 
-    let solutions = [];
+    let solutions = []
 
 
     function backtrack(position, sofar, currentCTIndex, currentStringIndex){
 
     
         if (currentCTIndex === cts.length){  //found all cts (when moves on it recurses on ct+1). also, did we find at least one note on the first position fret? if not its shifted up
-            return sofar;
+            return sofar
         }
         if (currentStringIndex > musicStrings.length-1){  //ran out of strings - deadend - backtrack
-            return null;
+            return null
         }
     
 
@@ -71,7 +71,7 @@ function solve(openStrings, ctList, stretch){
         
         //can current ct can be found on current string in current position and current string is not already taken? 
         //if so, save fret where found in a valid way
-        let fretFound = null;
+        let fretFound = null
     
         if( sofar[currentStringIndex+1][0] === "X"){
             for(let i=position; i<position+stretch; i++){ //theres def a better way
@@ -91,7 +91,7 @@ function solve(openStrings, ctList, stretch){
             
 
             let newsofar = sofar.slice()
-            newsofar[currentStringIndex+1] = fretFound;
+            newsofar[currentStringIndex+1] = fretFound
             let check = backtrack(position, newsofar, currentCTIndex+1, 0  )
             if(check !== null){ //if no dead end - this is valid solution
                 
@@ -99,7 +99,7 @@ function solve(openStrings, ctList, stretch){
                 for(let i=1; i<newsofar.length; i++){
                     //console.log(newsofar[i][0])
                     if(newsofar[i][0] === 0){
-                        duplicate = false;
+                        duplicate = false
                         break
                     }
                 }
@@ -114,7 +114,7 @@ function solve(openStrings, ctList, stretch){
                 return backtrack(position, sofar, currentCTIndex, currentStringIndex+1)
             }
         }else{ //there was no possible choice, move on to next string
-            return backtrack(position, sofar, currentCTIndex, currentStringIndex+1);
+            return backtrack(position, sofar, currentCTIndex, currentStringIndex+1)
         }
     }
     
@@ -124,7 +124,7 @@ function solve(openStrings, ctList, stretch){
         let possible = false    //if can't use first fret of the position, can't produce a valid, nonduplicate voicing
         for(let stringIndex=0; stringIndex<musicStrings.length; stringIndex++){
             if( cts.includes(musicStrings[stringIndex].stringMap[position]) ){
-                possible = true;
+                possible = true
             }
         }
 
@@ -141,4 +141,4 @@ function solve(openStrings, ctList, stretch){
 
 }
 
-export {solve};
+export {solve}

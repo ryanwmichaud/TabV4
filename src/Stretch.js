@@ -1,36 +1,26 @@
-import React from 'react';
+import React from 'react'
 
-class StretchInput extends React.Component{
+const StretchInput = ({changeStretch, stretch}) => {
   
-    constructor(props){
-      super(props);
-      this.handleChange = this.handleChange.bind(this);
+    const handleChange = (e) => {
+      e.preventDefault()
+      this.props.changeStretch(parseInt(e.target.value))  
     }
-  
-    handleChange(e) {
-      e.preventDefault();
-      this.props.changeStretch(parseInt(e.target.value));  
-    }
-  
-    render(){
-      return (
-        <div className='stretchinput'>
-          <label>
-            Max number of frets: 
-            <select id='Stretch Select' onChange={this.handleChange} value={this.props.stretch}>  
-              <option value={2}>2</option>
-              <option value={3}>3</option>
-              <option value={4}>4</option>
-              <option value={5}>5</option>
-            </select>
-          </label>
-  
-        </div>
-         
-  
-      );
-  
-    } 
-  }
 
-  export {StretchInput}
+    return (
+      <div className='stretchinput'>
+        <label>
+          Max number of frets: 
+          <select id='stretch-select' onChange={handleChange} value={stretch}>  
+            <option value={2}>2</option>
+            <option value={3}>3</option>
+            <option value={4}>4</option>
+            <option value={5}>5</option>
+          </select>
+        </label>
+      </div>
+  )
+  
+}
+
+export {StretchInput}
