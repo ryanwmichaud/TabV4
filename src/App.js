@@ -29,12 +29,12 @@ const ResultsSection = ({res, req, error}) => {
 
   if(error){
     console.log("error", error);
-    return <div>Error: {error}</div>;
+    return <div className='error-message'> Error: check network connection and try again </div>;
     
   }
   else if (!data | noChordTones) {
     // Render a loading state while waiting for the data
-    return <div className='no-ct-message'> Enter some chord tones to see how you can voice them on your instrument </div>;
+    return <div className='error-message'> Enter some chord tones to see how you can voice them on your instrument </div>;
   } 
   else{
     let diagrams = [];
@@ -46,7 +46,7 @@ const ResultsSection = ({res, req, error}) => {
     
     if(diagrams.length === 0){
       console.log(req)
-      return  <div className='no-results-message'>  No possible voicings - try changing the input </div>;
+      return  <div className='error-message'>  No possible voicings - try changing the input </div>;
 
     }else{
       return(

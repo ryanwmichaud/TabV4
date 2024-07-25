@@ -114,7 +114,7 @@
 
 
 
-.diagram, .results-title, .no-ct-message, .no-results-message{
+.diagram, .results-title, .error-message{
   border-style:double;
   border-width: 10px;
   border-radius: 3px;
@@ -132,7 +132,7 @@
 
 }
 
-.no-results-message, .no-ct-message{
+.error-message{
   display: flex;
   margin: 5% 16% 0px 16%;
   justify-content: center;
