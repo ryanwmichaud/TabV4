@@ -71,18 +71,23 @@ const App = () =>{
 
   const [stretch, setStretch] = useState(4)
   const [strings, setstrings] = useState(["E","A","D","G","B","E"])
-  const [chordTones, setChordTones] = [false,false,false,false,false,false,false,false,false,false,false,false]
-  const [numStringSelects, setNumStringSelects] = 6
+  const [chordTones, setChordTones] = useState([false,false,false,false,false,false,false,false,false,false,false,false])
+  const [numStringSelects, setNumStringSelects] = useState(6)
   const [res, setRes] = useState(null)
   const [error, setError] = useState(null)
 
+  useEffect(() =>{
+    handlePostRequest()
+  }, [chordTones,strings,stretch])
 
-  const handlePostRequest = () => { //need to call this from app not input section. then we can call it from state change mathods at the top. 
+
+
+  const handlePostRequest = () => { //call from top level not input section
     
     const req = {
-      stretch: this.state.stretch,
-      strings: this.state.strings,
-      chordTones: this.state.chordTones,
+      stretch: stretch,
+      strings: strings,
+      chordTones: chordTones,
     }
 
     fetch(`http://${ip}:8000/calculate`, {
@@ -100,50 +105,56 @@ const App = () =>{
       return response.json();
     })
     .then(data => {
-      // Update state with the response data
-      //console.log(data.message)
-      this.setState({ res: data.message, error: null });
+      console.log(data.message)
+      setRes(data.message)
+      setError(null)
       
     })
     .catch(error => {
       // Handle and store the error
-      this.setState({ res: null, error: error.message });
+      setRes(null)
+      setError(error.message)
     });
   };
 
 
   const changeStretch = (value) => {
-    setStretch(stretch)
-    handlePostRequest()
+    setStretch(value)
   }
 
 
   const addChordTone = (index) => {
-    const newChordTones = chordTones.map((value, i) => (i === index ? true : value)); //if i is the index, make it true, else keep it
-    setChordTones(newChordTones)
-    handlePostRequest()
+    //const newChordTones = chordTones.map((value, i) => (i === index ? true : value)); //if i is the index, make it true, else keep it
+    setChordTones(prev => {
+      let newChordTones = prev.slice()
+      newChordTones[index] = true
+      return newChordTones
+
+    })
   }
 
   
   const removeChordTone = (index) => {
-    const newChordTones = chordTones.map((value, i) => (i === index ? false : value)); //if i is the index, make it false, else keep it
-    setChordTones(newChordTones)
-    handlePostRequest()
-    
+    setChordTones(prev => {
+      let newChordTones = prev.slice()
+      newChordTones[index] = false
+      return newChordTones
+    })
   }
 
 
   const changeNumStrings = (n) => {
     setNumStringSelects(n)
-    const newStrings = Array(n).fill("A")
+    let newStrings = []
+    for(let i=0;i<n;i++){
+      newStrings.push("A")
+    }
     setstrings(newStrings)
-    handlePostRequest()
   }
 
   const changeOpen = (index, newOpen) => { 
     const newStrings = strings.map((string, i) => (i === index ? newOpen : string)) //if i is the target string, make it the new open value, else keep it
     setstrings(newStrings)
-    handlePostRequest()
   }
 
   
@@ -161,25 +172,25 @@ const App = () =>{
         <div className="main">
           <div className='input'>
             <InputSection 
-              chordTones={this.state.chordTones} 
-              stretch={this.state.stretch}
-              strings={this.state.strings}
-              changeStretch={this.changeStretch} 
-              addChordTone={this.addChordTone}
-              removeChordTone={this.removeChordTone}
-              changeOpen={this.changeOpen}
-              changeNumStrings={this.changeNumStrings}
-              n={this.state.numStringSelects}
+              chordTones={chordTones} 
+              stretch={stretch}
+              strings={strings}
+              changeStretch={changeStretch} 
+              addChordTone={addChordTone}
+              removeChordTone={removeChordTone}
+              changeOpen={changeOpen}
+              changeNumStrings={changeNumStrings}
+              n={numStringSelects}
             >
             </InputSection>
           </div>
           <div className="results"> 
             <ResultsSection
-              chordTones={this.state.chordTones} 
-              stretch={this.state.stretch}
-              strings={this.state.strings}
-              res={this.state.res} 
-              error={this.state.error}
+              chordTones={chordTones} 
+              stretch={stretch}
+              strings={strings}
+              res={res} 
+              error={error}
             >
             </ResultsSection>
           </div>

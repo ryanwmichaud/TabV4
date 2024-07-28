@@ -36,7 +36,6 @@ class MusicString{
 
 
 function solve(openStrings, ctList, stretch){
-    console.log(openStrings)
     let cts=[]
     for(let i=0;i<12;i++){
         if(ctList[i] === true){
