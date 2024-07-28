@@ -77,8 +77,9 @@ const App = () =>{
   const [error, setError] = useState(null)
 
   useEffect(() =>{
+    console.log("effect")
     handlePostRequest()
-  }, [chordTones,strings,stretch])
+  }, [chordTones,strings, stretch])
 
 
 
@@ -105,7 +106,6 @@ const App = () =>{
       return response.json();
     })
     .then(data => {
-      console.log(data.message)
       setRes(data.message)
       setError(null)
       
