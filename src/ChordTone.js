@@ -2,6 +2,8 @@ import React from "react"
 
 const ChordToneInput = ({ chordTones, removeChordTone, addChordTone }) => {
 
+  const names = ["C","C#","D","D#","E","F","F#","G","G#","A","A#","B"]
+
 
     const handleClick = (e) => {
       let index = e.target.id
@@ -14,66 +16,24 @@ const ChordToneInput = ({ chordTones, removeChordTone, addChordTone }) => {
     }
   
     return(
-        <div className="ctinput"> 
+
+      <div className="ctinput"> 
               <legend>Chord Tones: </legend>
               <div className= "ct-boxes">
-                <div className="ct-container">
-                  <input type="checkbox" id="0" name="ct" className="ct-input" onClick={handleClick}/>
-                  <label for="0" className="ct-label">C</label>
-                </div>
-                <div className="ct-container">
-                  <input type="checkbox" id="1" name="ct" className="ct-input" onClick={handleClick}/>
-                  <label for="1" className="ct-label">C#</label>
-                </div>
-                <div className="ct-container">
-                  <input type="checkbox" id="2" name="ct" className="ct-input" onClick={handleClick}/>
-                  <label for="2" className="ct-label">D</label>
-                </div>
-                <div className="ct-container">
-                  <input type="checkbox" id="3" name="ct" className="ct-input" onClick={handleClick}/>
-                  <label for="3" className="ct-label">D#</label>
-                </div>
-                <div className="ct-container">
-                  <input type="checkbox" id="4" name="ct" className="ct-input" onClick={handleClick} />
-                  <label for="4" className="ct-label">E</label>
-                </div>
-                <div className="ct-container">
-                  <input type="checkbox" id="5" name="ct" className="ct-input" onClick={handleClick}/>
-                  <label for="5" className="ct-label">F</label>
-                </div>
-                <div className="ct-container">
-                  <input type="checkbox" id="6" name="ct" className="ct-input" onClick={handleClick}/>
-                  <label for="6" className="ct-label">F#</label>
-                </div>
-                <div className="ct-container">
-                  <input type="checkbox" id="7" name="ct" className="ct-input" onClick={handleClick}/>
-                  <label for="7" className="ct-label">G</label>
-                </div>
-                <div className="ct-container">
-                  <input type="checkbox" id="8" name="ct" className="ct-input" onClick={handleClick}/>
-                  <label for="8" className="ct-label">G#</label>
-                </div>
-                <div className="ct-container">
-                  <input type="checkbox" id="9" name="ct" className="ct-input" onClick={handleClick}/>
-                  <label for="9" className="ct-label">A</label>
-                </div>
-                <div className="ct-container">
-                  <input type="checkbox" id="10" name="ct" className="ct-input" onClick={handleClick}/>
-                  <label for="10" className="ct-label">A#</label>
-                </div>
-                <div className="ct-container">
-                  <input type="checkbox" id="11" name="ct" className="ct-input" onClick={handleClick}/>
-                  <label for="11" className="ct-label">B</label>
-                </div>
+                {chordTones.map((isChecked, index) => (
+                  <div className="ct-container">
+                  <input type="checkbox" id={index} name="ct" className="ct-input" checked={isChecked} onClick={handleClick}/>
+                  <label for="0" className="ct-label">{names[index]}</label>
+                  </div>
+                ))}
+              
               </div>
-                
-              
-              
-        </div>
-  
+      </div>
+
+    )
+
         
   
-      )
     
 }
   
