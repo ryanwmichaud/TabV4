@@ -4,7 +4,6 @@ const ChordToneInput = ({ chordTones, removeChordTone, addChordTone }) => {
 
 
     const handleClick = (e) => {
-      //let box = e.target
       let index = e.target.id
       if(chordTones[index] === true){
        removeChordTone(index)      

@@ -43,6 +43,8 @@ bruteforce is better than keeptrack
 preprocessing makes both faster - about the same - cant say which is better.
 seems to hold for big and small practical numbers of chord tones and strings
 
+using slice?
+
 
 FRONT END
 
@@ -59,9 +61,11 @@ FEATURES
 
 no string skips
 bass note 
-doubling
+doubling. minimum --> what can I add
 toggle enharmic equivalents
 toggle box w text or string w circle note view?
 drop down to view notes names or scale degree view w any given root
 position markers. could be customizable
 only choose certain string sets to look at - tuning select ignore!
+
+use chord qulaities as well as cts

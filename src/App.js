@@ -76,12 +76,38 @@ const App = () =>{
   const [res, setRes] = useState(null)
   const [error, setError] = useState(null)
 
+  const [isMobileView, setisMobileView] = useState(false);
+  const [isMobileMenuVisible, setIsMobileMenuVisible] = useState(false);
+
+
   useEffect(() =>{
-    console.log("effect")
     handlePostRequest()
   }, [chordTones,strings, stretch])
 
+  useEffect(() => {
 
+    const handleResize = () => {
+      console.log()
+      const vh = window.innerHeight * 0.01 //calc vh accounting for mobile toolbars
+      document.documentElement.style.setProperty('--vh', `${vh}px`)
+
+      if (window.innerWidth < 620) {
+        setisMobileView(false)
+      } else {
+        setisMobileView(true)
+      }
+    }
+
+    handleResize()
+
+    window.addEventListener('resize', handleResize)
+    window.addEventListener('orientationchange', handleResize)
+
+    return () => {  //clean up
+      window.removeEventListener('resize', handleResize)
+      window.removeEventListener('orientationchange', handleResize)
+    }
+  }, [])
 
   const handlePostRequest = () => { //call from top level not input section
     
@@ -122,7 +148,6 @@ const App = () =>{
     setStretch(value)
   }
 
-
   const addChordTone = (index) => {
     //const newChordTones = chordTones.map((value, i) => (i === index ? true : value)); //if i is the index, make it true, else keep it
     setChordTones(prev => {
@@ -133,7 +158,6 @@ const App = () =>{
     })
   }
 
-  
   const removeChordTone = (index) => {
     setChordTones(prev => {
       let newChordTones = prev.slice()
@@ -141,7 +165,6 @@ const App = () =>{
       return newChordTones
     })
   }
-
 
   const changeNumStrings = (n) => {
     setNumStringSelects(n)
@@ -153,8 +176,12 @@ const App = () =>{
   }
 
   const changeOpen = (index, newOpen) => { 
-    const newStrings = strings.map((string, i) => (i === index ? newOpen : string)) //if i is the target string, make it the new open value, else keep it
-    setstrings(newStrings)
+    
+    setstrings(prevStrings =>{
+      const newStrings = prevStrings.slice()
+      prevStrings[index] = newOpen
+      return newStrings
+    })
   }
 
   
@@ -163,15 +190,24 @@ const App = () =>{
       <div className="app">
         <header className="app-header">  
           <p>
-            Fretbchord Explchorder
+          {!isMobileView && 
+          <button className='toggle-menu' 
+          onClick={() => {
+            setIsMobileMenuVisible(!isMobileMenuVisible)}
+          }>
+                   </button>  
+          }  
+          Fretbchord Explchorder
           </p>
-      
         </header>
 
 
-        <div className="main">
-          <div className='input'>
-            <InputSection 
+        <div className="main"> 
+
+
+          {isMobileView &&<
+          div className='input'> 
+             <InputSection 
               chordTones={chordTones} 
               stretch={stretch}
               strings={strings}
@@ -184,6 +220,23 @@ const App = () =>{
             >
             </InputSection>
           </div>
+          }
+          {!isMobileView &&  isMobileMenuVisible && 
+          <div className='mobile-input'> 
+             <InputSection 
+              chordTones={chordTones} 
+              stretch={stretch}
+              strings={strings}
+              changeStretch={changeStretch} 
+              addChordTone={addChordTone}
+              removeChordTone={removeChordTone}
+              changeOpen={changeOpen}
+              changeNumStrings={changeNumStrings}
+              n={numStringSelects}
+            >
+            </InputSection>
+          </div>
+          }
           <div className="results"> 
             <ResultsSection
               chordTones={chordTones} 
