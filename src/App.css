@@ -20,13 +20,9 @@
   height: calc(var(--vh, 1vh) * 15);
 
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
-
-
-  font-size:3rem;
-  font-weight: bold;
-  color: white;
+  align-items: center;
 
   box-sizing: border-box;
   border-style: solid;
@@ -38,10 +34,28 @@
 
 }
 
-.toggle-menu{
-  height: 50px;
-  width: 50px;
+.title{
+  font-size: 6dvw;
+  font-weight: bold;
+  color: white;
+
+  flex: 1;
+  text-align: center; /* Center text within its flex item */
+  margin: 0; /* Reset margin if needed */
 }
+
+.app-header .toggle-menu{
+  position: absolute;
+  left: 0; /* Align the button to the left */
+  background-color: blue;
+
+}
+
+.toggle-menu{
+  width: 45px;
+  height: 45px;
+}
+
 
 
 
@@ -74,6 +88,8 @@
 }
 
 .mobile-input{
+  display: flex;
+  flex-direction: column;
   opacity: 80%;
   padding-top: 5%;
   background-color: var(--input-secondary-color);
@@ -87,10 +103,12 @@
   overflow-x: hidden;
 
 }
+.mobile-input .toggle-menu{
 
-.toggle-menu{
-  float: left;
+background-color: red;
 }
+
+
 
 .results{
 

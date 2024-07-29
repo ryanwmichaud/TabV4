@@ -3,8 +3,14 @@ import {Diagram} from './Diagram.js';
 import { ChordToneInput } from './ChordTone';
 import { StretchInput } from './Stretch';
 import { StringInput,  } from './String';
+import {MenuButton} from './MenuButton';
 import React, { useEffect, useState } from 'react';
+
+
 const ip = process.env.REACT_APP_IP;
+
+
+
 
 const InputSection = ({changeStretch, changeNumStrings, addChordTone, removeChordTone, changeOpen, stretch, strings, chordTones, n}) => {
   
@@ -192,12 +198,12 @@ const App = () =>{
 
       {!isMobileView &&  isMobileMenuVisible && 
           <div className='mobile-input'> 
-            <button className='toggle-menu' 
-            onClick={() => {
-              setIsMobileMenuVisible(!isMobileMenuVisible)}
-            }>
-            </button> 
-             <InputSection 
+            <MenuButton 
+              isMobileMenuVisible={isMobileMenuVisible} 
+              setIsMobileMenuVisible={setIsMobileMenuVisible} 
+            >
+            </MenuButton>
+            <InputSection 
               chordTones={chordTones} 
               stretch={stretch}
               strings={strings}
@@ -211,15 +217,17 @@ const App = () =>{
             </InputSection>
           </div>
           }
-        <header className="app-header">  
-          <p>
-          {!isMobileView && !isMobileMenuVisible &&
-          <button className='toggle-menu' 
-          onClick={() => {
-            setIsMobileMenuVisible(!isMobileMenuVisible)}
-          }>
-                   </button>  
-          }  
+        <header className="app-header">
+        {
+          !isMobileView && !isMobileMenuVisible &&  
+          <MenuButton 
+              isMobileMenuVisible={isMobileMenuVisible} 
+              setIsMobileMenuVisible={setIsMobileMenuVisible} 
+            >
+          </MenuButton>
+
+          }    
+          <p className="title">
           Fretbchord Explchorder
           </p>
         </header>
