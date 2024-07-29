@@ -188,9 +188,32 @@ const App = () =>{
 
   return (
       <div className="app">
+
+
+      {!isMobileView &&  isMobileMenuVisible && 
+          <div className='mobile-input'> 
+            <button className='toggle-menu' 
+            onClick={() => {
+              setIsMobileMenuVisible(!isMobileMenuVisible)}
+            }>
+            </button> 
+             <InputSection 
+              chordTones={chordTones} 
+              stretch={stretch}
+              strings={strings}
+              changeStretch={changeStretch} 
+              addChordTone={addChordTone}
+              removeChordTone={removeChordTone}
+              changeOpen={changeOpen}
+              changeNumStrings={changeNumStrings}
+              n={numStringSelects}
+            >
+            </InputSection>
+          </div>
+          }
         <header className="app-header">  
           <p>
-          {!isMobileView && 
+          {!isMobileView && !isMobileMenuVisible &&
           <button className='toggle-menu' 
           onClick={() => {
             setIsMobileMenuVisible(!isMobileMenuVisible)}
@@ -221,22 +244,7 @@ const App = () =>{
             </InputSection>
           </div>
           }
-          {!isMobileView &&  isMobileMenuVisible && 
-          <div className='mobile-input'> 
-             <InputSection 
-              chordTones={chordTones} 
-              stretch={stretch}
-              strings={strings}
-              changeStretch={changeStretch} 
-              addChordTone={addChordTone}
-              removeChordTone={removeChordTone}
-              changeOpen={changeOpen}
-              changeNumStrings={changeNumStrings}
-              n={numStringSelects}
-            >
-            </InputSection>
-          </div>
-          }
+          
           <div className="results"> 
             <ResultsSection
               chordTones={chordTones} 
