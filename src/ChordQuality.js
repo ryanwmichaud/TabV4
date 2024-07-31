@@ -21,7 +21,7 @@ const ChordQuality = ({ chordTones, removeChordTone, addChordTone, root, quality
     <div className="chord-quality"> 
             <legend>Chord Quality: </legend>
             <div className= "chord-quality-section">
-            <select  aria-label="chord root select" id="root-select" className="root-select"  onChange={handleChange} > 
+            <select id="root-select" className="root-select"  onChange={handleChange} value={root} aria-label="chord root select"> 
               <option value={"Select"}> Select </option>
               <option value={"A"}> A </option>
               <option value={"A#"}> A# </option>
@@ -37,7 +37,7 @@ const ChordQuality = ({ chordTones, removeChordTone, addChordTone, root, quality
               <option value={"G#"}> G# </option>
             </select>
 
-            <select  aria-label="chord quality select" id="quality-select" className="quality-select"  onChange={handleChange} > 
+            <select id="quality-select" className="quality-select"  onChange={handleChange} value={quality}  aria-label="chord quality select" > 
                 <option value={"Select"}> Select </option>
                 <option value={"Major"}> Major </option>
                 <option value={"Minor"}> Minor </option>

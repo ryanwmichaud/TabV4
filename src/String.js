@@ -55,7 +55,7 @@ const StringInput = ({changeNumStrings, changeOpen, n, strings}) => {
 
     return(
         <div >
-            <select  aria-label={name} className="stringselect"  id={name} onChange={handleChange} value={displayed}> 
+            <select className="stringselect"  id={name} onChange={handleChange} value={displayed} aria-label={name}> 
               
               <option value={"A"}> A </option>
               <option value={"A#"}> A# </option>
