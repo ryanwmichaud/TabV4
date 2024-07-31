@@ -9,20 +9,33 @@ import { ChordQuality } from './ChordQuality.js';
 
 
 const ip = process.env.REACT_APP_IP;
-const names = ["C","C#","D","D#","E","F","F#","G","G#","A","A#","B"]
+
+const nameMap = Object.freeze({
+  "C":0,
+  "C#":1,
+  "D":2,
+  "D#":3,
+  "E":4,
+  "F":5,
+  "F#":6,
+  "G":7,
+  "G#":8,
+  "A":9,
+  "A#":10,
+  "B":11
+})
 
 
 
-
-
-const InputSection = ({changeStretch, changeNumStrings, addChordTone, removeChordTone, changeOpen, stretch, strings, chordTones, n, changeQuality}) => {
+const InputSection = ({changeStretch, changeNumStrings, addChordTone, removeChordTone, changeOpen, stretch, strings, chordTones, n, root, quality, setRoot, setQuality}) => {
   
   return(
       <div >
         <div className='input-title'> Input: </div>
         <StretchInput changeStretch={changeStretch} stretch={stretch}></StretchInput>
+        <button className='toggle-chordtone-mode'></button>
         <ChordToneInput addChordTone={addChordTone} removeChordTone={removeChordTone} chordTones={chordTones}></ChordToneInput>
-        <ChordQuality  addChordTone={addChordTone} removeChordTone={removeChordTone} chordTones={chordTones} changeQuality={changeQuality}></ChordQuality>
+        <ChordQuality  addChordTone={addChordTone} removeChordTone={removeChordTone} chordTones={chordTones} root={root} quality={quality} setRoot={setRoot} setQuality={setQuality}></ChordQuality>
         <StringInput strings={strings} n={n} changeNumStrings={changeNumStrings} changeOpen={changeOpen}></StringInput>
       </div>
       
@@ -83,8 +96,9 @@ const App = () =>{
   const [strings, setstrings] = useState(["E","A","D","G","B","E"])
   const [chordTones, setChordTones] = useState([false,false,false,false,false,false,false,false,false,false,false,false])
   const [root, setRoot] = useState(null)
-
+  const [quality, setQuality] = useState(null)
   const [numStringSelects, setNumStringSelects] = useState(6)
+  
   const [res, setRes] = useState(null)
   const [error, setError] = useState(null)
 
@@ -92,10 +106,13 @@ const App = () =>{
   const [isMobileMenuVisible, setIsMobileMenuVisible] = useState(false);
 
 
+
+  //resend new req
   useEffect(() =>{
     handlePostRequest()
   }, [chordTones,strings, stretch])
 
+  //get height
   useEffect(() => {
 
     const handleResize = () => {
@@ -120,6 +137,33 @@ const App = () =>{
       window.removeEventListener('orientationchange', handleResize)
     }
   }, [])
+
+  //change chord, checkboxes update
+  useEffect(()=>{
+    console.log(root, quality)
+    let newChordTones = [false,false,false,false,false,false,false,false,false,false,false,false]
+    const rootIndex = nameMap[root]
+    newChordTones[rootIndex] = true
+    
+    if(quality==="Minor"){
+      newChordTones[(rootIndex+3)%12] = true
+      newChordTones[(rootIndex+7)%12] = true
+    }
+    if(quality==="Major"){
+      newChordTones[(rootIndex+4)%12] = true
+      newChordTones[(rootIndex+7)%12] = true
+    }
+    if(quality==="Diminished"){
+      newChordTones[(rootIndex+3)%12] = true
+      newChordTones[(rootIndex+6)%12] = true
+    }
+    if(quality==="Augmented"){
+      newChordTones[(rootIndex+4)%12] = true
+      newChordTones[(rootIndex+8)%12] = true
+
+    }
+    setChordTones(newChordTones)
+  }, [root, quality])
 
   const handlePostRequest = () => { //call from top level not input section
     
@@ -170,14 +214,6 @@ const App = () =>{
     })
   }
 
-  const changeQuality = (root, quality) => {
-    //const newChordTones = chordTones.map((value, i) => (i === index ? true : value)); //if i is the index, make it true, else keep it
-    setChordTones(prev => {
-      //set the cts according to input
-      return([true,false,false,false,false,false,false,false,false,false,false,false,])
-
-    })
-  }
 
   const removeChordTone = (index) => {
     setChordTones(prev => {
@@ -225,7 +261,10 @@ const App = () =>{
               changeStretch={changeStretch} 
               addChordTone={addChordTone}
               removeChordTone={removeChordTone}
-              changeQuality={changeQuality}
+              root={root}
+              quality={quality}
+              setRoot={setRoot}
+              setQuality={setQuality}
               changeOpen={changeOpen}
               changeNumStrings={changeNumStrings}
               n={numStringSelects}
@@ -263,7 +302,12 @@ const App = () =>{
               removeChordTone={removeChordTone}
               changeOpen={changeOpen}
               changeNumStrings={changeNumStrings}
+              root={root}
+              quality={quality}
+              setRoot={setRoot}
+              setQuality={setQuality}
               n={numStringSelects}
+              
             >
             </InputSection>
           </div>

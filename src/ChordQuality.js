@@ -1,16 +1,11 @@
 import React, { useEffect, useState } from "react"
 
-const ChordQuality = ({ chordTones, removeChordTone, addChordTone, changeQuality }) => {
+const ChordQuality = ({ chordTones, removeChordTone, addChordTone, root, quality, setRoot, setQuality }) => {
 
     const names = ["C","C#","D","D#","E","F","F#","G","G#","A","A#","B"]
 
-    const [root, setRoot] = useState(null)
-    const [quality, setQuality] = useState(null)
 
-    useEffect(() =>{
-        console.log(root, quality)
-        changeQuality(root, quality)
-      }, [root, quality])
+
 
 
     const handleChange = (e) => {

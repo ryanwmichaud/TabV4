@@ -1,6 +1,6 @@
 //import { toBeRequired } from "@testing-library/jest-dom/matchers"
 const names = ["C","C#","D","D#","E","F","F#","G","G#","A","A#","B"]
-let nameMap = Object.freeze({
+const nameMap = Object.freeze({
     "C":0,
     "C#":1,
     "D":2,
