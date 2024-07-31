@@ -22,7 +22,7 @@ const ChordToneInput = ({ chordTones, removeChordTone, addChordTone }) => {
             <div className= "ct-boxes">
               {chordTones.map((isChecked, index) => (
                 <div className="ct-container" key={`${index}`}>
-                <input type="checkbox" id={index} name="ct" className="ct-input" defaultChecked={isChecked} onClick={handleClick}/>
+                <input type="checkbox" id={index} name="ct" className="ct-input"  checked={chordTones[index]} onChange={handleClick}/>
                 <label for={`${index}`} className="ct-label">{names[index]}</label>
                 </div>
               ))}

@@ -95,8 +95,8 @@ const App = () =>{
   const [stretch, setStretch] = useState(4)
   const [strings, setstrings] = useState(["E","A","D","G","B","E"])
   const [chordTones, setChordTones] = useState([false,false,false,false,false,false,false,false,false,false,false,false])
-  const [root, setRoot] = useState(null)
-  const [quality, setQuality] = useState(null)
+  const [root, setRoot] = useState("")
+  const [quality, setQuality] = useState("")
   const [numStringSelects, setNumStringSelects] = useState(6)
   
   const [res, setRes] = useState(null)
