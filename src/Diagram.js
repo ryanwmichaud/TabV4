@@ -1,6 +1,9 @@
 
 import React from 'react'
 
+const accidentals = ["C#","D#","F#","G#","A#"]
+
+
   
 const Box = ({ text }) => {
   return (
@@ -11,12 +14,29 @@ const Box = ({ text }) => {
   )
 }
   
-const Row = ({stretch, rowData}) => {
+const Row = ({stretch, rowData, Ab, Bb, Db, Eb, Gb}) => {
 
   let boxes = [];
   for(let i=0;i<stretch;i++){
+    let noteName = rowData[1]
+    //console.log(noteName, Db)
+    if(noteName==="C#" && Db){
+      noteName = "Db"      
+    }
+    if(noteName==="D#" && Eb){
+      noteName = "Eb"      
+    }
+    if(noteName==="F#" && Gb){
+      noteName = "Gb"      
+    }
+    if(noteName==="G#" && Ab){
+      noteName = "Ab"      
+    }
+    if(noteName==="A#" && Bb){
+      noteName = "Bb"      
+    }
     if(i === rowData[0]){  //if ct is there, add it. else blank box
-      boxes = boxes.concat(<Box text={rowData[1]} key={i}></Box>);
+      boxes = boxes.concat(<Box text={noteName} key={i}></Box>);
     }else{
       boxes = boxes.concat(<Box text="" key={i}></Box>);
     }
@@ -30,11 +50,11 @@ const Row = ({stretch, rowData}) => {
 }
   
 
-const Diagram = ({diagram_data, stretch}) => {
+const Diagram = ({diagram_data, stretch, Ab, Bb, Db, Eb, Gb}) => {
     
     let rows = [];
     for(let i=1; i<diagram_data.length;i++){
-      rows = rows.concat(<Row stretch={stretch} rowData={diagram_data[i]} key={i}></Row>)
+      rows = rows.concat(<Row stretch={stretch} rowData={diagram_data[i]} key={i} Ab={Ab} Bb={Bb} Db={Db} Eb={Eb} Gb={Gb}></Row>)
     }
   
     return(

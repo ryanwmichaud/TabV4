@@ -3,6 +3,7 @@ import {Diagram} from './Diagram.js';
 import { ChordToneInput } from './ChordTone';
 import { StretchInput } from './Stretch';
 import { StringInput,  } from './String';
+import { Options } from './Options.js';
 import {MenuButton} from './MenuButton';
 import React, { useEffect, useState } from 'react';
 import { ChordQuality } from './ChordQuality.js';
@@ -27,7 +28,7 @@ const nameMap = Object.freeze({
 
 
 
-const InputSection = ({changeStretch, changeNumStrings, addChordTone, removeChordTone, changeOpen, stretch, strings, chordTones, n, root, quality, setRoot, setQuality}) => {
+const InputSection = ({changeStretch, changeNumStrings, addChordTone, removeChordTone, changeOpen, stretch, strings, chordTones, n, root, quality, setRoot, setQuality, setAb, setBb, setDb, setEb, setGb, Ab, Bb, Db, Eb, Gb}) => {
   
   return(
       <div >
@@ -37,13 +38,14 @@ const InputSection = ({changeStretch, changeNumStrings, addChordTone, removeChor
         <ChordToneInput addChordTone={addChordTone} removeChordTone={removeChordTone} chordTones={chordTones}></ChordToneInput>
         <ChordQuality  addChordTone={addChordTone} removeChordTone={removeChordTone} chordTones={chordTones} root={root} quality={quality} setRoot={setRoot} setQuality={setQuality}></ChordQuality>
         <StringInput strings={strings} n={n} changeNumStrings={changeNumStrings} changeOpen={changeOpen}></StringInput>
+        <Options setAb={setAb} setBb={setBb} setDb={setDb} setEb={setEb} setGb={setGb} Ab={Ab} Bb={Bb} Db={Db} Eb={Eb} Gb={Gb}></Options>
       </div>
       
   )
   
 }
 
-const ResultsSection = ({res, stretch, strings, chordTones, error}) => {
+const ResultsSection = ({res, stretch, strings, chordTones, error, Ab, Bb, Db, Eb, Gb}) => {
 
   let data = res;
 
@@ -64,7 +66,7 @@ const ResultsSection = ({res, stretch, strings, chordTones, error}) => {
     
 
     for(let i=0;i<data.length;i++){
-      diagrams = diagrams.concat(<Diagram stretch={stretch} diagram_data={data[i]} key={i}/>);
+      diagrams = diagrams.concat(<Diagram stretch={stretch} diagram_data={data[i]} key={i} Ab={Ab} Bb={Bb} Db={Db} Eb={Eb} Gb={Gb}/>);
     }
     
     if(diagrams.length === 0){
@@ -104,6 +106,15 @@ const App = () =>{
 
   const [isMobileView, setisMobileView] = useState(false);
   const [isMobileMenuVisible, setIsMobileMenuVisible] = useState(false);
+
+  const [Db, setDb] = useState(false)
+  const [Eb, setEb] = useState(false)
+  const [Gb, setGb] = useState(false)
+  const [Ab, setAb] = useState(false)
+  const [Bb, setBb] = useState(false)
+
+
+
 
 
 
@@ -242,8 +253,9 @@ const App = () =>{
   }
 
   
-
+  
   return (
+    
       <div className="app">
 
 
@@ -268,6 +280,8 @@ const App = () =>{
               changeOpen={changeOpen}
               changeNumStrings={changeNumStrings}
               n={numStringSelects}
+              setAb={setAb} setBb={setBb} setDb={setDb} setEb={setEb} setGb={setGb}
+              Ab={Ab} Bb={Bb} Db={Db} Eb={Eb} Gb={Gb}
             >
             </InputSection>
           </div>
@@ -307,7 +321,8 @@ const App = () =>{
               setRoot={setRoot}
               setQuality={setQuality}
               n={numStringSelects}
-              
+              setAb={setAb} setBb={setBb} setDb={setDb} setEb={setEb} setGb={setGb}
+              Ab={Ab} Bb={Bb} Db={Db} Eb={Eb} Gb={Gb}
             >
             </InputSection>
           </div>
@@ -320,6 +335,7 @@ const App = () =>{
               strings={strings}
               res={res} 
               error={error}
+              Ab={Ab} Bb={Bb} Db={Db} Eb={Eb} Gb={Gb}
             >
             </ResultsSection>
           </div>
