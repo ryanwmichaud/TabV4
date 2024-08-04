@@ -72,3 +72,4 @@ use chord qulaities as well as cts
 
 
 enahrmoincic toggle can cahnge the ct lables too. 
+enharms could be an array of bools tomake simpler. 

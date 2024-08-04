@@ -29,7 +29,6 @@ const nameMap = Object.freeze({
 
 
 const InputSection = ({changeStretch, changeNumStrings, addChordTone, removeChordTone, changeOpen, stretch, strings, chordTones, n, root, quality, setRoot, setQuality, setAb, setBb, setDb, setEb, setGb, enharmonics}) => {
-  console.log(enharmonics, "inp")
   return(
       <div >
         <div className='input-title'> Input: </div>
@@ -46,7 +45,6 @@ const InputSection = ({changeStretch, changeNumStrings, addChordTone, removeChor
 }
 
 const ResultsSection = ({res, stretch, strings, chordTones, error, enharmonics}) => {
-  console.log(enharmonics)
 
   let data = res;
 
@@ -130,7 +128,6 @@ const App = () =>{
   useEffect(() => {
 
     const handleResize = () => {
-      console.log()
       const vh = window.innerHeight * 0.01 //calc vh accounting for mobile toolbars
       document.documentElement.style.setProperty('--vh', `${vh}px`)
 
@@ -154,7 +151,6 @@ const App = () =>{
 
   //change chord, checkboxes update
   useEffect(()=>{
-    console.log(root, quality)
     let newChordTones = [false,false,false,false,false,false,false,false,false,false,false,false]
     const rootIndex = nameMap[root]
     newChordTones[rootIndex] = true

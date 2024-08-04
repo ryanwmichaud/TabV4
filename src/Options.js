@@ -1,18 +1,23 @@
 
 import React from "react";
 
-const names = ["C#/Db","D#/Eb","F#/Gb","G#/Ab","A#/Bb"]
-const sharpNames = ["C#","D#","F#","G#","A#"]
-const flatNames = ["Db","Eb","Gb","Ab","Bb"]
+const names = ["G#/Ab","A#/Bb","C#/Db","D#/Eb","F#/Gb"]
+const sharpNames = ["G#","A#","C#","D#","F#"]
+const flatNames = ["Ab","Bb", "Db","Eb","Gb"]
 
 
 
 
 
 const Options = ({setAb, setBb, setDb, setEb, setGb, enharmonics })=>{
-    console.log(enharmonics)
 
     const handleClick = (e)=>{
+        if(e.target.name === "G#/Ab"){
+            setAb(!enharmonics[0])
+        }
+        if(e.target.name === "A#/Bb"){
+            setBb(!enharmonics[1])
+        }
         if(e.target.name === "C#/Db"){
             setDb(!enharmonics[2])
         }
@@ -22,12 +27,7 @@ const Options = ({setAb, setBb, setDb, setEb, setGb, enharmonics })=>{
         if(e.target.name === "F#/Gb"){
             setGb(!enharmonics[4])
         }
-        if(e.target.name === "G#/Ab"){
-            setAb(!enharmonics[0])
-        }
-        if(e.target.name === "A#/Bb"){
-            setBb(!enharmonics[1])
-        }
+        
     }
 
     return(
@@ -38,7 +38,7 @@ const Options = ({setAb, setBb, setDb, setEb, setGb, enharmonics })=>{
                 {names.map((noteName,index)=>(
                     <div className="enharmonic-box-container" key={index}>
                         <input type="button" name={noteName} className="enharmonic-box" onClick={handleClick}/>
-                        <label for={noteName} className="enharmonic-label">{noteName}</label>
+                        <label htmlFor={noteName} className="enharmonic-label">{enharmonics[index] ? flatNames[index] : sharpNames[index]}</label>
                     </div>
 
                 ))}

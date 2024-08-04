@@ -21,7 +21,7 @@ const StringInput = ({changeNumStrings, changeOpen, n, strings}) => {
     return( 
     <div className="string-input">
       <div>
-          <label for="num-strings-select"> 
+          <label htmlFor="num-strings-select"> 
               Number of Strings:
           </label>
           <select id="num-strings-select" value={n} onChange={handleNumStringsChange}>
