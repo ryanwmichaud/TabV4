@@ -34,13 +34,9 @@ const Options = ({setAb, setBb, setDb, setEb, setGb, enharmonics })=>{
         <div className="options-section">
             <legend>Enharmonics: </legend>
             <div className= "enharmonic-boxes">
-            
                 {names.map((noteName,index)=>(
-                    <div className="enharmonic-box-container" key={index}>
-                        <input type="button" name={noteName} className="enharmonic-box" onClick={handleClick}/>
-                        <label htmlFor={noteName} className="enharmonic-label">{enharmonics[index] ? flatNames[index] : sharpNames[index]}</label>
-                    </div>
-
+                        <button name={noteName} className="enharmonic-box" onClick={handleClick}>{enharmonics[index] ? flatNames[index] : sharpNames[index]}</button>
+                    
                 ))}
             </div>
               

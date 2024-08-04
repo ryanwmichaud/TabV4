@@ -88,9 +88,9 @@
 }
 
 .mobile-input{
-  display: flex;
-  flex-direction: column;
+ 
   opacity: 80%;
+  
   padding-top: 5%;
   background-color: var(--input-secondary-color);
   color: var(--input-primary-color);
