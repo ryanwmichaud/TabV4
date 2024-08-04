@@ -69,3 +69,6 @@ position markers. could be customizable
 only choose certain string sets to look at - tuning select ignore!
 
 use chord qulaities as well as cts
+
+
+enahrmoincic toggle can cahnge the ct lables too. 

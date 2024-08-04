@@ -28,8 +28,8 @@ const nameMap = Object.freeze({
 
 
 
-const InputSection = ({changeStretch, changeNumStrings, addChordTone, removeChordTone, changeOpen, stretch, strings, chordTones, n, root, quality, setRoot, setQuality, setAb, setBb, setDb, setEb, setGb, Ab, Bb, Db, Eb, Gb}) => {
-  
+const InputSection = ({changeStretch, changeNumStrings, addChordTone, removeChordTone, changeOpen, stretch, strings, chordTones, n, root, quality, setRoot, setQuality, setAb, setBb, setDb, setEb, setGb, enharmonics}) => {
+  console.log(enharmonics, "inp")
   return(
       <div >
         <div className='input-title'> Input: </div>
@@ -38,14 +38,15 @@ const InputSection = ({changeStretch, changeNumStrings, addChordTone, removeChor
         <ChordToneInput addChordTone={addChordTone} removeChordTone={removeChordTone} chordTones={chordTones}></ChordToneInput>
         <ChordQuality  addChordTone={addChordTone} removeChordTone={removeChordTone} chordTones={chordTones} root={root} quality={quality} setRoot={setRoot} setQuality={setQuality}></ChordQuality>
         <StringInput strings={strings} n={n} changeNumStrings={changeNumStrings} changeOpen={changeOpen}></StringInput>
-        <Options setAb={setAb} setBb={setBb} setDb={setDb} setEb={setEb} setGb={setGb} Ab={Ab} Bb={Bb} Db={Db} Eb={Eb} Gb={Gb}></Options>
+        <Options setAb={setAb} setBb={setBb} setDb={setDb} setEb={setEb} setGb={setGb} enharmonics={enharmonics}></Options>
       </div>
       
   )
   
 }
 
-const ResultsSection = ({res, stretch, strings, chordTones, error, Ab, Bb, Db, Eb, Gb}) => {
+const ResultsSection = ({res, stretch, strings, chordTones, error, enharmonics}) => {
+  console.log(enharmonics)
 
   let data = res;
 
@@ -66,7 +67,7 @@ const ResultsSection = ({res, stretch, strings, chordTones, error, Ab, Bb, Db, E
     
 
     for(let i=0;i<data.length;i++){
-      diagrams = diagrams.concat(<Diagram stretch={stretch} diagram_data={data[i]} key={i} Ab={Ab} Bb={Bb} Db={Db} Eb={Eb} Gb={Gb}/>);
+      diagrams = diagrams.concat(<Diagram stretch={stretch} diagram_data={data[i]} key={i} enharmonics={enharmonics}/>);
     }
     
     if(diagrams.length === 0){
@@ -112,6 +113,8 @@ const App = () =>{
   const [Gb, setGb] = useState(false)
   const [Ab, setAb] = useState(false)
   const [Bb, setBb] = useState(false)
+  let enharmonics = [Ab,Bb,Db,Eb,Gb]
+
 
 
 
@@ -281,7 +284,7 @@ const App = () =>{
               changeNumStrings={changeNumStrings}
               n={numStringSelects}
               setAb={setAb} setBb={setBb} setDb={setDb} setEb={setEb} setGb={setGb}
-              Ab={Ab} Bb={Bb} Db={Db} Eb={Eb} Gb={Gb}
+              enharmonics = {enharmonics}
             >
             </InputSection>
           </div>
@@ -322,7 +325,8 @@ const App = () =>{
               setQuality={setQuality}
               n={numStringSelects}
               setAb={setAb} setBb={setBb} setDb={setDb} setEb={setEb} setGb={setGb}
-              Ab={Ab} Bb={Bb} Db={Db} Eb={Eb} Gb={Gb}
+              enharmonics = {enharmonics}
+
             >
             </InputSection>
           </div>
@@ -335,7 +339,7 @@ const App = () =>{
               strings={strings}
               res={res} 
               error={error}
-              Ab={Ab} Bb={Bb} Db={Db} Eb={Eb} Gb={Gb}
+              enharmonics={enharmonics}
             >
             </ResultsSection>
           </div>

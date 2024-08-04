@@ -14,25 +14,25 @@ const Box = ({ text }) => {
   )
 }
   
-const Row = ({stretch, rowData, Ab, Bb, Db, Eb, Gb}) => {
+const Row = ({stretch, rowData, enharmonics}) => {
 
   let boxes = [];
   for(let i=0;i<stretch;i++){
     let noteName = rowData[1]
     //console.log(noteName, Db)
-    if(noteName==="C#" && Db){
+    if(noteName==="C#" && enharmonics[2]){
       noteName = "Db"      
     }
-    if(noteName==="D#" && Eb){
+    if(noteName==="D#" && enharmonics[3]){
       noteName = "Eb"      
     }
-    if(noteName==="F#" && Gb){
+    if(noteName==="F#" && enharmonics[4]){
       noteName = "Gb"      
     }
-    if(noteName==="G#" && Ab){
+    if(noteName==="G#" && enharmonics[0]){
       noteName = "Ab"      
     }
-    if(noteName==="A#" && Bb){
+    if(noteName==="A#" && enharmonics[1]){
       noteName = "Bb"      
     }
     if(i === rowData[0]){  //if ct is there, add it. else blank box
@@ -50,11 +50,11 @@ const Row = ({stretch, rowData, Ab, Bb, Db, Eb, Gb}) => {
 }
   
 
-const Diagram = ({diagram_data, stretch, Ab, Bb, Db, Eb, Gb}) => {
+const Diagram = ({diagram_data, stretch, enharmonics}) => {
     
     let rows = [];
     for(let i=1; i<diagram_data.length;i++){
-      rows = rows.concat(<Row stretch={stretch} rowData={diagram_data[i]} key={i} Ab={Ab} Bb={Bb} Db={Db} Eb={Eb} Gb={Gb}></Row>)
+      rows = rows.concat(<Row stretch={stretch} rowData={diagram_data[i]} key={i} enharmonics={enharmonics}></Row>)
     }
   
     return(

@@ -2,26 +2,31 @@
 import React from "react";
 
 const names = ["C#/Db","D#/Eb","F#/Gb","G#/Ab","A#/Bb"]
+const sharpNames = ["C#","D#","F#","G#","A#"]
+const flatNames = ["Db","Eb","Gb","Ab","Bb"]
 
 
 
-const Options = ({setAb, setBb, setDb, setEb, setGb, Ab, Bb, Db, Eb, Gb })=>{
+
+
+const Options = ({setAb, setBb, setDb, setEb, setGb, enharmonics })=>{
+    console.log(enharmonics)
 
     const handleClick = (e)=>{
         if(e.target.name === "C#/Db"){
-            setDb(!Db)
+            setDb(!enharmonics[2])
         }
         if(e.target.name === "D#/Eb"){
-            setEb(!Eb)
+            setEb(!enharmonics[3])
         }
         if(e.target.name === "F#/Gb"){
-            setGb(!Gb)
+            setGb(!enharmonics[4])
         }
         if(e.target.name === "G#/Ab"){
-            setAb(!Ab)
+            setAb(!enharmonics[0])
         }
         if(e.target.name === "A#/Bb"){
-            setBb(!Bb)
+            setBb(!enharmonics[1])
         }
     }
 
