@@ -29,7 +29,6 @@ const nameMap = Object.freeze({
 
 
 const InputSection = ({changeStretch, changeNumStrings, addChordTone, removeChordTone, changeOpen, stretch, strings, chordTones, n, root, quality, setRoot, setQuality, setAb, setBb, setDb, setEb, setGb, enharmonics}) => {
-  console.log(enharmonics)
   return(
       <div >
         <div className='input-title'> Input: </div>
@@ -132,7 +131,7 @@ const App = () =>{
       const vh = window.innerHeight * 0.01 //calc vh accounting for mobile toolbars
       document.documentElement.style.setProperty('--vh', `${vh}px`)
 
-      if (window.innerWidth < 620) {
+      if (window.innerWidth < 800) {
         setisMobileView(false)
       } else {
         setisMobileView(true)

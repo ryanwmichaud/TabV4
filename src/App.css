@@ -149,12 +149,18 @@ background-color: red;
   accent-color: var(--primary-color);
 }
 
-.root-select{
-  
+.options-section{
+  margin-bottom: 50px;
 }
-.quality-select{
 
+#root-select{
+  width: 50%;
+  max-width: 40px;
 }
+#quality-select{
+  width: 100%;
+  max-width: 100px;
+} 
 
 .toggle-chordtone-mode{
   height: 10px;

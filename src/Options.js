@@ -35,7 +35,7 @@ const Options = ({setAb, setBb, setDb, setEb, setGb, enharmonics })=>{
             <legend>Enharmonics: </legend>
             <div className= "enharmonic-boxes">
                 {names.map((noteName,index)=>(
-                        <button name={noteName} className="enharmonic-box" onClick={handleClick}>{enharmonics[index] ? flatNames[index] : sharpNames[index]}</button>
+                        <button name={noteName} key={index} className="enharmonic-box" onClick={handleClick}>{enharmonics[index] ? flatNames[index] : sharpNames[index]}</button>
                     
                 ))}
             </div>
