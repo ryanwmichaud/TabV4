@@ -153,6 +153,14 @@ background-color: red;
   margin-bottom: 50px;
 }
 
+.doubling-section{
+ flex: row;
+ justify-content: center;
+ justify-items: center;
+ align-items: center;
+ align-content: center;
+}
+
 #root-select{
   width: 50%;
   max-width: 40px;

@@ -10,21 +10,21 @@ const flatNames = ["Ab","Bb", "Db","Eb","Gb"]
 
 
 const Options = ({setAb, setBb, setDb, setEb, setGb, enharmonics })=>{
-
+    console.log("enharmonics")
     const handleClick = (e)=>{
-        if(e.target.name === "G#/Ab"){
+        if(e.target.id === "G#/Ab"){
             setAb(!enharmonics[0])
         }
-        if(e.target.name === "A#/Bb"){
+        if(e.target.id === "A#/Bb"){
             setBb(!enharmonics[1])
         }
-        if(e.target.name === "C#/Db"){
+        if(e.target.id === "C#/Db"){
             setDb(!enharmonics[2])
         }
-        if(e.target.name === "D#/Eb"){
+        if(e.target.id === "D#/Eb"){
             setEb(!enharmonics[3])
         }
-        if(e.target.name === "F#/Gb"){
+        if(e.target.id === "F#/Gb"){
             setGb(!enharmonics[4])
         }
         
@@ -32,10 +32,16 @@ const Options = ({setAb, setBb, setDb, setEb, setGb, enharmonics })=>{
 
     return(
         <div className="options-section">
-            <legend>Enharmonics: </legend>
-            <div className= "enharmonic-boxes">
+
+            <div className="doubling-section">
+                <label htmlFor="doubling-button">Doubling:</label>
+                <input id="doubling-button" type="checkbox"></input>
+            </div>
+
+            <div className= "enharmonic-section">
+                <p>Enharmonics: </p>
                 {names.map((noteName,index)=>(
-                        <button name={noteName} key={index} className="enharmonic-box" onClick={handleClick}>{enharmonics[index] ? flatNames[index] : sharpNames[index]}</button>
+                        <button id={noteName} key={index} className="enharmonic-box" onClick={handleClick}>{enharmonics[index] ? flatNames[index] : sharpNames[index]}</button>
                     
                 ))}
             </div>

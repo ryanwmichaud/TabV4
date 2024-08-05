@@ -131,7 +131,7 @@ const App = () =>{
       const vh = window.innerHeight * 0.01 //calc vh accounting for mobile toolbars
       document.documentElement.style.setProperty('--vh', `${vh}px`)
 
-      if (window.innerWidth < 800) {
+      if (window.innerWidth < 860) {
         setisMobileView(false)
       } else {
         setisMobileView(true)
