@@ -3,10 +3,7 @@ import React, { useEffect, useState } from "react"
 const ChordQuality = ({ chordTones, removeChordTone, addChordTone, root, quality, setRoot, setQuality, enharmonics}) => {
 
     const names = ["C",`${enharmonics[2]?"Db":"C#"}`,"D",`${enharmonics[3]?"Eb":"D#"}`,"E","F",`${enharmonics[4]?"Gb":"F#"}`,"G",`${enharmonics[0]?"Ab":"G#"}`,"A",`${enharmonics[1]?"Bb":"A#"}`,"B"]
-
-
-
-
+    const sharpNames = ["C","C#","D","D#","E","F","F#","G","G#","A","A#","B"]
 
     const handleChange = (e) => {
         if (e.target.id === "root-select"){
@@ -25,8 +22,7 @@ const ChordQuality = ({ chordTones, removeChordTone, addChordTone, root, quality
             
               <option value={"Select"}> Select </option>
               {names.map((name, index) => (
-                <option value={names[index]}> {`${names[index]}`} </option>
-               
+                <option value={sharpNames[index]}> {`${names[index]}`} </option>
               ))}
               
               
