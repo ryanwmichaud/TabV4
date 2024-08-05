@@ -6,12 +6,17 @@
 }
 
 :root {
-  
-  --primary-color: rgb(171, 91, 91);
+  /*rgb(171, 91, 91)*/
+  --primary-color: rgb(204, 110, 110);
   --secondary-color: grey;
   --input-primary-color: rgb(218, 217, 217);
   --input-secondary-color: rgb(44, 48, 55);
+
+  --maple: rgb(250, 208, 158);
+  --rosewood: rgb(126, 81, 60);
+
     box-sizing: border-box;
+    
 
 }
 
@@ -189,6 +194,21 @@ background-color: red;
   justify-content: center;
 }
 
+.ct-button{
+  width: 40px;
+  margin: 3px;
+  border-radius: 5px;
+
+}
+.ct-button-checked{
+  width: 40px;
+  margin: 3px;
+  border-radius: 5px;
+
+
+  background-color: var(--primary-color);
+  color: white;
+}
 
 
 #num-strings-select, #stretch-select{
@@ -259,7 +279,8 @@ background-color: red;
 }
 
 .box {
-  background-color: burlywood;
+  background-color: var(--maple);
+  
   border-left: 2px solid black;
   border-right: 2px solid black;
   width: 100%;

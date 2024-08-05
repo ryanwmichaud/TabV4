@@ -35,7 +35,7 @@ const InputSection = ({changeStretch, changeNumStrings, addChordTone, removeChor
         <StretchInput changeStretch={changeStretch} stretch={stretch}></StretchInput>
         <button className='toggle-chordtone-mode'></button>
         <ChordToneInput addChordTone={addChordTone} removeChordTone={removeChordTone} chordTones={chordTones} enharmonics={enharmonics}></ChordToneInput>
-        <ChordQuality  addChordTone={addChordTone} removeChordTone={removeChordTone} chordTones={chordTones} root={root} quality={quality} setRoot={setRoot} setQuality={setQuality}></ChordQuality>
+        <ChordQuality  addChordTone={addChordTone} removeChordTone={removeChordTone} chordTones={chordTones} root={root} quality={quality} setRoot={setRoot} setQuality={setQuality} enharmonics={enharmonics}></ChordQuality>
         <StringInput strings={strings} n={n} changeNumStrings={changeNumStrings} changeOpen={changeOpen}></StringInput>
         <Options setAb={setAb} setBb={setBb} setDb={setDb} setEb={setEb} setGb={setGb} enharmonics={enharmonics}></Options>
       </div>

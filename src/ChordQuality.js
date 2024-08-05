@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react"
 
-const ChordQuality = ({ chordTones, removeChordTone, addChordTone, root, quality, setRoot, setQuality}) => {
+const ChordQuality = ({ chordTones, removeChordTone, addChordTone, root, quality, setRoot, setQuality, enharmonics}) => {
 
-    const names = ["C","C#","D","D#","E","F","F#","G","G#","A","A#","B"]
+    const names = ["C",`${enharmonics[2]?"Db":"C#"}`,"D",`${enharmonics[3]?"Eb":"D#"}`,"E","F",`${enharmonics[4]?"Gb":"F#"}`,"G",`${enharmonics[0]?"Ab":"G#"}`,"A",`${enharmonics[1]?"Bb":"A#"}`,"B"]
 
 
 
@@ -22,19 +22,14 @@ const ChordQuality = ({ chordTones, removeChordTone, addChordTone, root, quality
             <legend>Chord Quality: </legend>
             <div className= "chord-quality-section">
             <select id="root-select" className="root-select"  onChange={handleChange} value={root} aria-label="chord root select"> 
+            
               <option value={"Select"}> Select </option>
-              <option value={"A"}> A </option>
-              <option value={"A#"}> A# </option>
-              <option value={"B"}> B </option>
-              <option value={"C"}> C </option>
-              <option value={"C#"}> C# </option>
-              <option value={"D"}> D </option>
-              <option value={"D#"}> D# </option>
-              <option value={"E"}> E </option>
-              <option value={"F"}> F </option>
-              <option value={"F#"}> F# </option>
-              <option value={"G"}> G </option>
-              <option value={"G#"}> G# </option>
+              {names.map((name, index) => (
+                <option value={names[index]}> {`${names[index]}`} </option>
+               
+              ))}
+              
+              
             </select>
 
             <select id="quality-select" className="quality-select"  onChange={handleChange} value={quality}  aria-label="chord quality select" > 

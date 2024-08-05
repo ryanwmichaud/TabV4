@@ -23,12 +23,15 @@ const ChordToneInput = ({ chordTones, removeChordTone, addChordTone, enharmonics
             <legend>Chord Tones: </legend>
             <div className= "ct-boxes">
               {chordTones.map((isChecked, index) => (
-                <div className="ct-container" key={`${index}`}>
-                <input type="checkbox" id={index} name="ct" className="ct-input"  checked={chordTones[index]} onChange={handleClick}/>
-                <label htmlFor={`${index}`} className="ct-label">
+                
+                <button 
+                id={index} 
+                className={`ct-button${chordTones[index] ? '-checked' : ''}`}  
+                key={`${index}`}
+                onClick={handleClick}>
                   {( boolNames[index]) ? flatNames[index]: sharpNames[index]}
-                </label>
-                </div>
+                </button>
+
               ))}
             
             </div>
@@ -44,3 +47,16 @@ const ChordToneInput = ({ chordTones, removeChordTone, addChordTone, enharmonics
   
   
   export {ChordToneInput}
+
+
+  /*
+            {chordTones.map((isChecked, index) => (
+                <div className="ct-container" key={`${index}`}>
+                <input type="checkbox" id={index} name="ct" className="ct-input"  checked={chordTones[index]} onChange={handleClick}/>
+                <label htmlFor={`${index}`} className="ct-label">
+                  {( boolNames[index]) ? flatNames[index]: sharpNames[index]}
+                </label>
+                </div>
+              ))}
+  
+  */
