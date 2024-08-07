@@ -10,7 +10,6 @@ const flatNames = ["Ab","Bb", "Db","Eb","Gb"]
 
 
 const Options = ({setAb, setBb, setDb, setEb, setGb, enharmonics })=>{
-    console.log("enharmonics")
     const handleClick = (e)=>{
         if(e.target.id === "G#/Ab"){
             setAb(!enharmonics[0])

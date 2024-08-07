@@ -91,7 +91,7 @@ const ResultsSection = ({res, stretch, strings, chordTones, error, enharmonics})
 
 
 
-const Home = () =>{
+const Home = ({isMobileView, setIsMobileView, isMobileMenuVisible, setIsMobileMenuVisible}) =>{
 
   const [stretch, setStretch] = useState(4)
   const [strings, setstrings] = useState(["E","A","D","G","B","E"])
@@ -103,8 +103,6 @@ const Home = () =>{
   const [res, setRes] = useState(null)
   const [error, setError] = useState(null)
 
-  const [isMobileView, setisMobileView] = useState(false);
-  const [isMobileMenuVisible, setIsMobileMenuVisible] = useState(false);
 
   const [Db, setDb] = useState(false)
   const [Eb, setEb] = useState(false)
@@ -124,31 +122,7 @@ const Home = () =>{
     handlePostRequest()
   }, [chordTones,strings, stretch])
 
-  //get height
-  useEffect(() => {
-    
-    const handleResize = () => {
-      
-      const vh = window.innerHeight * 0.01 //calc vh accounting for mobile toolbars
-      document.documentElement.style.setProperty('--vh', `${vh}px`)
 
-      if (window.innerWidth < 860) {
-        setisMobileView(false)
-      } else {
-        setisMobileView(true)
-      }
-    }
-
-    handleResize()
-
-    window.addEventListener('resize', handleResize)
-    window.addEventListener('orientationchange', handleResize)
-
-    return () => {  //clean up
-      window.removeEventListener('resize', handleResize)
-      window.removeEventListener('orientationchange', handleResize)
-    }
-  }, [])
 
   //change chord, checkboxes update
   useEffect(()=>{

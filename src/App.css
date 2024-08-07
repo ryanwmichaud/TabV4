@@ -15,7 +15,6 @@
   --maple: rgb(250, 208, 158);
   --rosewood: rgb(126, 81, 60);
 
-    box-sizing: border-box;
 
 }
 
@@ -71,6 +70,7 @@ a{
   cursor: pointer;
 
 }
+
 .toggle-menu-bar{
   width: 30px;
   height: 3px;
@@ -368,3 +368,16 @@ a{
   border-radius: 50%; 
 }
 
+.login-main{
+  background-color: var(--primary-color);
+  display: flex;
+  
+  overflow: hidden;
+  position: relative;
+
+
+  height: calc(var(--vh, 1vh) * 85);
+
+  margin: 0;
+  padding: 0;
+}

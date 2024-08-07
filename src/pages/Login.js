@@ -3,15 +3,16 @@ import { Navbar } from '../components/Navbar';
 import "../App.css"
 
 
-const Login = ()=>{
+const Login = ({isMobileView, setIsMobileView, isMobileMenuVisible, setIsMobileMenuVisible})=>{
 
     return(
-        
-        <div className='login'>
+        <div>
             <Navbar></Navbar>
-            login page
-
+            <div className='login-main'>
+                login page
+            </div>
         </div>
+        
     )
 
 }
