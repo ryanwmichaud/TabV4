@@ -18,6 +18,7 @@ then I hope you find this app helpful!
 
 - Make sure you have Node.js and npm installed
 - Clone this repository
+- create a .env file with the line `REACT_APP_IP=<your-local-ip-address>` in the server folder
 - From the root directory:
   - Install the dependencies with `npm install`
   - `npm run build` to build latest app
@@ -27,6 +28,7 @@ then I hope you find this app helpful!
 ### To make changes to the source code
 - Make sure you have Node.js and npm installed
 - Clone this repository
+- create a .env file with the line `REACT_APP_IP=<your-local-ip-address>` in the server folder
 - From the root directory:
   - Install the dependencies with `npm install`
   - `npm start` to start the React development server on localhost:3000
