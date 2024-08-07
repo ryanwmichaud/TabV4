@@ -25,7 +25,6 @@ const Navbar = ({isMobileMenuVisible, setIsMobileMenuVisible, isMobileView}) => 
 
         } 
           <Link className='title' to={"/"}> Fretbchord Explchorder </Link>
-          <Link className='login-link' to={"/Login"}> Login </Link> 
 
         </div>
     );
