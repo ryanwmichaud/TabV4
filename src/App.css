@@ -16,11 +16,14 @@
   --rosewood: rgb(126, 81, 60);
 
     box-sizing: border-box;
-    
 
 }
 
-.app-header {
+a{
+  text-decoration: none;
+}
+
+.navbar {
   background-color: var(--secondary-color);
   height: calc(var(--vh, 1vh) * 15);
 
@@ -37,7 +40,11 @@
   margin: 0;
   padding: 0;
 
+ 
+
 }
+
+
 
 .title{
   font-size: 35px;

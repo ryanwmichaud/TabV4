@@ -285,20 +285,10 @@ const App = () =>{
             </InputSection>
           </div>
           }
-        <header className="app-header">
-        {
-          !isMobileView && !isMobileMenuVisible &&  
-          <MenuButton 
-              isMobileMenuVisible={isMobileMenuVisible} 
-              setIsMobileMenuVisible={setIsMobileMenuVisible} 
-            >
-          </MenuButton>
 
-          }    
-          <p className="title">
-            Chords          
-          </p>
-        </header>
+        <Navbar isMobileMenuVisible={isMobileMenuVisible} setIsMobileMenuVisible={setIsMobileMenuVisible} isMobileView={isMobileView}></Navbar>
+
+     
 
 
         <div className="main"> 

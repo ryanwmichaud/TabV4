@@ -1,16 +1,30 @@
 
 import React from "react";
-import { Link } from 'react-router-dom';
+import { Link  } from 'react-router-dom';
+import { MenuButton } from "./MenuButton";
+import { useLocation } from "react-router-dom";
 
 
 
 
-function Navbar(){
+const Navbar = ({isMobileMenuVisible, setIsMobileMenuVisible, isMobileView}) => {
+
+    const location = useLocation();
+
+    
 
     return(
         <div className="navbar">  
+        { location.pathname === '/' &&
+          !isMobileView && !isMobileMenuVisible &&  
+          <MenuButton 
+              isMobileMenuVisible={isMobileMenuVisible} 
+              setIsMobileMenuVisible={setIsMobileMenuVisible} 
+            >
+          </MenuButton>
+
+        } 
           <Link className='title' to={"/"}> Fretbchord Explchorder </Link>
-          <Link className="other" to={"/gallery"}>  Gallery</Link>
           <Link className='login' to={"/Login"}> Login </Link> 
 
         </div>
@@ -18,4 +32,4 @@ function Navbar(){
 
 }
 
-export default Navbar;
+export  {Navbar};
