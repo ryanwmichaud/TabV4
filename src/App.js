@@ -7,7 +7,7 @@ import { Options } from './Options.js';
 import {MenuButton, MenuButtonClose} from './MenuButton';
 import React, { useEffect, useState } from 'react';
 import { ChordQuality } from './ChordQuality.js';
-
+import { Navbar } from "./Navbar.js"
 
 const ip = process.env.REACT_APP_IP;
 

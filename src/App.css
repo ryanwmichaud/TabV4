@@ -40,7 +40,7 @@
 }
 
 .title{
-  font-size: 9dvw;
+  font-size: 35px;
   font-weight: bold;
   color: white;
 
@@ -70,6 +70,7 @@
   background-color: var(--input-primary-color);
   border-radius: 2px;
 }
+
 
 .toggle-menu-close{
   background: transparent;
