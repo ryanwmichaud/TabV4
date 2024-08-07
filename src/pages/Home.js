@@ -1,13 +1,13 @@
-import './App.css';
-import {Diagram} from './Diagram.js';
-import { ChordToneInput } from './ChordTone';
-import { StretchInput } from './Stretch';
-import { StringInput,  } from './String';
-import { Options } from './Options.js';
-import {MenuButton, MenuButtonClose} from './MenuButton';
+import '../App.css';
+import {Diagram} from '../components/Diagram.js';
+import { ChordToneInput } from '../components/ChordTone.js';
+import { StretchInput } from '../components/Stretch.js';
+import { StringInput,  } from '../components/String.js';
+import { Options } from '../components/Options.js';
+import {MenuButton, MenuButtonClose} from '../components/MenuButton.js';
 import React, { useEffect, useState } from 'react';
-import { ChordQuality } from './ChordQuality.js';
-import { Navbar } from "./Navbar.js"
+import { ChordQuality } from '../components/ChordQuality.js';
+import { Navbar } from "../components/Navbar.js"
 
 const ip = process.env.REACT_APP_IP;
 
