@@ -40,25 +40,46 @@
 }
 
 .title{
-  font-size: 6dvw;
+  font-size: 9dvw;
   font-weight: bold;
   color: white;
 
   flex: 1;
   text-align: center; /* Center text within its flex item */
-  margin: 0; /* Reset margin if needed */
-}
-
-.app-header .toggle-menu{
-  position: absolute;
-  left: 0; /* Align the button to the left */
-  background-color: blue;
-
+  margin: 0; 
 }
 
 .toggle-menu{
+  position: absolute;
+  left: 10px; 
+
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 30px;
+  height: 24px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+
+}
+.toggle-menu-bar{
+  width: 30px;
+  height: 3px;
+  background-color: var(--input-primary-color);
+  border-radius: 2px;
+}
+
+.toggle-menu-close{
+  background: transparent;
   width: 45px;
   height: 45px;
+  margin-left: 5%; 
+  color: var(--input-primary-color);
+  font-size: 26px;
+  border: none;
+  cursor: pointer;
 }
 
 
@@ -107,10 +128,9 @@
   overflow-y: auto;
   overflow-x: hidden;
 
-}
-.mobile-input .toggle-menu{
+  display: flex;
+  flex-direction: column;
 
-background-color: red;
 }
 
 
@@ -156,6 +176,7 @@ background-color: red;
 
 .options-section{
   margin-bottom: 50px;
+  
 }
 
 .doubling-section{
@@ -169,14 +190,20 @@ background-color: red;
 #root-select{
   width: 50%;
   max-width: 40px;
+  cursor: pointer;
+
 }
 #quality-select{
   width: 100%;
   max-width: 100px;
+  cursor: pointer;
+
 } 
 
 .toggle-chordtone-mode{
   height: 10px;
+  cursor: pointer;
+
 }
 .ctinput{
   padding-top: 0;
@@ -185,6 +212,8 @@ background-color: red;
 
 .stringselect{
   width: 100%;
+  cursor: pointer;
+
 }
 
 
@@ -198,12 +227,16 @@ background-color: red;
   width: 40px;
   margin: 3px;
   border-radius: 5px;
+  cursor: pointer;
+
 
 }
 .ct-button-checked{
   width: 40px;
   margin: 3px;
   border-radius: 5px;
+  cursor: pointer;
+
 
 
   background-color: var(--primary-color);
@@ -213,9 +246,18 @@ background-color: red;
 
 #num-strings-select, #stretch-select{
   margin-left: 5px;
+  cursor: pointer;
+
 }
 
 
+.enharmonic-box{
+  cursor: pointer;
+}
+
+#doubling-button{
+  cursor: pointer;
+}
 
 
 .diagram, .results-title, .error-message{

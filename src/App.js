@@ -4,7 +4,7 @@ import { ChordToneInput } from './ChordTone';
 import { StretchInput } from './Stretch';
 import { StringInput,  } from './String';
 import { Options } from './Options.js';
-import {MenuButton} from './MenuButton';
+import {MenuButton, MenuButtonClose} from './MenuButton';
 import React, { useEffect, useState } from 'react';
 import { ChordQuality } from './ChordQuality.js';
 
@@ -260,11 +260,11 @@ const App = () =>{
 
       {!isMobileView &&  isMobileMenuVisible && 
           <div className='mobile-input'> 
-            <MenuButton 
+            <MenuButtonClose 
               isMobileMenuVisible={isMobileMenuVisible} 
               setIsMobileMenuVisible={setIsMobileMenuVisible} 
             >
-            </MenuButton>
+            </MenuButtonClose>
             <InputSection 
               chordTones={chordTones} 
               stretch={stretch}
@@ -296,7 +296,7 @@ const App = () =>{
 
           }    
           <p className="title">
-          Fretbchord Explchorder
+            Chords          
           </p>
         </header>
 

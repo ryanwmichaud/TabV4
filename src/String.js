@@ -62,7 +62,7 @@ const StringInput = ({changeNumStrings, changeOpen, n, strings, enharmonics}) =>
         <div >
             <select className="stringselect"  id={name} onChange={handleChange} value={displayed} aria-label={name}> 
               {names.map((name, index) => (
-                <option value={sharpNames[index]}> {`${names[index]}`} </option>
+                <option key={index} value={sharpNames[index]}> {`${names[index]}`} </option>
               ))}
               <option value={"Ignore"}> Ignore </option>
 

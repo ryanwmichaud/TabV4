@@ -8,8 +8,23 @@ const MenuButton = ({isMobileMenuVisible, setIsMobileMenuVisible}) => {
             className='toggle-menu' 
             onClick={() => setIsMobileMenuVisible(!isMobileMenuVisible)}
         >
+            <div className='toggle-menu-bar'></div>
+            <div className='toggle-menu-bar'></div>
+            <div className='toggle-menu-bar'></div>
         </button> 
     )
 }
 
-export {MenuButton}
+const MenuButtonClose = ({isMobileMenuVisible, setIsMobileMenuVisible}) => {
+
+    return (
+        <button 
+            className='toggle-menu-close' 
+            onClick={() => setIsMobileMenuVisible(!isMobileMenuVisible)}
+        >
+             ✖
+        </button> 
+    )
+}
+
+export {MenuButton, MenuButtonClose}

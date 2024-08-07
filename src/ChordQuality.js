@@ -22,7 +22,7 @@ const ChordQuality = ({ chordTones, removeChordTone, addChordTone, root, quality
             
               <option value={"Select"}> Select </option>
               {names.map((name, index) => (
-                <option value={sharpNames[index]}> {`${names[index]}`} </option>
+                <option key={index} value={sharpNames[index]}> {`${names[index]}`} </option>
               ))}
               
               
