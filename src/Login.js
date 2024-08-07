@@ -6,7 +6,7 @@ const Login = ()=>{
 
     return(
         
-        <div>
+        <div className='login'>
             <Navbar></Navbar>
             login page
 
@@ -16,4 +16,4 @@ const Login = ()=>{
 }
 
 
-export {Login}
+export default Login
