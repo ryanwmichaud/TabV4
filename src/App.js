@@ -126,8 +126,9 @@ const App = () =>{
 
   //get height
   useEffect(() => {
-
+    
     const handleResize = () => {
+      
       const vh = window.innerHeight * 0.01 //calc vh accounting for mobile toolbars
       document.documentElement.style.setProperty('--vh', `${vh}px`)
 
