@@ -116,7 +116,7 @@ const Home = ({isMobileView, setIsMobileView, isMobileMenuVisible, setIsMobileMe
   //memoize handlePostRequest which dep on stretch, cts, and strs
   //now, useEffect only dep on handlePostReq
   const handlePostRequest = useCallback(async () => { //call from top level not input section
-    
+    console.log(strings)
     const req = {
       stretch: stretch,
       strings: strings,
@@ -219,10 +219,9 @@ const Home = ({isMobileView, setIsMobileView, isMobileMenuVisible, setIsMobileMe
   }
 
   const changeOpen = (index, newOpen) => { 
-    
     setstrings(prevStrings =>{
       const newStrings = prevStrings.slice()
-      prevStrings[index] = newOpen
+      newStrings[index] = newOpen
       return newStrings
     })
   }

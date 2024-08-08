@@ -13,6 +13,8 @@ const App = ()=>{
   
   const [isMobileView, setisMobileView] = useState(false);
   const [isMobileMenuVisible, setIsMobileMenuVisible] = useState(false);
+  const[user, setUser] = useState([]) 
+  const [ profile, setProfile ] = useState([]);
 
   //get height
   useEffect(() => {

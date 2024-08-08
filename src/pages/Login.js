@@ -5,28 +5,24 @@ import { GoogleLogin } from '@react-oauth/google';
 
 
 
+
 const Login = ({isMobileView, setIsMobileView, isMobileMenuVisible, setIsMobileMenuVisible})=>{
 
-    const handleSuccess = (response) => {
-        console.log('Login Success:', response);
-        // Handle the login success (e.g., send token to server)
-      }
-    
-    const handleError = (error) => {
-        console.log('Login Error:', error);
-        // Handle the login error
-      }
+
+    const onSuccess = (res)=>{
+        console.log(res)
+    }
+    const onError = (error)=>{
+        console.log(error)
+    }
 
     return(
         <div>
             <Navbar></Navbar>
             <div className='login-main'>
-                <GoogleLogin
-                    onSuccess={handleSuccess}
-                    onError={handleError}
-                />
+                login page
+                <GoogleLogin onSuccess={onSuccess} onError={onError}/>
             </div>
-            
         </div>
         
     )
