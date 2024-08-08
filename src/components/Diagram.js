@@ -1,7 +1,6 @@
 
 import React from 'react'
 
-const accidentals = ["C#","D#","F#","G#","A#"]
 
 
   

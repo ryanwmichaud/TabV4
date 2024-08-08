@@ -4,8 +4,8 @@ import { ChordToneInput } from '../components/ChordTone.js';
 import { StretchInput } from '../components/Stretch.js';
 import { StringInput,  } from '../components/String.js';
 import { Options } from '../components/Options.js';
-import {MenuButton, MenuButtonClose} from '../components/MenuButton.js';
-import React, { useEffect, useState } from 'react';
+import { MenuButtonClose} from '../components/MenuButton.js';
+import React, { useCallback, useEffect, useState } from 'react';
 import { ChordQuality } from '../components/ChordQuality.js';
 import { Navbar } from "../components/Navbar.js"
 
@@ -113,44 +113,9 @@ const Home = ({isMobileView, setIsMobileView, isMobileMenuVisible, setIsMobileMe
 
 
 
-
-
-
-
-  //resend new req
-  useEffect(() =>{
-    handlePostRequest()
-  }, [chordTones,strings, stretch])
-
-
-
-  //change chord, checkboxes update
-  useEffect(()=>{
-    let newChordTones = [false,false,false,false,false,false,false,false,false,false,false,false]
-    const rootIndex = nameMap[root]
-    newChordTones[rootIndex] = true
-    
-    if(quality==="Minor"){
-      newChordTones[(rootIndex+3)%12] = true
-      newChordTones[(rootIndex+7)%12] = true
-    }
-    if(quality==="Major"){
-      newChordTones[(rootIndex+4)%12] = true
-      newChordTones[(rootIndex+7)%12] = true
-    }
-    if(quality==="Diminished"){
-      newChordTones[(rootIndex+3)%12] = true
-      newChordTones[(rootIndex+6)%12] = true
-    }
-    if(quality==="Augmented"){
-      newChordTones[(rootIndex+4)%12] = true
-      newChordTones[(rootIndex+8)%12] = true
-
-    }
-    setChordTones(newChordTones)
-  }, [root, quality])
-
-  const handlePostRequest = () => { //call from top level not input section
+  //memoize handlePostRequest which dep on stretch, cts, and strs
+  //now, useEffect only dep on handlePostReq
+  const handlePostRequest = useCallback(async () => { //call from top level not input section
     
     const req = {
       stretch: stretch,
@@ -181,8 +146,44 @@ const Home = ({isMobileView, setIsMobileView, isMobileMenuVisible, setIsMobileMe
       // Handle and store the error
       setRes(null)
       setError(error.message)
-    });
-  };
+    })
+  }, [chordTones, stretch, strings])
+
+
+  //resend new req
+  useEffect(() =>{
+    handlePostRequest()
+  }, [handlePostRequest])
+
+
+
+  //change chord, checkboxes update
+  useEffect(()=>{
+    let newChordTones = [false,false,false,false,false,false,false,false,false,false,false,false]
+    const rootIndex = nameMap[root]
+    newChordTones[rootIndex] = true
+    
+    if(quality==="Minor"){
+      newChordTones[(rootIndex+3)%12] = true
+      newChordTones[(rootIndex+7)%12] = true
+    }
+    if(quality==="Major"){
+      newChordTones[(rootIndex+4)%12] = true
+      newChordTones[(rootIndex+7)%12] = true
+    }
+    if(quality==="Diminished"){
+      newChordTones[(rootIndex+3)%12] = true
+      newChordTones[(rootIndex+6)%12] = true
+    }
+    if(quality==="Augmented"){
+      newChordTones[(rootIndex+4)%12] = true
+      newChordTones[(rootIndex+8)%12] = true
+
+    }
+    setChordTones(newChordTones)
+  }, [root, quality])
+
+
 
 
   const changeStretch = (value) => {
@@ -232,7 +233,7 @@ const Home = ({isMobileView, setIsMobileView, isMobileMenuVisible, setIsMobileMe
     
       <div className="home">
 
-
+      
       {!isMobileView &&  isMobileMenuVisible && 
           <div className='mobile-input'> 
             <MenuButtonClose 
