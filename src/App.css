@@ -372,13 +372,17 @@ a{
   border-radius: 50%; 
 }
 
+
+
+
 .login-main{
+
   background-color: var(--primary-color);
   display: flex;
   
   overflow: hidden;
   position: relative;
-
+  justify-content: center;
 
   height: calc(var(--vh, 1vh) * 85);
 
