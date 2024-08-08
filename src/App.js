@@ -1,24 +1,21 @@
 import './App.css';
 
-import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import React, {createContext, useEffect, useState } from 'react';
+import { BrowserRouter as Router, Route, Routes, unstable_useViewTransitionState } from 'react-router-dom';
 import Login from './pages/Login';
 import Home from './pages/Home';
 
 
+export const GlobalContext  = createContext();
 
-const App = ()=>{
-
-
-  
+export const GlobalProvider = ({ children }) => {
   const [isMobileView, setisMobileView] = useState(false);
   const [isMobileMenuVisible, setIsMobileMenuVisible] = useState(false);
-  const[user, setUser] = useState([]) 
-  const [ profile, setProfile ] = useState([]);
-
+  const [ profile, setProfile ] = useState(null);
+  
   //get height
-  useEffect(() => {
-    
+   useEffect(() => {
+  
     const handleResize = () => {
       
       const vh = window.innerHeight * 0.01 //calc vh accounting for mobile toolbars
@@ -42,16 +39,34 @@ const App = ()=>{
     }
   }, [])
 
+
+  return (
+    <GlobalContext.Provider value={{ profile, setProfile,isMobileView,  setisMobileView, isMobileMenuVisible, setIsMobileMenuVisible  }}>
+      {children}
+    </GlobalContext.Provider>
+  )
+
+
+}
+
+
+const App = ()=>{
+
+
+
   return(
-    <Router>
-    <div>
-      <nav> {}  </nav>
-      <Routes>
-        <Route path="/" element={<Home isMobileView={isMobileView} setisMobileView={setIsMobileMenuVisible}  isMobileMenuVisible={isMobileMenuVisible} setIsMobileMenuVisible={setIsMobileMenuVisible} />} />
-        <Route path="/login" element={<Login isMobileView={isMobileView} setisMobileView={setIsMobileMenuVisible}  isMobileMenuVisible={isMobileMenuVisible} setIsMobileMenuVisible={setIsMobileMenuVisible} />} />
-      </Routes>
-    </div>
-  </Router>
+    <GlobalProvider>
+      <Router>
+        <div>
+          <Routes>
+            <Route path="/" element={<Home/>} />
+            <Route path="/login" element={<Login/>} />
+          </Routes>
+        </div>
+      </Router>
+
+    </GlobalProvider>
+    
 
 
   )

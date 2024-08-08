@@ -379,10 +379,10 @@ a{
 
   background-color: var(--primary-color);
   display: flex;
+  flex-direction: column;
   
   overflow: hidden;
   position: relative;
-  justify-content: center;
 
   height: calc(var(--vh, 1vh) * 85);
 

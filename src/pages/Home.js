@@ -5,9 +5,11 @@ import { StretchInput } from '../components/Stretch.js';
 import { StringInput,  } from '../components/String.js';
 import { Options } from '../components/Options.js';
 import { MenuButtonClose} from '../components/MenuButton.js';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState, useContext } from 'react';
 import { ChordQuality } from '../components/ChordQuality.js';
 import { Navbar } from "../components/Navbar.js"
+import { GlobalContext } from '../App.js';
+
 
 const ip = process.env.REACT_APP_IP;
 
@@ -91,8 +93,10 @@ const ResultsSection = ({res, stretch, strings, chordTones, error, enharmonics})
 
 
 
-const Home = ({isMobileView, setIsMobileView, isMobileMenuVisible, setIsMobileMenuVisible}) =>{
+const Home = () =>{
 
+
+  const {isMobileView, isMobileMenuVisible, setIsMobileMenuVisible } = useContext(GlobalContext)
   const [stretch, setStretch] = useState(4)
   const [strings, setstrings] = useState(["E","A","D","G","B","E"])
   const [chordTones, setChordTones] = useState([false,false,false,false,false,false,false,false,false,false,false,false])
@@ -116,7 +120,6 @@ const Home = ({isMobileView, setIsMobileView, isMobileMenuVisible, setIsMobileMe
   //memoize handlePostRequest which dep on stretch, cts, and strs
   //now, useEffect only dep on handlePostReq
   const handlePostRequest = useCallback(async () => { //call from top level not input section
-    console.log(strings)
     const req = {
       stretch: stretch,
       strings: strings,
