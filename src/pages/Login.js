@@ -5,6 +5,8 @@ import { GoogleLogin, googleLogout } from '@react-oauth/google';
 import {jwtDecode} from 'jwt-decode';
 import { GlobalContext } from '../App';
 import { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 
 
 
@@ -13,12 +15,14 @@ import { useContext } from 'react';
 const Login = ()=>{
     
     const {profile, setProfile,isMobileView,  setisMobileView, isMobileMenuVisible, setIsMobileMenuVisible } = useContext(GlobalContext)
+    const navigate = useNavigate();
 
 
     const onSuccess = (res)=>{
-        console.log(jwtDecode(res.credential))
         const data = jwtDecode(res.credential)
         setProfile(data)
+        console.log('navigate', navigate)
+        navigate('/');
     }
     const onError = (error)=>{
         console.log(error)
