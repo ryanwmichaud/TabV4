@@ -1,7 +1,7 @@
 import './App.css';
 
 import React, {createContext, useEffect, useState } from 'react';
-import { BrowserRouter as Router, Route, Routes, unstable_useViewTransitionState } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Login from './pages/Login';
 import Home from './pages/Home';
 

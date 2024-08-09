@@ -30,16 +30,23 @@ const Navbar = () => {
         } 
           <Link className='title' to={"/"}> Fretbchord Explchorder </Link>
           {profile ? (
-            <div>
-              {profile.name}
-              <img src={profile.picture} alt="profile picture"></img>
-              <button onClick = {()=>{  googleLogout()
-                                        setProfile(null)}}>
+            <div className="nav-user-true">
+              <div className="nav-user">
+                <img className="nav-picture" src={profile.picture} alt="profile"></img>
+                <div className="nav-name">{profile.name}</div>
+              </div>
+              <button className="nav-logout" 
+                onClick = {()=>{ 
+                              googleLogout()
+                              setProfile(null)
+                              }}>
                 Logout
               </button>
             </div>
             
-          ) : (<Link className='login-link' to={"/Login"}> Login </Link>
+            
+          ) : (
+            <Link className='nav-login-link' to={"/Login"}> Login </Link>
           )}
           
 

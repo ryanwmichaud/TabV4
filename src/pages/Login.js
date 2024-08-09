@@ -14,14 +14,13 @@ import { useNavigate } from 'react-router-dom';
 
 const Login = ()=>{
     
-    const {profile, setProfile,isMobileView,  setisMobileView, isMobileMenuVisible, setIsMobileMenuVisible } = useContext(GlobalContext)
+    const {profile, setProfile  } = useContext(GlobalContext)
     const navigate = useNavigate();
 
 
     const onSuccess = (res)=>{
         const data = jwtDecode(res.credential)
         setProfile(data)
-        console.log('navigate', navigate)
         navigate('/');
     }
     const onError = (error)=>{
@@ -36,7 +35,7 @@ const Login = ()=>{
         <div>
             <Navbar></Navbar>
             <div className='login-main'>
-                <p>Login Page</p>
+                <p className='signin-title'>Sign In</p>
                 {profile ? (
                     <div>
                         <p>{`Hello, ${profile.given_name}`}</p>
@@ -44,7 +43,11 @@ const Login = ()=>{
                     </div>
                     
                 ):(
-                    <GoogleLogin onSuccess={onSuccess} onError={onError}/>
+                    <div className='google-signin'>
+                        <p>Sign in with Google</p>
+                        <GoogleLogin onSuccess={onSuccess} onError={onError}/>
+                    </div>
+                    
 
                 )}
             </div>

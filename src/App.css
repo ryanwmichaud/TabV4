@@ -13,8 +13,9 @@
   */
   --primary-color: rgb(124, 178, 130);
   --secondary-color: grey;
-  --input-primary-color: rgb(218, 217, 217);
-  --input-secondary-color: rgb(44, 48, 55);
+  --input-text-color: rgb(218, 217, 217);
+  --input-background-color: rgb(44, 48, 55);
+  --nav-text-color: white;
 
   --maple: rgb(250, 208, 158);
   --rosewood: rgb(126, 81, 60);
@@ -46,7 +47,33 @@ a{
  
 
 }
-
+.nav-user{
+  display: flex;
+  flex-direction: column;
+}
+.nav-name{
+  font-size: 15px;
+  color: var(--nav-text-color);
+}
+.nav-picture{
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+}
+.nav-logout{
+  height: 30px;
+}
+.nav-user-true{
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  right: 10px;
+}
+.nav-login-link{
+  position: absolute;
+  right: 10px;
+  color: var(--nav-text-color)
+}
 
 
 .title{
@@ -78,7 +105,7 @@ a{
 .toggle-menu-bar{
   width: 30px;
   height: 3px;
-  background-color: var(--input-primary-color);
+  background-color: var(--nav-text-color);
   border-radius: 2px;
 }
 
@@ -88,7 +115,7 @@ a{
   width: 45px;
   height: 45px;
   margin-left: 5%; 
-  color: var(--input-primary-color);
+  color: var(--input-text-color);
   font-size: 26px;
   border: none;
   cursor: pointer;
@@ -116,8 +143,8 @@ a{
 
 .input{
   padding-top: 5%;
-  background-color: var(--input-secondary-color);
-  color: var(--input-primary-color);
+  background-color: var(--input-background-color);
+  color: var(--input-text-color);
   width: 25%;
 
   position: relative;
@@ -130,8 +157,8 @@ a{
   opacity: 80%;
   
   padding-top: 5%;
-  background-color: var(--input-secondary-color);
-  color: var(--input-primary-color);
+  background-color: var(--input-background-color);
+  color: var(--input-text-color);
   width: 50%;
   height: 100%;
 
@@ -174,7 +201,7 @@ a{
   border-style: double;
   border-width: 5px;
   border-radius: 3px;
-  border-color: var(--input-primary-color);
+  border-color: var(--input-text-color);
 }
 
 .stretch-input, .string-input, .ctinput, .chord-quality, .options-section{
@@ -380,7 +407,8 @@ a{
   background-color: var(--primary-color);
   display: flex;
   flex-direction: column;
-  
+  align-items: center;
+
   overflow: hidden;
   position: relative;
 
@@ -388,4 +416,24 @@ a{
 
   margin: 0;
   padding: 0;
+}
+
+.signin-title{
+  font-weight: bold;
+  font-size: 25px;
+  border-style: double;
+  border-color: black;
+  border-radius: 3px;
+  border-width: 5px;
+  background-color: var(--secondary-color);
+  padding: 10px;
+}
+
+.google-signin{
+  margin-top: 60px;
+  font-size: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-items: center;
 }
