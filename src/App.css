@@ -438,7 +438,6 @@ a{
 
 .google-signin, #custom-signin, #custom-signup,  #login-signup{
 
-
   margin-bottom: 20px;
   font-size: 15px;
   display: flex;
@@ -452,6 +451,20 @@ a{
   color: black;
   border-style: solid;
   padding: 10px;
+}
+
+#signup-email, #signup-username, #signup-firstname, #signup-lastname, #signup-password,
+#signin-email, #signin-password {
+  
+  margin: 2px;
+}
+
+#custom-signin-title, #google-signin-title{
+  margin-bottom: 5px;
+}
+
+#signup-button, #signin-button{
+  margin-top: 5px;
 }
 
 

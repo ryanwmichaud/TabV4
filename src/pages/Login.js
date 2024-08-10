@@ -42,14 +42,14 @@ const Login = ()=>{
                 ):(
                     <div className='signin-options'>
                         <div className='google-signin'>
-                            <p>Sign in with Google</p>
+                            <p id='google-signin-title'>Sign in with Google</p>
                             <GoogleLogin onSuccess={onSuccess} onError={onError}/>
                         </div>
                         <div id='custom-signin'>
-                            <p>Sign in</p>
-                            <input type="email" id="signinEmail" placeholder="Email" required/>
-                            <input type="password" id="signinPassword" placeholder="Password" required/>
-                            <button type="submit">Sign In</button>
+                            <p id='custom-signin-title'>Sign in</p>
+                            <input type="email" id="signin-email" placeholder="Email" required/>
+                            <input type="password" id="signin-password" placeholder="Password" required/>
+                            <button id="signup-button" type="submit">Sign In</button>
                         </div>
                         <div id='login-signup'>
                             <Link id='login-signup-link' to={"/signup"}> Create an Account </Link>

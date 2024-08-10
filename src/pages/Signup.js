@@ -25,10 +25,13 @@ const Signup = ()=>{
                         
                         <div id='custom-signup'>
                             <p>Create an Account</p>
-                            <input type="email" id="signupEmail" placeholder="Email" required/>
-                            <input type="text" id="signinUsername" placeholder="Username" required/>
-                            <input type="password" id="signupPassword" placeholder="Password" required/>
-                            <button type="submit">Sign In</button>
+                            <input type="email" id="signup-email" placeholder="Email" required/>
+                            <input type="text" id="signup-username" placeholder="Username" required/>
+                            <input type="text" id="signup-firstname" placeholder="First Name" required/>
+                            <input type="text" id="signup-lastname" placeholder="Last Name" required/>
+
+                            <input type="password" id="signup-password" placeholder="Password" required/>
+                            <button id="signup-button" type="submit">Sign Up</button>
                         </div>
                         
                     </div>
