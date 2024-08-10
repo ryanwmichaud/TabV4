@@ -5,7 +5,7 @@ import { GoogleLogin, googleLogout } from '@react-oauth/google';
 import {jwtDecode} from 'jwt-decode';
 import { GlobalContext } from '../App';
 import { useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 
 
@@ -31,7 +31,7 @@ const Login = ()=>{
     return(
         <div>
             <Navbar></Navbar>
-            <div className='login-main'>
+            <div id='login-main'>
                 <p className='signin-title'>Sign In</p>
                 {profile ? (
                     <div>
@@ -45,19 +45,16 @@ const Login = ()=>{
                             <p>Sign in with Google</p>
                             <GoogleLogin onSuccess={onSuccess} onError={onError}/>
                         </div>
-                        <div className='custom-signin'>
+                        <div id='custom-signin'>
                             <p>Sign in</p>
                             <input type="email" id="signinEmail" placeholder="Email" required/>
                             <input type="password" id="signinPassword" placeholder="Password" required/>
                             <button type="submit">Sign In</button>
                         </div>
-                        <div className='custom-signup'>
-                            <p>Create an Account</p>
-                            <input type="email" id="signupEmail" placeholder="Email" required/>
-                            <input type="text" id="signinUsername" placeholder="Username" required/>
-                            <input type="password" id="signupPassword" placeholder="Password" required/>
-                            <button type="submit">Sign In</button>
+                        <div id='login-signup'>
+                            <Link id='login-signup-link' to={"/signup"}> Create an Account </Link>
                         </div>
+
                         
                     </div>
 

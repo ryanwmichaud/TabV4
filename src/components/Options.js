@@ -32,12 +32,12 @@ const Options = ({setAb, setBb, setDb, setEb, setGb, enharmonics })=>{
     return(
         <div className="options-section">
 
-            <div className="doubling-section">
+            <div id="doubling-section">
                 <label htmlFor="doubling-button">Doubling:</label>
                 <input id="doubling-button" type="checkbox"></input>
             </div>
 
-            <div id="open-button-section">
+            <div id="use-open-section">
                 <label htmlFor="use-open-button">Use Open Strings:</label>
                 <input id="use-open-button" type="checkbox"></input>
             </div>
@@ -47,8 +47,10 @@ const Options = ({setAb, setBb, setDb, setEb, setGb, enharmonics })=>{
                 <input id="no-string-skipping-button" type="checkbox"></input>
             </div>
 
-            <div className= "enharmonic-section">
-                <p>Enharmonics: </p>
+            <div id= "enharmonics-section">
+                <label>Enharmonics: </label>
+                <br></br>
+                
                 {names.map((noteName,index)=>(
                         <button id={noteName} key={index} className="enharmonic-box" onClick={handleClick}>{enharmonics[index] ? flatNames[index] : sharpNames[index]}</button>
                     

@@ -219,13 +219,7 @@ a{
   
 }
 
-.doubling-section{
- flex: row;
- justify-content: center;
- justify-items: center;
- align-items: center;
- align-content: center;
-}
+
 
 #root-select{
   width: 50%;
@@ -291,13 +285,22 @@ a{
 }
 
 
+
 .enharmonic-box{
   cursor: pointer;
 }
 
-#doubling-button{
+#doubling-button, #use-open-button, #no-string-skipping-button, #color-selector {
   cursor: pointer;
 }
+
+#doubling-section, #use-open-section, #no-string-skipping-section, #enharmonics-section, #color-section {
+  margin-top: 5px;
+  margin-bottom: 5px;
+
+}
+
+
 
 
 .diagram, .results-title, .error-message{
@@ -403,7 +406,7 @@ a{
 
 
 
-.login-main{
+#login-main, #signup-main{
 
   background-color: var(--primary-color);
   display: flex;
@@ -419,7 +422,9 @@ a{
   padding: 0;
 }
 
-.signin-title, .signin-options{
+.signin-title, .signin-options, #custom-signup, #signup-title{
+  display: flex;
+  flex-direction: column;
   font-weight: bold;
   font-size: 25px;
   border-style: double;
@@ -431,13 +436,22 @@ a{
 }
 
 
-.google-signin, .custom-signin, .custom-signup{
-  margin-top: 20px;
+.google-signin, #custom-signin, #custom-signup,  #login-signup{
+
+
+  margin-bottom: 20px;
   font-size: 15px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-items: center;
+}
+
+#login-signup-link{
+  background-color: var(--input-text-color);
+  color: black;
+  border-style: solid;
+  padding: 10px;
 }
 
 
