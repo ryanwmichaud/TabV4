@@ -47,32 +47,31 @@ using slice?
 
 
 FRONT END
-
-bugs - ios screen height 
-when no resuts, title is squisked
-
-when it gets too narrow switch to mobile - hide and show left side menu
-when it gets to one column of ct checkboxes - strighten left align
-think about verticle squish too
-
+bugs - ios screen height is still kind of slow 
 lines btwn boxes
 
 FEATURES
 
-no string skips
-bass note 
-doubling. minimum --> what can I add
-toggle enharmic equivalents
-toggle box w text or string w circle note view?
-drop down to view notes names or scale degree view w any given root
-position markers. could be customizable
-only choose certain string sets to look at - tuning select ignore!
+results
+    no string skips
+    open strings
+    bass note 
+    doubling. minimum --> what can I add
+    whole neck view with just every way at once. up to like 12 or 15 frets or something
+    drop down to view notes names or scale degree view w any given root
 
-use chord qulaities as well as cts
+visual
+    position markers. could be customizable
+    custom color
+    vertical diagrams --> better for showing a lot at once
+    enharmonic splits box in half. choose one
+    show notes - and if root selected - also show intervals 
 
 
-enahrmoincic toggle can cahnge the ct lables too. 
-enharms could be an array of bools tomake simpler. 
+
+    
+
+
 
 
 

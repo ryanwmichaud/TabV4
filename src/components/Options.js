@@ -37,12 +37,27 @@ const Options = ({setAb, setBb, setDb, setEb, setGb, enharmonics })=>{
                 <input id="doubling-button" type="checkbox"></input>
             </div>
 
+            <div id="open-button-section">
+                <label htmlFor="use-open-button">Use Open Strings:</label>
+                <input id="use-open-button" type="checkbox"></input>
+            </div>
+
+            <div id="no-string-skipping-section">
+                <label htmlFor="no-string-skipping-button">No String Skipping:</label>
+                <input id="no-string-skipping-button" type="checkbox"></input>
+            </div>
+
             <div className= "enharmonic-section">
                 <p>Enharmonics: </p>
                 {names.map((noteName,index)=>(
                         <button id={noteName} key={index} className="enharmonic-box" onClick={handleClick}>{enharmonics[index] ? flatNames[index] : sharpNames[index]}</button>
                     
                 ))}
+            </div>
+
+            <div id="color-section">
+                <label htmlFor="color-selector">Color:</label>
+                <input id="color-selector" type="color"></input>
             </div>
               
 

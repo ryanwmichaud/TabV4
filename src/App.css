@@ -28,6 +28,7 @@ a{
 }
 
 .navbar {
+  
   background-color: var(--secondary-color);
   height: calc(var(--vh, 1vh) * 15);
 
@@ -418,7 +419,7 @@ a{
   padding: 0;
 }
 
-.signin-title{
+.signin-title, .signin-options{
   font-weight: bold;
   font-size: 25px;
   border-style: double;
@@ -430,11 +431,18 @@ a{
 }
 
 
-.google-signin, .custom-signin{
-  margin-top: 60px;
+.google-signin, .custom-signin, .custom-signup{
+  margin-top: 20px;
   font-size: 15px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-items: center;
+}
+
+
+.signin-options{
+  background-color: var(--secondary-color);
+  padding: 20px;
+
 }
