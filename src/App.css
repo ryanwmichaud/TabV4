@@ -429,7 +429,8 @@ a{
   padding: 10px;
 }
 
-.google-signin{
+
+.google-signin, .custom-signin{
   margin-top: 60px;
   font-size: 15px;
   display: flex;

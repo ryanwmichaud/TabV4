@@ -8,14 +8,12 @@ import { googleLogout } from "@react-oauth/google";
 
 
 
-
 const Navbar = () => {
+
 
     const location = useLocation();
     const {profile, setProfile, isMobileView, isMobileMenuVisible, setIsMobileMenuVisible} = useContext(GlobalContext)
 
-
-    
 
     return(
         <div className="navbar">  
@@ -42,7 +40,9 @@ const Navbar = () => {
                               }}>
                 Logout
               </button>
+      
             </div>
+            
             
             
           ) : (

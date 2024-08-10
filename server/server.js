@@ -4,6 +4,17 @@ import express  from 'express';
 import cors from 'cors';
 import  path from "path";
 import { fileURLToPath } from 'url';
+import mysql from 'mysql2/promise';
+
+
+const connection = await mysql.createConnection({
+  host: process.env.MYSQL_HOST,
+  user: process.env.MYSQL_USER, // Your MySQL username
+  password: process.env.MYSQL_PASSWORD, // Your MySQL password
+  database: process.env.MYSQL_DATABASE_NAME // Your database name
+});
+
+
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -34,3 +45,6 @@ app.get('*', async (req,res)=>{
 app.listen(8000, () => {
     console.log(`Server is running on port 8000.`);
   });
+
+
+

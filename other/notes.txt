@@ -73,3 +73,18 @@ use chord qulaities as well as cts
 
 enahrmoincic toggle can cahnge the ct lables too. 
 enharms could be an array of bools tomake simpler. 
+
+
+
+
+
+
+
+DB 
+
+user table with profile details
+
+saved diagrams with user associated
+
+preferences in user table? or in own table w user id
+access type

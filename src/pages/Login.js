@@ -9,9 +9,6 @@ import { useNavigate } from 'react-router-dom';
 
 
 
-
-
-
 const Login = ()=>{
     
     const {profile, setProfile  } = useContext(GlobalContext)
@@ -43,11 +40,19 @@ const Login = ()=>{
                     </div>
                     
                 ):(
-                    <div className='google-signin'>
-                        <p>Sign in with Google</p>
-                        <GoogleLogin onSuccess={onSuccess} onError={onError}/>
+                    <div>
+                        <div className='custom-signin'>
+                            <p>Sign in/Create and Account</p>
+                            <input type="email" id="signinEmail" placeholder="Email" required/>
+                            <input type="password" id="signinPassword" placeholder="Password" required/>
+                            <button type="submit">Sign In</button>
+                        
+                        </div>
+                        <div className='google-signin'>
+                            <p>Sign in with Google</p>
+                            <GoogleLogin onSuccess={onSuccess} onError={onError}/>
+                        </div>
                     </div>
-                    
 
                 )}
             </div>
