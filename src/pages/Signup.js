@@ -10,7 +10,7 @@ import { GlobalContext } from "../App";
 
 const Signup = ()=>{
 
-    const {profile, setProfile} = useContext(GlobalContext)
+    const { setProfile} = useContext(GlobalContext)
 
 
     
@@ -21,6 +21,10 @@ const Signup = ()=>{
     const [first_name, setFirstName] = useState(null)
     const [last_name, setLastName] = useState(null)
     const [password, setPassword] = useState(null)
+
+    const [usernameTaken, setUsernameTaken] = useState(false)
+    const [emailTaken, setEmailTaken] = useState(false)
+
 
     const changeEmail = (e)=>{
         setEmail(e.target.value)
@@ -70,29 +74,28 @@ const Signup = ()=>{
             return response.json();
             })
             .then(data => {
-            console.log(data)
-            if(!data.duplicate){ 
-                setProfile({
-                    email: email,
-                    username: username,
-                    first_name: first_name,
-                    last_name: last_name,
-                    password: password,
-                    picture: null
-
-                })
-                navigate('/')
-            }
-            else if(data.duplicate === "username"){
-                console.log("username taken")
-            }else if(data.duplicate === "email"){
-                console.log("email already registered")
-            }
+                console.log(data)
+                if(!data.usernameTaken && !data.emailTaken){ 
+                    setProfile({
+                        email: email,
+                        username: username,
+                        first_name: first_name,
+                        last_name: last_name,
+                        password: password,
+                        picture: null
+                    })
+                    setEmailTaken(false)
+                    setUsernameTaken(false)
+                    navigate('/')
+                }else {
+                    (data.usernameTaken ? setUsernameTaken(true) : setUsername(false))
+                    (data.emailTaken ? setEmailTaken(true) : setEmailTaken(false))
+        
+                }
             
             })
             .catch(error => {
-            // Handle and store the error
-            console.error(error.message)
+
             }) 
     }
         
@@ -101,7 +104,9 @@ const Signup = ()=>{
     
 
     return(
+        
         <div>
+            {console.log("rerendered")}
             <Navbar></Navbar>
             <div id='signup-main'>
                 <p id='signup-title'>Sign Up</p>
@@ -117,6 +122,14 @@ const Signup = ()=>{
                             <input type="password" id="signup-password" placeholder="Password" onChange={changePassword} required/>
                             <button id="signup-button"  type='submit' >Sign Up</button>
                         </form>
+                        { console.log(usernameTaken, emailTaken)  }
+                        {(usernameTaken || emailTaken ) &&
+                            <div  id='signup-error'>
+                                {usernameTaken && <p>Username taken</p>}
+                                {emailTaken && <p>Email already registered</p>}
+                            </div>
+                        }
+                        
                         
                     </div>
 

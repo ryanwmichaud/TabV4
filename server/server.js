@@ -38,39 +38,42 @@ app.post('/calculate', async (req, res) => {
 
 app.post('/createaccount', async (req,res) => {
     const data=req.body
+    let emailTaken = false
+    let usernameTaken = false
     
     try {
-        
-
+    
         const [results, fields] = await connection.execute(
           'INSERT INTO testusers2 (username, email, first_name, last_name, password)  VALUES (?, ?, ?, ?, ?);',
           [data.username, data.email, data.first_name, data.last_name, data.password]
         )
       
-        response = {
-            message: "User successfully created",
-            error: "none"
-        }
-        console.log("success")
-        res.json(response);
+        res.json({
+            error: "none",
+            emailTaken: emailTaken,
+            usernameTaken: usernameTaken
+        })
 
     }catch (err) {
-        let message = err.sqlMessage
+        console.log(err)
+
         if (err.code === 'ER_DUP_ENTRY') {
-          let duplicate
-  
-          if (message.includes('email')) duplicate = "email"
-          else if (message.includes('username'))  duplicate = "username"
-          else {duplicate = "none"}
-          res.json({
-            error: message,
-            duplicate: duplicate})
+            
+            if (err.sqlMessage.includes('email')) emailTaken = true
+            if (err.sqlMessage.includes('username'))  usernameTaken = true
+
+            res.json({
+                error: err.sqlMessage,
+                emailTaken: emailTaken,
+                usernameTaken: usernameTaken
+            })
         
         } else {
-          res.json({
-            error: err.sqlMessage
-
-          });
+            res.json({
+                error: err.sqlMessage,
+                emailTaken: emailTaken,
+                usernameTaken: usernameTaken
+            })
         }
       } 
       
@@ -95,6 +98,7 @@ app.post('/create-account-from-google', async (req,res) => {
         res.json(response);
 
     }catch (err) {
+        console.log("error")
         res.json({error: err});
         
       } 
