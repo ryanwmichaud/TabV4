@@ -5,6 +5,7 @@ import cors from 'cors';
 import  path from "path";
 import { fileURLToPath } from 'url';
 import mysql from 'mysql2/promise';
+import { profile } from 'console';
 
 
 const __filename = fileURLToPath(import.meta.url);
@@ -26,8 +27,6 @@ const connection = await mysql.createConnection({  //auto releases connection
 
 app.post('/calculate', async (req, res) => {
     const data = solve(req.body.strings, req.body.chordTones,req.body.stretch);
-    //console.log(req.body, "--> ", data)
-    console.log("got req and sent res")
     res.json({ message: data});
 });
 
@@ -55,7 +54,6 @@ app.post('/createaccount', async (req,res) => {
         })
 
     }catch (err) {
-        console.log(err)
 
         if (err.code === 'ER_DUP_ENTRY') {
             
@@ -82,7 +80,6 @@ app.post('/createaccount', async (req,res) => {
 
 app.post('/create-account-from-google', async (req,res) => {
     const data=req.body
-    console.log(data)
     
     try {
         const [results, fields] = await connection.execute(
@@ -94,18 +91,32 @@ app.post('/create-account-from-google', async (req,res) => {
             message: "User successfully created",
             error: "none"
         }
-        console.log("success")
         res.json(response);
 
     }catch (err) {
-        console.log("error")
         res.json({error: err});
         
       } 
       
 })
 
-app.post('/lookup-email', async (req,res) => {
+app.post('/get-profile', async (req, res) => {
+    console.log("getting profile")
+    try {
+        const [results, fields] = await connection.execute(
+          'SELECT * from testusers2 WHERE email = ?',
+          [req.body.profileEmail]
+        )
+        console.log("resultsare:",results)
+        res.json({profile: results[0]})
+    }catch (err) {
+        console.log(err)
+        res.json({error: err});
+        
+      } 
+})
+
+app.post('/lookup-email', async (req, res) => {
 
     try {
         const [results, fields] = await connection.execute(
@@ -124,6 +135,25 @@ app.post('/lookup-email', async (req,res) => {
         
       } 
 
+})
+
+app.post('/custom-signin', async (req, res) =>{
+
+    try {
+        const [results, fields] = await connection.execute(
+          'SELECT password FROM testusers2 WHERE email = ?',
+          [req.body.email]
+        )
+        console.log(results)
+        if(results.length == 1 && results[0].password == req.body.password){
+            res.json({success: true})
+        }else{
+            res.json({success: false})
+        }
+
+    }catch (err) {
+        res.json({success: false})
+    }
 })
 
 app.get('*', async (req,res)=>{
