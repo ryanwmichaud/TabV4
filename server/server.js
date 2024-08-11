@@ -101,6 +101,27 @@ app.post('/create-account-from-google', async (req,res) => {
       
 })
 
+app.post('/lookup-email', async (req,res) => {
+
+    try {
+        const [results, fields] = await connection.execute(
+          'SELECT * from testusers2 WHERE email = ? )',
+          [req.body.email]
+        )
+      
+        response = {
+            results: results,
+        }
+        console.log("success")
+        res.json(response);
+
+    }catch (err) {
+        res.json({error: err});
+        
+      } 
+
+})
+
 app.get('*', async (req,res)=>{
     //res.json({ message: "data"});
     res.sendFile(path.join(__dirname,"..", "build", "index.html")) 

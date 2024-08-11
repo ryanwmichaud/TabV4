@@ -8,28 +8,15 @@ import { useContext } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 
 
+const ip = process.env.REACT_APP_IP
+
+
 
 const Login = ()=>{
     
     const {profile, setProfile  } = useContext(GlobalContext)
     const navigate = useNavigate();
-
-
-
-    const onSuccess = (res)=>{
-        const data = jwtDecode(res.credential)
-
-        const req = {
-            email: data.email,
-            first_name: data.given_name,
-            last_name: data.family_name,
-            password: "google-auth",
-            picture: data.picture
-        }
-
-        const ip = process.env.REACT_APP_IP
-
-
+    const createAccountFromGoogle = (req)=>{
         fetch(`http://${ip}:8000/create-account-from-google`, {
             method: 'POST',
             headers: {
@@ -56,6 +43,54 @@ const Login = ()=>{
             console.error(error.message)
             }) 
     }
+    const lookupEmail = (req)=>{
+        fetch(`http://${ip}:8000/lookup-email`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                // Add any other headers if needed
+            },
+            body: JSON.stringify(req),
+            })
+            .then(response => {
+                if (!response.ok) { 
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log(data)
+                
+            })
+            .catch(error => {
+            // Handle and store the error
+            console.error(error.message)
+            }) 
+    }
+
+
+    const onSuccess = (res)=>{
+        const data = jwtDecode(res.credential)
+
+        const req = {
+            email: data.email,
+            first_name: data.given_name,
+            last_name: data.family_name,
+            password: "google-auth",
+            picture: data.picture
+        }
+
+        lookupEmail({email: data.email})
+        createAccountFromGoogle(req)
+
+
+
+        
+    }
+
+
+
+
     const onError = (error)=>{
         console.log(error)
     }
