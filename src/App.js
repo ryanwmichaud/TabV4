@@ -38,6 +38,18 @@ export const GlobalProvider = ({ children }) => {
       window.removeEventListener('orientationchange', handleResize)
     }
   }, [])
+/*
+  useEffect(()=>{
+    if(profile && !profile.username){
+      //make them make username
+    }
+  },[])
+    useEffect(()=>{
+    if(!profile){
+      //make them login. nav to it
+    }
+  },[])
+  */
 
 
   return (

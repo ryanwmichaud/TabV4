@@ -31,7 +31,7 @@ const Navbar = () => {
             <div className="nav-user-true">
               <div className="nav-user">
                 <img className="nav-picture" src={profile.picture} alt="profile"></img>
-                <div className="nav-name">{profile.name}</div>
+                <div className="nav-name">{profile.first_name}</div>
               </div>
               <button className="nav-logout" 
                 onClick = {()=>{ 

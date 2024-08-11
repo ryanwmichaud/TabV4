@@ -15,10 +15,46 @@ const Login = ()=>{
     const navigate = useNavigate();
 
 
+
     const onSuccess = (res)=>{
         const data = jwtDecode(res.credential)
-        setProfile(data)
-        navigate('/');
+
+        const req = {
+            email: data.email,
+            first_name: data.given_name,
+            last_name: data.family_name,
+            password: "google-auth",
+            picture: data.picture
+        }
+
+        const ip = process.env.REACT_APP_IP
+
+
+        fetch(`http://${ip}:8000/create-account-from-google`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                // Add any other headers if needed
+            },
+            body: JSON.stringify(req),
+            })
+            .then(response => {
+                if (!response.ok) { 
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log(data)
+                if(!data.duplicate){ 
+                    setProfile(req)
+                    navigate('/')
+                }
+            })
+            .catch(error => {
+            // Handle and store the error
+            console.error(error.message)
+            }) 
     }
     const onError = (error)=>{
         console.log(error)
@@ -40,7 +76,7 @@ const Login = ()=>{
                     </div>
                     
                 ):(
-                    <div className='signin-options'>
+                    <div id='signin-options'>
                         <div className='google-signin'>
                             <p id='google-signin-title'>Sign in with Google</p>
                             <GoogleLogin onSuccess={onSuccess} onError={onError}/>

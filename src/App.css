@@ -422,7 +422,7 @@ a{
   padding: 0;
 }
 
-.signin-title, .signin-options, #custom-signup, #signup-title{
+.signin-title, #signin-options, #custom-signup, #signup-title{
   display: flex;
   flex-direction: column;
   font-weight: bold;
@@ -434,6 +434,7 @@ a{
   background-color: var(--secondary-color);
   padding: 10px;
 }
+
 
 
 .google-signin, #custom-signin, #custom-signup,  #login-signup{

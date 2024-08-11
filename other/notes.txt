@@ -107,6 +107,17 @@ CREATE TABLE users (
     membership VARCHAR(50) NOT NULL
 );
 
+users
+    id
+    username
+    email
+    first_name
+    last_name
+    password
+    picture
+    created_at
+    updated_at
+
 
 preferences 
     user_id
@@ -126,3 +137,69 @@ chords
     tuning
     position
     chord
+
+
+
+CREATE TABLE testusers2 (
+    id SERIAL PRIMARY KEY,
+    username VARCHAR(255) UNIQUE,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    first_name VARCHAR(255),
+    last_name VARCHAR(255),
+    password VARCHAR(255) NOT NULL,
+    picture TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+
+INSERT INTO testusers (username, email, first_name, last_name, password)
+VALUES ('testuname', 'test@gmail.com', 'rn', 'mich', 'poop1234');
+
+INSERT INTO testusers (username, email, first_name, last_name, password)
+VALUES ('testun2', 'test2@gmail.com', 'rn2', 'm2ich', 'po2op1234_2');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+catch (err) {
+      if (err.code === 'ER_DUP_ENTRY') {
+        let message = err.sqlMessage
+        
+
+        if (message.includes('email')) { 
+            console.log("dema - Email duplication detected");
+            const response = {
+                duplicate: 'email'
+            };
+            console.log("Response being sent for email:", response);
+            res.json(response); // Send the constructed response object
+        }
+        else if (message.includes('username')) { 
+            console.log("dusenm - Username duplication detected");
+            const response = {
+                duplicate: 'username'
+            };
+            console.log("Response being sent for username:", response);
+            res.json(response); // Send the constructed response object
+        } else {
+            // Debugging: Handle unexpected cases
+            console.log("Neither email nor username found in the error message.");
+            res.json({ error: 'Unexpected error structure' });
+        }
+        
+        
+      } else {
+        res.json({error: "server error"});
+      }
+    } 
