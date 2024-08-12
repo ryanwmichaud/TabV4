@@ -51,6 +51,31 @@ export const GlobalProvider = ({ children }) => {
   },[])
   */
 
+  const getProfile = async (profileEmail) => {
+    const req = {
+        profileEmail: profileEmail
+    }
+    try{
+        const response = await fetch(`http://${ip}:8000/get-profile`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                // Add any other headers if needed
+            },
+            body: JSON.stringify(req),
+            })
+        if (!response.ok) { 
+            throw new Error('network response not ok');
+        }
+        const data = await response.json()
+        return data
+
+    }catch (error){
+        console.error("fetch error:", error)
+    }
+    
+
+}
 
   return (
     <GlobalContext.Provider value={{ profile, setProfile,isMobileView,  setisMobileView, isMobileMenuVisible, setIsMobileMenuVisible  }}>

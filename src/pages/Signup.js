@@ -3,7 +3,7 @@ import { Navbar } from '../components/Navbar';
 import "../App.css"
 import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { GlobalContext } from "../App";
+import { GlobalContext, getProfile } from "../App";
 
 
 
@@ -44,7 +44,7 @@ const Signup = ()=>{
 
 
 
-    const handlePostReq = (e) => { 
+    const handlePostReq = async (e) => { 
         e.preventDefault()
     
         const req = {
@@ -76,14 +76,8 @@ const Signup = ()=>{
             .then(data => {
                 console.log(data)
                 if(!data.usernameTaken && !data.emailTaken){ 
-                    setProfile({
-                        email: email,
-                        username: username,
-                        first_name: first_name,
-                        last_name: last_name,
-                        password: password,
-                        picture: null
-                    })
+
+                    setProfile(data.profile)
                     setEmailTaken(false)
                     setUsernameTaken(false)
                     navigate('/')

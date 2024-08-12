@@ -3,7 +3,7 @@ import { Navbar } from '../components/Navbar';
 import "../App.css"
 import { GoogleLogin, googleLogout } from '@react-oauth/google';
 import {jwtDecode} from 'jwt-decode';
-import { GlobalContext } from '../App';
+import { GlobalContext, getProfile} from '../App';
 import { useContext, useState} from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 
@@ -27,7 +27,7 @@ const Login = ()=>{
     const [password, setPassword] = useState(null)
     const [loginFailed, setLoginFailed] = useState(null)
 
-    const createAccountFromGoogle = (req)=>{
+    const createAccountFromGoogle = async (req)=>{
         fetch(`http://${ip}:8000/create-account-from-google`, {
             method: 'POST',
             headers: {
@@ -82,31 +82,7 @@ const Login = ()=>{
             }) 
     }
 
-    const getProfile = async (profileEmail) => {
-        const req = {
-            profileEmail: profileEmail
-        }
-        try{
-            const response = await fetch(`http://${ip}:8000/get-profile`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    // Add any other headers if needed
-                },
-                body: JSON.stringify(req),
-                })
-            if (!response.ok) { 
-                throw new Error('network response not ok');
-            }
-            const data = await response.json()
-            return data
 
-        }catch (error){
-            console.error("fetch error:", error)
-        }
-        
-
-    }
 
 
     const onGoogleSuccess = (res)=>{

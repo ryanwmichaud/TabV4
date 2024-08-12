@@ -46,11 +46,17 @@ app.post('/createaccount', async (req,res) => {
           'INSERT INTO testusers2 (username, email, first_name, last_name, password)  VALUES (?, ?, ?, ?, ?);',
           [data.username, data.email, data.first_name, data.last_name, data.password]
         )
+
+        const [profileToSendBack, fields2] = await connection.execute(
+            'SELECT * FROM testusers2 WHERE email = ?;',
+            [data.email]
+          )
       
         res.json({
             error: "none",
             emailTaken: emailTaken,
-            usernameTaken: usernameTaken
+            usernameTaken: usernameTaken,
+            profile: profileToSendBack[0]
         })
 
     }catch (err) {
