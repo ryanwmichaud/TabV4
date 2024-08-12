@@ -1,5 +1,9 @@
 notes 
 
+
+state holds
+id, username, email, first_name, last_name, picture, created_at
+
 hashmaps can be enum - numbers are consecutive...
 
 musicstring class doesnt really need hashmaps either - just open string
@@ -92,20 +96,7 @@ access type
 
 
 
-CREATE TABLE users (
-    id SERIAL PRIMARY KEY,                
-    
-    username VARCHAR(50) UNIQUE NOT NULL,
-    email VARCHAR(100) UNIQUE NOT NULL,   
-    full_name VARCHAR(100),               
-    password_hash VARCHAR(255) NOT NULL,  --hash!
 
-    profile_picture_url TEXT,   --default?           
-    created_at TIMESTAMP DEFAULT NOW(),   
-    updated_at TIMESTAMP DEFAULT NOW(),  
-	
-    membership VARCHAR(50) NOT NULL
-);
 
 users
     id
@@ -157,7 +148,6 @@ CREATE TABLE testusers2 (
     password VARCHAR(255) NOT NULL,
     picture TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 

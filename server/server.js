@@ -5,7 +5,6 @@ import cors from 'cors';
 import  path from "path";
 import { fileURLToPath } from 'url';
 import mysql from 'mysql2/promise';
-import { profile } from 'console';
 
 
 const __filename = fileURLToPath(import.meta.url);
@@ -48,7 +47,7 @@ app.post('/createaccount', async (req,res) => {
         )
 
         const [profileToSendBack, fields2] = await connection.execute(
-            'SELECT * FROM testusers2 WHERE email = ?;',
+            'SELECT id, username, email, first_name, last_name, picture, created_at FROM testusers2 WHERE email = ?;',
             [data.email]
           )
       
@@ -110,7 +109,7 @@ app.post('/get-profile', async (req, res) => {
     console.log("getting profile")
     try {
         const [results, fields] = await connection.execute(
-          'SELECT * from testusers2 WHERE email = ?',
+          'SELECT id, username, email, first_name, last_name, picture, created_at FROM testusers2 WHERE email = ?',
           [req.body.profileEmail]
         )
         console.log("resultsare:",results)
@@ -122,26 +121,7 @@ app.post('/get-profile', async (req, res) => {
       } 
 })
 
-app.post('/lookup-email', async (req, res) => {
 
-    try {
-        const [results, fields] = await connection.execute(
-          'SELECT * from testusers2 WHERE email = ? )',
-          [req.body.email]
-        )
-      
-        response = {
-            results: results,
-        }
-        console.log("success")
-        res.json(response);
-
-    }catch (err) {
-        res.json({error: err});
-        
-      } 
-
-})
 
 app.post('/custom-signin', async (req, res) =>{
 
