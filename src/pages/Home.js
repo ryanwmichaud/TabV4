@@ -114,7 +114,6 @@ const Home = () =>{
   const [Ab, setAb] = useState(false)
   const [Bb, setBb] = useState(false)
   let enharmonics = [Ab,Bb,Db,Eb,Gb]
-  console.log(profile)
 
 
 

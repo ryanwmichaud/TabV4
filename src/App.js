@@ -6,13 +6,42 @@ import Login from './pages/Login';
 import Home from './pages/Home';
 import Signup from './pages/Signup';
 
+const ip = process.env.REACT_APP_IP;
+
+
 export const GlobalContext  = createContext();
+
+export const getProfile = async (profileEmail) => {
+  const req = {
+      profileEmail: profileEmail
+  }
+  try{
+      const response = await fetch(`http://${ip}:8000/get-profile`, {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+              // Add any other headers if needed
+          },
+          body: JSON.stringify(req),
+          })
+      if (!response.ok) { 
+          throw new Error('network response not ok');
+      }
+      const data = await response.json()
+      return data
+
+  }catch (error){
+      console.error("fetch error:", error)
+  }
+  
+
+}
 
 export const GlobalProvider = ({ children }) => {
   const [isMobileView, setisMobileView] = useState(false);
   const [isMobileMenuVisible, setIsMobileMenuVisible] = useState(false);
   const [ profile, setProfile ] = useState(null);
-  
+  console.log(profile)
   //get height
    useEffect(() => {
   
@@ -51,31 +80,7 @@ export const GlobalProvider = ({ children }) => {
   },[])
   */
 
-  const getProfile = async (profileEmail) => {
-    const req = {
-        profileEmail: profileEmail
-    }
-    try{
-        const response = await fetch(`http://${ip}:8000/get-profile`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                // Add any other headers if needed
-            },
-            body: JSON.stringify(req),
-            })
-        if (!response.ok) { 
-            throw new Error('network response not ok');
-        }
-        const data = await response.json()
-        return data
 
-    }catch (error){
-        console.error("fetch error:", error)
-    }
-    
-
-}
 
   return (
     <GlobalContext.Provider value={{ profile, setProfile,isMobileView,  setisMobileView, isMobileMenuVisible, setIsMobileMenuVisible  }}>
