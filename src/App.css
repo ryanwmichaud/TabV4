@@ -458,6 +458,7 @@ a{
 #signin-email, #signin-password {
   
   margin: 2px;
+  overflow: scroll;
 }
 
 #custom-signin-title, #google-signin-title{

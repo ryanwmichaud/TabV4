@@ -106,7 +106,6 @@ const Signup = ()=>{
     return(
         
         <div>
-            {console.log("rerendered")}
             <Navbar></Navbar>
             <div id='signup-main'>
                 <p id='signup-title'>Sign Up</p>
@@ -122,7 +121,6 @@ const Signup = ()=>{
                             <input type="password" id="signup-password" placeholder="Password" onChange={changePassword} required/>
                             <button id="signup-button"  type='submit' >Sign Up</button>
                         </form>
-                        { console.log(usernameTaken, emailTaken)  }
                         {(usernameTaken || emailTaken ) &&
                             <div  id='signup-error'>
                                 {usernameTaken && <p>Username taken</p>}

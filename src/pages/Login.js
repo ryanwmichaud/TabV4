@@ -99,7 +99,6 @@ const Login = ()=>{
                 throw new Error('network response not ok');
             }
             const data = await response.json()
-            console.log(data)
             return data
 
         }catch (error){
@@ -137,40 +136,35 @@ const Login = ()=>{
             email: email,
             password: password
         }
-        fetch(`http://${ip}:8000/custom-signin`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                // Add any other headers if needed
-            },
-            body: JSON.stringify(req),
-            })
-            .then(response => {
-                if (!response.ok) { 
-                    throw new Error('network response not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
-                console.log(data)
-                if(!data.success){
-                    setLoginFailed(true)
-                }else{
-                    try{
-                        const data = getProfile(email)
-                        console.log("proffromfirst:", data)
-                        
-                    } catch (error){
-                        console.error("error during fetch profile", error)
-                    }
 
-                }
-                
+        try{
+            const response = await fetch(`http://${ip}:8000/custom-signin`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    // Add any other headers if needed
+                },
+                body: JSON.stringify(req),
             })
-            .catch(error => {
-            // Handle and store the error
-            console.error(error.message)
-            }) 
+            if (!response.ok) { 
+                throw new Error('network response not ok');
+            }
+            const data = await response.json();
+            if(!data.success){
+                setLoginFailed(true)
+            }else{
+                try{
+                    const profileData = await getProfile(email)
+                    setProfile(profileData.profile)
+                    navigate('/')
+                } catch (error){
+                        console.error("error during fetch profile", error)
+                }
+            }
+                
+        }catch (error) {
+            console.error("fetch error auth",error.message)
+        }
     }
 
 
