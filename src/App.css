@@ -7,11 +7,12 @@
 
 :root {
   /*
-  rgb(204, 110, 110)
-  rgb(91, 169, 218)
+  rgb(204, 110, 110) red
+  rgb(91, 169, 218) blue
+  rgb(124, 178, 130) green
   
   */
-  --primary-color: rgb(124, 178, 130);
+  --primary-color: rgb(91, 169, 218);
   --secondary-color: grey;
   --input-text-color: rgb(218, 217, 217);
   --input-background-color: rgb(44, 48, 55);
@@ -72,7 +73,7 @@ a{
 }
 .nav-login-link{
   position: absolute;
-  right: 10px;
+  right: 20px;
   color: var(--nav-text-color)
 }
 
@@ -239,10 +240,7 @@ a{
   cursor: pointer;
 
 }
-.ctinput{
-  padding-top: 0;
-  margin-top: 0;
-}
+
 
 .stringselect{
   width: 100%;
