@@ -1,15 +1,12 @@
-import './App.css';
+import './App.css'
+import React, {createContext, useEffect, useState } from 'react'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import Login from './pages/Login'
+import Home from './pages/Home'
+import Signup from './pages/Signup'
 
-import React, {createContext, useEffect, useState } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Login from './pages/Login';
-import Home from './pages/Home';
-import Signup from './pages/Signup';
-
-const ip = process.env.REACT_APP_IP;
-
-
-export const GlobalContext  = createContext();
+const ip = process.env.REACT_APP_IP
+export const GlobalContext  = createContext()
 
 export const getProfile = async (profileEmail) => {
   const req = {
@@ -25,7 +22,7 @@ export const getProfile = async (profileEmail) => {
           body: JSON.stringify(req),
           })
       if (!response.ok) { 
-          throw new Error('network response not ok');
+          throw new Error('network response not ok')
       }
       const data = await response.json()
       return data
@@ -38,9 +35,9 @@ export const getProfile = async (profileEmail) => {
 }
 
 export const GlobalProvider = ({ children }) => {
-  const [isMobileView, setisMobileView] = useState(false);
-  const [isMobileMenuVisible, setIsMobileMenuVisible] = useState(false);
-  const [ profile, setProfile ] = useState(null);
+  const [isMobileView, setisMobileView] = useState(false)
+  const [isMobileMenuVisible, setIsMobileMenuVisible] = useState(false)
+  const [ profile, setProfile ] = useState(null)
   console.log(profile)
   //get height
    useEffect(() => {

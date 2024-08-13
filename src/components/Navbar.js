@@ -1,18 +1,18 @@
 
-import React, {useContext} from "react";
-import { Link  } from 'react-router-dom';
-import { MenuButton } from "./MenuButton";
-import { useLocation } from "react-router-dom";
-import { GlobalContext } from "../App";
-import { googleLogout } from "@react-oauth/google";
+import React, {useContext} from "react"
+import { Link  } from 'react-router-dom'
+import { MenuButton } from "./MenuButton"
+import { useLocation } from "react-router-dom"
+import { GlobalContext } from "../App"
+import { googleLogout } from "@react-oauth/google"
 
-import defaultPicture from '../assets/default-profile-pic.png';
+import defaultPicture from '../assets/default-profile-pic.png'
 
 
 const Navbar = () => {
 
 
-    const location = useLocation();
+    const location = useLocation()
     const {profile, setProfile, isMobileView, isMobileMenuVisible, setIsMobileMenuVisible} = useContext(GlobalContext)
     
  
@@ -50,8 +50,8 @@ const Navbar = () => {
           
 
         </div>
-    );
+    )
 
 }
 
-export  {Navbar};
+export  {Navbar}

@@ -1,17 +1,17 @@
-import '../App.css';
-import {Diagram} from '../components/Diagram.js';
-import { ChordToneInput } from '../components/ChordTone.js';
-import { StretchInput } from '../components/Stretch.js';
-import { StringInput,  } from '../components/String.js';
-import { Options } from '../components/Options.js';
-import { MenuButtonClose} from '../components/MenuButton.js';
-import React, { useCallback, useEffect, useState, useContext } from 'react';
-import { ChordQuality } from '../components/ChordQuality.js';
+import '../App.css'
+import {Diagram} from '../components/Diagram.js'
+import { ChordToneInput } from '../components/ChordTone.js'
+import { StretchInput } from '../components/Stretch.js'
+import { StringInput,  } from '../components/String.js'
+import { Options } from '../components/Options.js'
+import { MenuButtonClose} from '../components/MenuButton.js'
+import React, { useCallback, useEffect, useState, useContext } from 'react'
+import { ChordQuality } from '../components/ChordQuality.js'
 import { Navbar } from "../components/Navbar.js"
-import { GlobalContext } from '../App.js';
+import { GlobalContext } from '../App.js'
 
 
-const ip = process.env.REACT_APP_IP;
+const ip = process.env.REACT_APP_IP
 
 const nameMap = Object.freeze({
   "C":0,
@@ -48,30 +48,30 @@ const InputSection = ({changeStretch, changeNumStrings, addChordTone, removeChor
 
 const ResultsSection = ({res, stretch, strings, chordTones, error, enharmonics}) => {
 
-  let data = res;
+  let data = res
 
-  const noChordTones = chordTones.every(ct => ct !== true);
+  const noChordTones = chordTones.every(ct => ct !== true)
 
 
   if(error){
-    console.log("error", error);
-    return <div className='error-message'> Error: check network connection and try again </div>;
+    console.log("error", error)
+    return <div className='error-message'> Error: check network connection and try again </div>
     
   }
   else if (!data | noChordTones) {
     // Render a loading state while waiting for the data
-    return <div className='error-message'> Enter some chord tones to see how you can voice them on your instrument </div>;
+    return <div className='error-message'> Enter some chord tones to see how you can voice them on your instrument </div>
   } 
   else{
-    let diagrams = [];
+    let diagrams = []
     
 
     for(let i=0;i<data.length;i++){
-      diagrams = diagrams.concat(<Diagram stretch={stretch} diagram_data={data[i]} key={i} enharmonics={enharmonics}/>);
+      diagrams = diagrams.concat(<Diagram stretch={stretch} diagram_data={data[i]} key={i} enharmonics={enharmonics}/>)
     }
     
     if(diagrams.length === 0){
-      return  <div className='error-message'>  No possible voicings - try changing the input </div>;
+      return  <div className='error-message'>  No possible voicings - try changing the input </div>
 
     }else{
       return(
@@ -81,7 +81,7 @@ const ResultsSection = ({res, stretch, strings, chordTones, error, enharmonics})
             {diagrams}
           </div>
         </div>
-      );
+      )
     }
     
   }
@@ -136,9 +136,9 @@ const Home = () =>{
     })
     .then(response => {
       if (!response.ok) { 
-        throw new Error('Network response was not ok');
+        throw new Error('Network response was not ok')
       }
-      return response.json();
+      return response.json()
     })
     .then(data => {
       setRes(data.message)
@@ -194,7 +194,7 @@ const Home = () =>{
   }
 
   const addChordTone = (index) => {
-    //const newChordTones = chordTones.map((value, i) => (i === index ? true : value)); //if i is the index, make it true, else keep it
+    //const newChordTones = chordTones.map((value, i) => (i === index ? true : value)) //if i is the index, make it true, else keep it
     setChordTones(prev => {
       let newChordTones = prev.slice()
       newChordTones[index] = true
@@ -313,4 +313,4 @@ const Home = () =>{
 }
 
 
-export default Home;
+export default Home

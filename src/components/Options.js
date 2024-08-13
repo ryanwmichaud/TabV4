@@ -1,5 +1,5 @@
 
-import React from "react";
+import React from "react"
 
 const names = ["G#/Ab","A#/Bb","C#/Db","D#/Eb","F#/Gb"]
 const sharpNames = ["G#","A#","C#","D#","F#"]

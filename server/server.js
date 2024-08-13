@@ -1,33 +1,32 @@
-import {solve} from './main.js';
-
-import express, { response }  from 'express';
-import cors from 'cors';
-import  path from "path";
-import { fileURLToPath } from 'url';
-import mysql from 'mysql2/promise';
-
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-const app = express();
+import {solve} from './main.js'
+import express, { response }  from 'express'
+import cors from 'cors'
+import  path from "path"
+import { fileURLToPath } from 'url'
+import mysql from 'mysql2/promise'
 
 
-app.use(cors());
-app.use(express.json());
-app.use(express.static(path.join(__dirname, '..','build')));
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
+
+const app = express()
+
+
+app.use(cors())
+app.use(express.json())
+app.use(express.static(path.join(__dirname, '..','build')))
 
 const connection = await mysql.createConnection({  //auto releases connection
     host: process.env.MYSQL_HOST,
     user: process.env.MYSQL_USER, // Your MySQL username
     password: process.env.MYSQL_PASSWORD, // Your MySQL password
     database: process.env.MYSQL_DATABASE_NAME // Your database name
-  });
+  })
 
 app.post('/calculate', async (req, res) => {
-    const data = solve(req.body.strings, req.body.chordTones,req.body.stretch);
-    res.json({ message: data});
-});
+    const data = solve(req.body.strings, req.body.chordTones,req.body.stretch)
+    res.json({ message: data})
+})
 
 
 
@@ -96,10 +95,10 @@ app.post('/create-account-from-google', async (req,res) => {
             message: "User successfully created",
             error: "none"
         }
-        res.json(response);
+        res.json(response)
 
     }catch (err) {
-        res.json({error: err});
+        res.json({error: err})
         
       } 
       
@@ -116,7 +115,7 @@ app.post('/get-profile', async (req, res) => {
         res.json({profile: results[0]})
     }catch (err) {
         console.log(err)
-        res.json({error: err});
+        res.json({error: err})
         
       } 
 })
@@ -143,14 +142,14 @@ app.post('/custom-signin', async (req, res) =>{
 })
 
 app.get('*', async (req,res)=>{
-    //res.json({ message: "data"});
+    //res.json({ message: "data"})
     res.sendFile(path.join(__dirname,"..", "build", "index.html")) 
-});
+})
 
 
 app.listen(8000, () => {
     console.log("listening on 8000")
-  });
+  })
 
 
 

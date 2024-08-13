@@ -1,11 +1,11 @@
-import React from 'react';
-import { Navbar } from '../components/Navbar';
+import React from 'react'
+import { Navbar } from '../components/Navbar'
 import "../App.css"
-import { GoogleLogin, googleLogout } from '@react-oauth/google';
-import {jwtDecode} from 'jwt-decode';
-import { GlobalContext, getProfile} from '../App';
-import { useContext, useState} from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { GoogleLogin, googleLogout } from '@react-oauth/google'
+import {jwtDecode} from 'jwt-decode'
+import { GlobalContext, getProfile} from '../App'
+import { useContext, useState} from 'react'
+import { useNavigate, Link } from 'react-router-dom'
 
 
 const ip = process.env.REACT_APP_IP
@@ -38,9 +38,9 @@ const Login = ()=>{
             })
             .then(response => {
                 if (!response.ok) { 
-                    throw new Error('Network response was not ok');
+                    throw new Error('Network response was not ok')
                 }
-                return response.json();
+                return response.json()
             })
             .then(data => {
                 console.log(data)
@@ -68,9 +68,9 @@ const Login = ()=>{
             })
             .then(response => {
                 if (!response.ok) { 
-                    throw new Error('Network response was not ok');
+                    throw new Error('Network response was not ok')
                 }
-                return response.json();
+                return response.json()
             })
             .then(data => {
                 console.log(data)
@@ -123,9 +123,9 @@ const Login = ()=>{
                 body: JSON.stringify(req),
             })
             if (!response.ok) { 
-                throw new Error('network response not ok');
+                throw new Error('network response not ok')
             }
-            const data = await response.json();
+            const data = await response.json()
             if(!data.success){
                 setLoginFailed(true)
             }else{

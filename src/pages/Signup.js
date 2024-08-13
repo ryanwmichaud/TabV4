@@ -1,9 +1,9 @@
-import React from 'react';
-import { Navbar } from '../components/Navbar';
+import React from 'react'
+import { Navbar } from '../components/Navbar'
 import "../App.css"
-import { useState, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { GlobalContext } from "../App";
+import { useState, useContext } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { GlobalContext } from "../App"
 
 
 
@@ -14,7 +14,7 @@ const Signup = ()=>{
 
 
     
-    const navigate = useNavigate();
+    const navigate = useNavigate()
 
     const [email, setEmail] = useState(null)
     const [username, setUsername] = useState(null)
@@ -69,9 +69,9 @@ const Signup = ()=>{
             })
             .then(response => {
             if (!response.ok) { 
-                throw new Error('Network response was not ok');
+                throw new Error('Network response was not ok')
             }
-            return response.json();
+            return response.json()
             })
             .then(data => {
                 if(!data.usernameTaken && !data.emailTaken){ 
