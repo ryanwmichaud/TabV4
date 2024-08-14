@@ -29,6 +29,7 @@ a{
 }
 
 .navbar {
+  position: relative;
   
   background-color: var(--secondary-color);
   height: calc(var(--vh, 1vh) * 15);
@@ -46,12 +47,13 @@ a{
   margin: 0;
   padding: 0;
 
- 
-
 }
 .nav-user{
   display: flex;
   flex-direction: column;
+  cursor: pointer;
+  position: absolute;
+  right: 20px;
 }
 .nav-name{
   font-size: 15px;
@@ -62,19 +64,35 @@ a{
   width: 40px;
   border-radius: 50%;
 }
-.nav-logout{
-  height: 30px;
-}
-.nav-user-true{
-  display: flex;
-  flex-direction: row;
-  position: absolute;
-  right: 10px;
-}
+
+
 .nav-login-link{
   position: absolute;
   right: 20px;
   color: var(--nav-text-color)
+}
+
+#nav-profile-menu{
+  position: absolute;
+  top: 100%;
+  right: 10px;
+  background-color: var(--secondary-color);
+  border-style: solid;
+  border-color: black;
+  z-index: 2;
+}
+#nav-profile-menu p{
+  cursor: pointer;
+  padding: 10px;
+  box-sizing: border-box;
+  border: 2px solid transparent; /* Set an initial transparent border */
+
+
+}
+#nav-profile-menu p:hover{
+  background-color: var(--primary-color);
+  border-style: solid;
+  border-color: var(--input-text-color);
 }
 
 

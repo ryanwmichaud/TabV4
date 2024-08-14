@@ -133,14 +133,12 @@ app.post('/get-profile', async (req, res) => {  //after auth success. seems sket
 
 
 app.post('/custom-signin', async (req, res) =>{
-    console.log(req.body)
 
     try {
         const [results, fields] = await connection.execute(
           'SELECT password FROM testusers2 WHERE email = ?',
           [req.body.email]
         )
-        console.log(results[0])
         const match = await bcrypt.compare(req.body.password, results[0].password);
         if(results.length == 1 && match){
             res.json({success: true})
