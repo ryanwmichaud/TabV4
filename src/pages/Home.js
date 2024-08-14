@@ -96,7 +96,7 @@ const ResultsSection = ({res, stretch, strings, chordTones, error, enharmonics})
 const Home = () =>{
 
 
-  const {profile, isMobileView, isMobileMenuVisible, setIsMobileMenuVisible } = useContext(GlobalContext)
+  const {isMobileView, isMobileMenuVisible, setIsMobileMenuVisible } = useContext(GlobalContext)
   const [stretch, setStretch] = useState(4)
   const [strings, setstrings] = useState(["E","A","D","G","B","E"])
   const [chordTones, setChordTones] = useState([false,false,false,false,false,false,false,false,false,false,false,false])

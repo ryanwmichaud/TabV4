@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import Login from './pages/Login'
 import Home from './pages/Home'
 import Signup from './pages/Signup'
+import { Profile } from './pages/Profile'
 
 const ip = process.env.REACT_APP_IP
 export const GlobalContext  = createContext()
@@ -38,7 +39,6 @@ export const GlobalProvider = ({ children }) => {
   const [isMobileView, setisMobileView] = useState(false)
   const [isMobileMenuVisible, setIsMobileMenuVisible] = useState(false)
   const [ profile, setProfile ] = useState(null)
-  console.log(profile)
   //get height
    useEffect(() => {
   
@@ -101,6 +101,8 @@ const App = ()=>{
             <Route path="/" element={<Home/>} />
             <Route path="/login" element={<Login/>} />
             <Route path="/signup" element={<Signup/>} />
+            <Route path="/profile" element={<Profile/>} />
+
 
           </Routes>
         </div>

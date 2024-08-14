@@ -49,7 +49,8 @@ const Navbar = () => {
 
           {isProfileMenuOpen && 
             <div id="nav-profile-menu">
-              <p id="nav-profile-menu-profile"> Profile </p>
+              <Link id="nav-profile-menu-profile"to={"/Profile"} > Profile </Link>
+
               <p id="nav-profile-menu-logout"
                 onClick = {()=>{ 
                           googleLogout()
@@ -57,7 +58,7 @@ const Navbar = () => {
                           setIsProfileMenuOpen(false)
                           navigate('/login')
                 }}>
-                logout
+                Logout
               </p>
             </div>
           }

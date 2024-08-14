@@ -10,6 +10,7 @@
   rgb(204, 110, 110) red
   rgb(91, 169, 218) blue
   rgb(124, 178, 130) green
+  125, 101, 142 purple
   
   */
   --primary-color: rgb(91, 169, 218);
@@ -26,6 +27,7 @@
 
 a{
   text-decoration: none;
+
 }
 
 .navbar {
@@ -80,19 +82,24 @@ a{
   border-style: solid;
   border-color: black;
   z-index: 2;
+  display: flex;
+  flex-direction: column;
 }
-#nav-profile-menu p{
+#nav-profile-menu a, #nav-profile-menu p{
   cursor: pointer;
   padding: 10px;
   box-sizing: border-box;
   border: 2px solid transparent; /* Set an initial transparent border */
-
+  margin: 0;
+  color: var(--input-text-color);
+  background-color: var(--secondary-color);
 
 }
-#nav-profile-menu p:hover{
+#nav-profile-menu a:hover, #nav-profile-menu p:hover {
   background-color: var(--primary-color);
   border-style: solid;
   border-color: var(--input-text-color);
+  color: black;
 }
 
 
@@ -110,7 +117,6 @@ a{
   position: absolute;
   left: 10px; 
 
-
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -122,12 +128,15 @@ a{
 
 }
 
+
+
 .toggle-menu-bar{
   width: 30px;
   height: 3px;
   background-color: var(--nav-text-color);
   border-radius: 2px;
 }
+
 
 
 .toggle-menu-close{
@@ -422,7 +431,7 @@ a{
 
 
 
-#login-main, #signup-main{
+#login-main, #signup-main, #profile-main{
 
   background-color: var(--primary-color);
   display: flex;
@@ -483,6 +492,7 @@ a{
 
 #signup-button, #signin-button{
   margin-top: 5px;
+
 }
 
 
@@ -490,4 +500,21 @@ a{
   background-color: var(--secondary-color);
   padding: 20px;
 
+}
+
+#profile-main{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start
+}
+
+#profile-preferences, #edit-profile{
+  /*color: var(--input-text-color);
+  background-color: var(--input-background-color);*/
+  padding: 10px;
+}
+
+#profile-preferences p, #edit-profile p{
+  /*color: var(--input-text-color);
+  background-color: var(--input-background-color);*/
 }
