@@ -4,6 +4,8 @@ import cors from 'cors'
 import  path from "path"
 import { fileURLToPath } from 'url'
 import mysql from 'mysql2/promise'
+import bcrypt from 'bcrypt'
+
 
 
 const __filename = fileURLToPath(import.meta.url)
@@ -29,20 +31,29 @@ app.post('/calculate', async (req, res) => {
 })
 
 
-
-
+const hashPassword = async (password) => {
+    try {
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
+        return hashedPassword;
+    } catch (error) {
+        throw new Error('Error hashing password:', error);
+    }
+}
 
 
 app.post('/createaccount', async (req,res) => {
-    const data=req.body
+    const data = req.body
     let emailTaken = false
     let usernameTaken = false
     
     try {
+
+        const passwordHash = await hashPassword(data.password)
     
         const [results, fields] = await connection.execute(
           'INSERT INTO testusers2 (username, email, first_name, last_name, password)  VALUES (?, ?, ?, ?, ?);',
-          [data.username, data.email, data.first_name, data.last_name, data.password]
+          [data.username, data.email, data.first_name, data.last_name, passwordHash]
         )
 
         const [profileToSendBack, fields2] = await connection.execute(
@@ -57,22 +68,22 @@ app.post('/createaccount', async (req,res) => {
             profile: profileToSendBack[0]
         })
 
-    }catch (err) {
+    }catch (error) {
 
-        if (err.code === 'ER_DUP_ENTRY') {
+        if (error.code === 'ER_DUP_ENTRY') {
             
-            if (err.sqlMessage.includes('email')) emailTaken = true
-            if (err.sqlMessage.includes('username'))  usernameTaken = true
+            if (error.sqlMessage.includes('email')) emailTaken = true
+            if (error.sqlMessage.includes('username'))  usernameTaken = true
 
             res.json({
-                error: err.sqlMessage,
+                error: error.sqlMessage,
                 emailTaken: emailTaken,
                 usernameTaken: usernameTaken
             })
         
         } else {
             res.json({
-                error: err.sqlMessage,
+                error: error.sqlMessage,
                 emailTaken: emailTaken,
                 usernameTaken: usernameTaken
             })
@@ -97,25 +108,24 @@ app.post('/create-account-from-google', async (req,res) => {
         }
         res.json(response)
 
-    }catch (err) {
-        res.json({error: err})
+    }catch (error) {
+        res.json({error: error})
         
       } 
       
 })
 
-app.post('/get-profile', async (req, res) => {
+app.post('/get-profile', async (req, res) => {  //after auth success. seems sketchy to have this seperate
     console.log("getting profile")
     try {
         const [results, fields] = await connection.execute(
           'SELECT id, username, email, first_name, last_name, picture, created_at FROM testusers2 WHERE email = ?',
           [req.body.profileEmail]
         )
-        console.log("resultsare:",results)
         res.json({profile: results[0]})
-    }catch (err) {
-        console.log(err)
-        res.json({error: err})
+    }catch (error) {
+        console.error(error)
+        res.json({error: error})
         
       } 
 })
@@ -123,20 +133,23 @@ app.post('/get-profile', async (req, res) => {
 
 
 app.post('/custom-signin', async (req, res) =>{
+    console.log(req.body)
 
     try {
         const [results, fields] = await connection.execute(
           'SELECT password FROM testusers2 WHERE email = ?',
           [req.body.email]
         )
-        console.log(results)
-        if(results.length == 1 && results[0].password == req.body.password){
+        console.log(results[0])
+        const match = await bcrypt.compare(req.body.password, results[0].password);
+        if(results.length == 1 && match){
             res.json({success: true})
         }else{
             res.json({success: false})
         }
 
-    }catch (err) {
+    }catch (error) {
+        console.error(error)
         res.json({success: false})
     }
 })
