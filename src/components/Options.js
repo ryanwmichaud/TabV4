@@ -48,8 +48,7 @@ const Options = ({setAb, setBb, setDb, setEb, setGb, enharmonics })=>{
             </div>
 
             <div id= "enharmonics-section">
-                <label>Enharmonics: </label>
-                <br></br>
+                Enharmonics: 
                 
                 {names.map((noteName,index)=>(
                         <button id={noteName} key={index} className="enharmonic-box" onClick={handleClick}>{enharmonics[index] ? flatNames[index] : sharpNames[index]}</button>

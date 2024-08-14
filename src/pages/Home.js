@@ -96,7 +96,7 @@ const ResultsSection = ({res, stretch, strings, chordTones, error, enharmonics})
 const Home = () =>{
 
 
-  const {isMobileView, isMobileMenuVisible, setIsMobileMenuVisible } = useContext(GlobalContext)
+  const {isMobileView, isMobileMenuVisible, setIsMobileMenuVisible, closeMobileMenu } = useContext(GlobalContext)
   const [stretch, setStretch] = useState(4)
   const [strings, setstrings] = useState(["E","A","D","G","B","E"])
   const [chordTones, setChordTones] = useState([false,false,false,false,false,false,false,false,false,false,false,false])
@@ -229,6 +229,7 @@ const Home = () =>{
     })
   }
 
+
   
   
   return (
@@ -269,7 +270,7 @@ const Home = () =>{
      
 
 
-        <div className="main"> 
+        <div className="main" onClick={closeMobileMenu}> 
 
 
           {isMobileView &&<

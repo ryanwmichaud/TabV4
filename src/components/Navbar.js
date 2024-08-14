@@ -23,7 +23,7 @@ const Navbar = () => {
 
 
     return(
-        <div className="navbar">  
+        <div className="navbar" >  
         { location.pathname === '/' &&
           !isMobileView && !isMobileMenuVisible &&  
           <MenuButton 

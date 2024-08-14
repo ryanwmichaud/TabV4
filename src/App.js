@@ -77,10 +77,14 @@ export const GlobalProvider = ({ children }) => {
   },[])
   */
 
+  const closeMobileMenu = ()=>{
+    console.log("closing mobile menu")
+    setIsMobileMenuVisible(false)
+  }
 
 
   return (
-    <GlobalContext.Provider value={{ profile, setProfile,isMobileView,  setisMobileView, isMobileMenuVisible, setIsMobileMenuVisible  }}>
+    <GlobalContext.Provider value={{ profile, setProfile,isMobileView,  setisMobileView, isMobileMenuVisible, setIsMobileMenuVisible, closeMobileMenu  }}>
       {children}
     </GlobalContext.Provider>
   )
