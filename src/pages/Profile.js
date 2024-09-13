@@ -1,10 +1,16 @@
-import React from 'react'
+import React, {useContext} from "react"
+
 import { Navbar } from '../components/Navbar'
+import { GlobalContext } from "../App"
+const ip = process.env.REACT_APP_IP
 
 
 const Profile = () =>{
 
-    const changeColor = (e) => {
+    const {profile}= useContext(GlobalContext)
+
+
+    const  changeColor = async (e) => {
         console.log(e.target.value)
         let color
         if(e.target.value === "red"){
@@ -15,6 +21,32 @@ const Profile = () =>{
             color = "rgb(91, 169, 218)"
         }
         document.documentElement.style.setProperty('--primary-color', color)
+
+        const req = {
+            user_id: profile.user_id, 
+            preference_key: "color", 
+            preference_value: e.target.value
+        }
+
+        fetch(`http://${ip}:8000/change-preference`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(req),
+            })
+            .then(response => {
+                if (!response.ok) { 
+                    throw new Error('Network response was not ok')
+                }
+                return response.json()
+            })
+            .then(data => {
+                console.log(data)
+            })
+            .catch(error => {
+            console.error(error.message)
+            }) 
 
     }
 

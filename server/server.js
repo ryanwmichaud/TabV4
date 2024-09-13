@@ -174,6 +174,27 @@ app.post('/custom-signin', async (req, res) =>{
     }
 })
 
+
+
+app.post('/change-preference', async (req, res) => {  
+    console.log("changing pref")
+    console.log(req.body)
+    try {
+        const [results, fields] = await connection.execute(
+        `INSERT INTO UserPreferences (user_id, preference_key, preference_value)
+        VALUES (?, ?, ?)
+        ON DUPLICATE KEY UPDATE preference_value = ?;`,
+          [req.body.user_id, req.body.preference_key, req.body.preference_value,req.body.preference_value]
+        )
+        res.json({profile: results[0]})
+    }catch (error) {
+        console.error(error)
+        res.json({error: error})
+        
+      } 
+})
+
+
 app.get('*', async (req,res)=>{
     //res.json({ message: "data"})
     res.sendFile(path.join(__dirname,"..", "build", "index.html")) 
