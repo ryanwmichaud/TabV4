@@ -51,21 +51,33 @@ app.post('/createaccount', async (req,res) => {
 
         const passwordHash = await hashPassword(data.password)
     
-        const [results, fields] = await connection.execute(
-          'INSERT INTO testusers2 (username, email, first_name, last_name, password)  VALUES (?, ?, ?, ?, ?);',
-          [data.username, data.email, data.first_name, data.last_name, passwordHash]
+        const [result] = await connection.execute(
+          'INSERT INTO users3 (username, email, first_name, last_name)  VALUES (?, ?, ?, ?);',
+          [data.username, data.email, data.first_name, data.last_name]
         )
 
-        const [profileToSendBack, fields2] = await connection.execute(
-            'SELECT id, username, email, first_name, last_name, picture, created_at FROM testusers2 WHERE email = ?;',
+        const userID = result.insertId
+        console.log("puttinin dreds",userID, passwordHash)
+
+        await connection.execute(
+            'INSERT INTO UserCredentials (user_id, password_hash)  VALUES (?, ?);',
+            [userID, passwordHash]
+        )
+        
+        
+
+        const profileResults = await connection.execute(
+            'SELECT * FROM users3 WHERE email = ?;',
             [data.email]
           )
+        console.log("profileToSendBack", profileResults[0][0])
       
         res.json({
             error: "none",
             emailTaken: emailTaken,
             usernameTaken: usernameTaken,
-            profile: profileToSendBack[0]
+            profile: profileResults[0][0]
+            
         })
 
     }catch (error) {
@@ -92,13 +104,13 @@ app.post('/createaccount', async (req,res) => {
       
 })
 
-
+/*
 app.post('/create-account-from-google', async (req,res) => {
     const data=req.body
     
     try {
         const [results, fields] = await connection.execute(
-          'INSERT INTO testusers2 (email, first_name, last_name, password, picture)  VALUES (?, ?, ?, ?, ?);',
+          'INSERT INTO testusers2 (email, first_name, last_name, password_hash, picture)  VALUES (?, ?, ?, ?, ?);',
           [data.email, data.first_name, data.last_name, data.password, data.picture]
         )
       
@@ -115,11 +127,13 @@ app.post('/create-account-from-google', async (req,res) => {
       
 })
 
+*/
+
 app.post('/get-profile', async (req, res) => {  //after auth success. seems sketchy to have this seperate
     console.log("getting profile")
     try {
         const [results, fields] = await connection.execute(
-          'SELECT id, username, email, first_name, last_name, picture, created_at FROM testusers2 WHERE email = ?',
+          'SELECT * FROM Users3 WHERE email = ?',
           [req.body.profileEmail]
         )
         res.json({profile: results[0]})
@@ -134,12 +148,20 @@ app.post('/get-profile', async (req, res) => {  //after auth success. seems sket
 
 app.post('/custom-signin', async (req, res) =>{
 
+    const { email, password } = req.body;
+
     try {
-        const [results, fields] = await connection.execute(
-          'SELECT password FROM testusers2 WHERE email = ?',
-          [req.body.email]
+
+        const [results] = await connection.execute(
+          `SELECT password_hash 
+          FROM UserCredentials
+          INNER JOIN USERS3 ON UserCredentials.user_id = Users3.user_id 
+          WHERE email = ?`,
+          [email]
         )
-        const match = await bcrypt.compare(req.body.password, results[0].password);
+        console.log(results)
+
+        const match = await bcrypt.compare(req.body.password, results[0].password_hash);
         if(results.length == 1 && match){
             res.json({success: true})
         }else{

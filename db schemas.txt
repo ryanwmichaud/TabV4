@@ -1,0 +1,26 @@
+db schemas
+
+CREATE TABLE Users3 (
+    user_id INT PRIMARY KEY AUTO_INCREMENT,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    username VARCHAR(255) NOT NULL,
+    first_name VARCHAR(255) NOT NULL,
+    last_name VARCHAR(255) NOT NULL,
+    profile_photo TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE UserCredentials (
+    user_id INT PRIMARY KEY,
+    password_hash VARCHAR(255) NOT NULL,
+    last_login TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users3(user_id) ON DELETE CASCADE
+);
+
+CREATE TABLE UserPreferences (
+    user_id INT,
+    preference_key VARCHAR(100),
+    preference_value VARCHAR(255),
+    PRIMARY KEY (user_id, preference_key),
+    FOREIGN KEY (user_id) REFERENCES Users3(user_id) ON DELETE CASCADE
+);

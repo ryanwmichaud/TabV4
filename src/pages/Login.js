@@ -32,7 +32,6 @@ const Login = ()=>{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                // Add any other headers if needed
             },
             body: JSON.stringify(req),
             })
@@ -50,7 +49,6 @@ const Login = ()=>{
                 }
             })
             .catch(error => {
-            // Handle and store the error
             console.error(error.message)
             }) 
     }
@@ -62,7 +60,6 @@ const Login = ()=>{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                // Add any other headers if needed
             },
             body: JSON.stringify(req),
             })
@@ -77,7 +74,6 @@ const Login = ()=>{
                 
             })
             .catch(error => {
-            // Handle and store the error
             console.error(error.message)
             }) 
     }
@@ -107,6 +103,8 @@ const Login = ()=>{
 
     }
 
+
+
     const customSignin = async ()=> {
         const req = {
             email: email,
@@ -118,7 +116,6 @@ const Login = ()=>{
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    // Add any other headers if needed
                 },
                 body: JSON.stringify(req),
             })
@@ -131,6 +128,7 @@ const Login = ()=>{
             }else{
                 try{
                     const profileData = await getProfile(email)
+                    console.log(profileData)
                     setProfile(profileData.profile)
                     navigate('/')
                 } catch (error){

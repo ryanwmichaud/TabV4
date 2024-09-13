@@ -29,6 +29,7 @@ const Profile = () =>{
                         <p>Change Username</p>
                         <p>Change Password</p>
                         <p>Change Email</p>
+                        <p>Change Picture</p>
                 </div>
                 <div id='profile-preferences'>
                     <p>Preferences</p>
@@ -38,9 +39,7 @@ const Profile = () =>{
                         <option value={"red"}>Red</option>
                         <option value={"green"}>Green</option>
                     </select>
-                </div>
-                
-                    
+                </div>           
 
             </div>
 

@@ -52,8 +52,7 @@ const Signup = ()=>{
             username: username,
             first_name: first_name,
             last_name: last_name,
-            password: password,
-            picture: null
+            password: password
         }
 
         const ip = process.env.REACT_APP_IP
@@ -63,7 +62,6 @@ const Signup = ()=>{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                // Add any other headers if needed
             },
             body: JSON.stringify(req),
             })
@@ -74,8 +72,9 @@ const Signup = ()=>{
             return response.json()
             })
             .then(data => {
+                console.log(data)
                 if(!data.usernameTaken && !data.emailTaken){ 
-
+                    console.log(data)
                     setProfile(data.profile)
                     setEmailTaken(false)
                     setUsernameTaken(false)

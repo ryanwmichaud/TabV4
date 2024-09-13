@@ -14,11 +14,10 @@ export const getProfile = async (profileEmail) => {
       profileEmail: profileEmail
   }
   try{
-      const response = await fetch(`http://${ip}:8000/get-profile`, {
+      const response = await fetch(`http://localhost:8000/get-profile`, {
           method: 'POST',
           headers: {
               'Content-Type': 'application/json',
-              // Add any other headers if needed
           },
           body: JSON.stringify(req),
           })

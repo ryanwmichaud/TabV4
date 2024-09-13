@@ -130,7 +130,6 @@ const Home = () =>{
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        // Add any other headers if needed
       },
       body: JSON.stringify(req),
     })
@@ -146,7 +145,6 @@ const Home = () =>{
       
     })
     .catch(error => {
-      // Handle and store the error
       setRes(null)
       setError(error.message)
     })
