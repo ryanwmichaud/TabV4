@@ -5,7 +5,7 @@ import  path from "path"
 import { fileURLToPath } from 'url'
 import mysql from 'mysql2/promise'
 import bcrypt from 'bcrypt'
-
+import jwt from 'jsonwebtoken'
 
 
 const __filename = fileURLToPath(import.meta.url)
@@ -18,12 +18,14 @@ app.use(cors())
 app.use(express.json())
 app.use(express.static(path.join(__dirname, '..','build')))
 
+const JWT_SECRET = process.env.JWT_SECRET
+
 const connection = await mysql.createConnection({  //auto releases connection
     host: process.env.MYSQL_HOST,
     user: process.env.MYSQL_USER, // Your MySQL username
     password: process.env.MYSQL_PASSWORD, // Your MySQL password
     database: process.env.MYSQL_DATABASE_NAME // Your database name
-  })
+})
 
 app.post('/calculate', async (req, res) => {
     const data = solve(req.body.strings, req.body.chordTones,req.body.stretch)
@@ -57,26 +59,21 @@ app.post('/createaccount', async (req,res) => {
         )
 
         const userID = result.insertId
-        console.log("puttinin dreds",userID, passwordHash)
+        console.log("putting in creds",userID, passwordHash)
 
         await connection.execute(
             'INSERT INTO UserCredentials (user_id, password_hash)  VALUES (?, ?);',
             [userID, passwordHash]
         )
         
-        
+        const token = jwt.sign({userID: userID}, JWT_SECRET, {expiresIn: '1hr'})
 
-        const profileResults = await connection.execute(
-            'SELECT * FROM users3 WHERE email = ?;',
-            [data.email]
-          )
-        console.log("profileToSendBack", profileResults[0][0])
-      
+
         res.json({
             error: "none",
             emailTaken: emailTaken,
             usernameTaken: usernameTaken,
-            profile: profileResults[0][0]
+            token: token
             
         })
 
@@ -95,7 +92,7 @@ app.post('/createaccount', async (req,res) => {
         
         } else {
             res.json({
-                error: error.sqlMessage,
+                error: "other error",
                 emailTaken: emailTaken,
                 usernameTaken: usernameTaken
             })
@@ -129,19 +126,43 @@ app.post('/create-account-from-google', async (req,res) => {
 
 */
 
-app.post('/get-profile', async (req, res) => {  //after auth success. seems sketchy to have this seperate
-    console.log("getting profile")
-    try {
+app.get('/get-profile', async (req, res) => {  
+    
+    const token = req.headers['authorization']?.split(' ')[1];
+    console.log("getting profile", token)
+
+    if (!token) {
+        return res.status(401).json({ message: 'No token - Access denied' });
+    }
+
+    try{
+        const decoded = jwt.verify(token, JWT_SECRET)
+
         const [results, fields] = await connection.execute(
-          'SELECT * FROM Users3 WHERE email = ?',
-          [req.body.profileEmail]
+            'SELECT * FROM Users3 WHERE user_id = ?',
+            [decoded.userID]
         )
-        res.json({profile: results[0]})
-    }catch (error) {
-        console.error(error)
-        res.json({error: error})
         
-      } 
+        if (results.length === 0) {
+            return res.status(404).json({ message: 'Profile not found' });
+        }else{
+            
+            res.json({ profile: results[0] });
+        }
+
+    } catch (err) {
+        if (err.name === 'JsonWebTokenError') {
+            return res.status(403).json({ message: 'Invalid token.' });
+        } else {
+            return res.status(500).json({ message: 'Internal server error' });
+        }
+    }
+    
+
+    
+
+    
+    
 })
 
 
@@ -153,17 +174,17 @@ app.post('/custom-signin', async (req, res) =>{
     try {
 
         const [results] = await connection.execute(
-          `SELECT password_hash 
+          `SELECT UserCredentials.user_id, password_hash 
           FROM UserCredentials
           INNER JOIN USERS3 ON UserCredentials.user_id = Users3.user_id 
           WHERE email = ?`,
           [email]
         )
-        console.log(results)
 
         const match = await bcrypt.compare(req.body.password, results[0].password_hash);
         if(results.length == 1 && match){
-            res.json({success: true})
+            const token = jwt.sign({userID: results[0].user_id}, JWT_SECRET, {expiresIn: '1hr'})
+            res.json({success: true, token: token})
         }else{
             res.json({success: false})
         }
