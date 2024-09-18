@@ -44,7 +44,8 @@ const hashPassword = async (password) => {
 }
 
 
-app.post('/createaccount', async (req,res) => {
+
+app.post('/create-account', async (req,res) => {
     const data = req.body
     let emailTaken = false
     let usernameTaken = false
@@ -126,6 +127,39 @@ app.post('/create-account-from-google', async (req,res) => {
 
 */
 
+app.get('/get-preferences', async (req, res)=>{
+
+    const token = req.headers['authorization']?.split(' ')[1];
+    console.log("getting preferences", token)
+
+    if (!token) {
+        return res.status(401).json({ message: 'No token - Access denied' });
+    }
+
+    try{
+        const decoded = jwt.verify(token, JWT_SECRET)
+        const results = await connection.execute( `SELECT * FROM UserPreferences WHERE user_id = ?`, [decoded.userID])
+
+        
+        if (results.length === 0) {
+            return res.status(404).json({ message: 'no preferences found' });
+        }else{
+            console.log(results[0])
+            res.json({ preferences: results[0] });
+        }
+
+    } catch (err) {
+        if (err.name === 'JsonWebTokenError') {
+            return res.status(403).json({ message: 'Invalid token.', err });
+        } else {
+            return res.status(500).json({ message: 'Internal server error', err});
+        }
+    }
+    
+
+
+})
+
 app.get('/get-profile', async (req, res) => {  
     
     const token = req.headers['authorization']?.split(' ')[1];
@@ -194,11 +228,13 @@ app.post('/custom-signin', async (req, res) =>{
         res.json({success: false})
     }
 })
-
-
+/*
+INSERT INTO UserPreferences (user_id, preference_key, preference_value)
+VALUES (71, "testkey", "testvalue")
+ON DUPLICATE KEY UPDATE preference_value = 'testvalue';
+*/
 
 app.post('/change-preference', async (req, res) => {  
-    console.log("changing pref")
     console.log(req.body)
     try {
         const [results, fields] = await connection.execute(
