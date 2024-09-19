@@ -237,11 +237,13 @@ ON DUPLICATE KEY UPDATE preference_value = 'testvalue';
 app.post('/change-preference', async (req, res) => {  
     console.log(req.body)
     try {
+        console.log('req:',req.body)
+        const decoded = jwt.verify(req.body.token, JWT_SECRET)
         const [results, fields] = await connection.execute(
         `INSERT INTO UserPreferences (user_id, preference_key, preference_value)
         VALUES (?, ?, ?)
         ON DUPLICATE KEY UPDATE preference_value = ?;`,
-          [req.body.user_id, req.body.preference_key, req.body.preference_value,req.body.preference_value]
+          [decoded.userID, req.body.preference_key, req.body.preference_value,req.body.preference_value]
         )
         res.json({profile: results[0]})
     }catch (error) {
