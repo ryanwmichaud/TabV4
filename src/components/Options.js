@@ -6,10 +6,34 @@ const sharpNames = ["G#","A#","C#","D#","F#"]
 const flatNames = ["Ab","Bb", "Db","Eb","Gb"]
 
 
+const StretchInput = ({changeStretch, stretch}) => {
+  
+    const handleChangeStretch = (e) => {
+      e.preventDefault()
+      changeStretch(parseInt(e.target.value))  
+    }
+
+    return (
+
+      <div className='stretch-input'>
+        <p className="input-subsubtitle"> Max number of frets: </p>
+        <select id='stretch-select' onChange={handleChangeStretch} value={stretch}>  
+        <option value={2}>2</option>
+        <option value={3}>3</option>
+        <option value={4}>4</option>
+        <option value={5}>5</option>
+        </select>
+      </div>
+  )
+  
+}
 
 
 
-const Options = ({setAb, setBb, setDb, setEb, setGb, enharmonics })=>{
+
+
+const Options = ({changeStretch, stretch, setAb, setBb, setDb, setEb, setGb, enharmonics })=>{
+    
     const handleClick = (e)=>{
         if(e.target.id === "G#/Ab"){
             setAb(!enharmonics[0])
@@ -26,25 +50,24 @@ const Options = ({setAb, setBb, setDb, setEb, setGb, enharmonics })=>{
         if(e.target.id === "F#/Gb"){
             setGb(!enharmonics[4])
         }
-        
     }
 
     return(
         <div className="options-section">
 
-        
-            
+            <p className="input-subtitle">Options</p>
 
-            <div id= "enharmonics-section">
-                Enharmonics: 
+            <StretchInput changeStretch={changeStretch} stretch={stretch}></StretchInput>
+
+            
+                <p className="input-subsubtitle"> Enharmonics:</p>
+
                 <div id="enharmonic-boxes">
                     {names.map((noteName,index)=>(
                             <button id={noteName} key={index} className="enharmonic-box" onClick={handleClick}>{enharmonics[index] ? flatNames[index] : sharpNames[index]}</button> 
                     ))}
                 </div>
-                
-                
-            </div>
+           
 
        
               
@@ -57,17 +80,17 @@ export {Options}
 
 /*
             <div id="doubling-section">
-                <label htmlFor="doubling-button">Doubling:</label>
+                <p htmlFor="doubling-button">Doubling:</p>
                 <input id="doubling-button" type="checkbox"></input>
             </div>
 
             <div id="use-open-section">
-                <label htmlFor="use-open-button">Use Open Strings:</label>
+                <p htmlFor="use-open-button">Use Open Strings:</p>
                 <input id="use-open-button" type="checkbox"></input>
             </div>
 
             <div id="no-string-skipping-section">
-                <label htmlFor="no-string-skipping-button">No String Skipping:</label>
+                <p htmlFor="no-string-skipping-button">No String Skipping:</p>
                 <input id="no-string-skipping-button" type="checkbox"></input>
             </div>
 */

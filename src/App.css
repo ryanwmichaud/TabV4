@@ -237,13 +237,27 @@ a{
   border-color: var(--input-text-color);
 }
 
-.stretch-input, .string-input, .ctinput, .chord-quality, .options-section{
+.input-subsubtitle{
+  margin-bottom: 3px;
+  margin-top: 6px;
+  color: var(--primary-color);
+}
+
+
+.string-input, .ctinput, .options-section{
   margin: 5% 16% 0px 16%;
   padding: 5%;
+  padding-top: 5px;
   border-style:double;
   border-width: 5px;
   border-radius: 3px;
   accent-color: var(--primary-color);
+  font-size: 0.90rem;
+}
+
+.input-subtitle{
+  margin: 0;
+  font-size: 1rem;
 }
 
 .options-section{
@@ -323,11 +337,7 @@ a{
   cursor: pointer;
 }
 
-#doubling-section, #use-open-section, #no-string-skipping-section, #enharmonics-section, #color-section {
-  margin-top: 5px;
-  margin-bottom: 5px;
 
-}
 
 
 

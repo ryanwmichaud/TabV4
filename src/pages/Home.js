@@ -1,12 +1,10 @@
 import '../App.css'
 import {Diagram} from '../components/Diagram.js'
 import { ChordToneInput } from '../components/ChordTone.js'
-import { StretchInput } from '../components/Stretch.js'
 import { StringInput,  } from '../components/String.js'
 import { Options } from '../components/Options.js'
 import { MenuButtonClose} from '../components/MenuButton.js'
 import React, { useCallback, useEffect, useState, useContext } from 'react'
-import { ChordQuality } from '../components/ChordQuality.js'
 import { Navbar } from "../components/Navbar.js"
 import { GlobalContext } from '../App.js'
 
@@ -34,12 +32,12 @@ const InputSection = ({changeStretch, changeNumStrings, addChordTone, removeChor
   return(
       <div >
         <div className='input-title'> Input: </div>
-        <StretchInput changeStretch={changeStretch} stretch={stretch}></StretchInput>
         
-        <ChordToneInput addChordTone={addChordTone} removeChordTone={removeChordTone} chordTones={chordTones} enharmonics={enharmonics}></ChordToneInput>
-        <ChordQuality  addChordTone={addChordTone} removeChordTone={removeChordTone} chordTones={chordTones} root={root} quality={quality} setRoot={setRoot} setQuality={setQuality} enharmonics={enharmonics}></ChordQuality>
+        <ChordToneInput addChordTone={addChordTone} removeChordTone={removeChordTone} chordTones={chordTones} enharmonics={enharmonics} root={root} quality={quality} setRoot={setRoot} setQuality={setQuality}></ChordToneInput>
         <StringInput strings={strings} n={n} changeNumStrings={changeNumStrings} changeOpen={changeOpen} enharmonics={enharmonics} setStrings={setStrings}></StringInput>
-        <Options setAb={setAb} setBb={setBb} setDb={setDb} setEb={setEb} setGb={setGb} enharmonics={enharmonics}></Options>
+        <Options  changeStretch={changeStretch} stretch={stretch}
+                  setAb={setAb} setBb={setBb} setDb={setDb} setEb={setEb} setGb={setGb} enharmonics={enharmonics}>
+        </Options>
       </div>
       
   )
