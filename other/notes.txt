@@ -204,3 +204,12 @@ catch (err) {
         res.json({error: "server error"});
       }
     } 
+
+
+
+
+    Redirect to the login page if not signed in
+    Change preferences should verify with token
+    handle token expires
+
+    

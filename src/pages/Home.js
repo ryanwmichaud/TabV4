@@ -30,7 +30,7 @@ const nameMap = Object.freeze({
 
 
 
-const InputSection = ({changeStretch, changeNumStrings, addChordTone, removeChordTone, changeOpen, stretch, strings, chordTones, n, root, quality, setRoot, setQuality, setAb, setBb, setDb, setEb, setGb, enharmonics}) => {
+const InputSection = ({changeStretch, changeNumStrings, addChordTone, removeChordTone, changeOpen, stretch, strings, chordTones, n, root, quality, setRoot, setQuality, setAb, setBb, setDb, setEb, setGb, enharmonics, setStrings}) => {
   return(
       <div >
         <div className='input-title'> Input: </div>
@@ -38,7 +38,7 @@ const InputSection = ({changeStretch, changeNumStrings, addChordTone, removeChor
         
         <ChordToneInput addChordTone={addChordTone} removeChordTone={removeChordTone} chordTones={chordTones} enharmonics={enharmonics}></ChordToneInput>
         <ChordQuality  addChordTone={addChordTone} removeChordTone={removeChordTone} chordTones={chordTones} root={root} quality={quality} setRoot={setRoot} setQuality={setQuality} enharmonics={enharmonics}></ChordQuality>
-        <StringInput strings={strings} n={n} changeNumStrings={changeNumStrings} changeOpen={changeOpen} enharmonics={enharmonics}></StringInput>
+        <StringInput strings={strings} n={n} changeNumStrings={changeNumStrings} changeOpen={changeOpen} enharmonics={enharmonics} setStrings={setStrings}></StringInput>
         <Options setAb={setAb} setBb={setBb} setDb={setDb} setEb={setEb} setGb={setGb} enharmonics={enharmonics}></Options>
       </div>
       
@@ -98,7 +98,7 @@ const Home = () =>{
 
   const {isMobileView, isMobileMenuVisible, setIsMobileMenuVisible, closeMobileMenu } = useContext(GlobalContext)
   const [stretch, setStretch] = useState(4)
-  const [strings, setstrings] = useState(["E","A","D","G","B","E"])
+  const [strings, setStrings] = useState(["E","A","D","G","B","E"])
   const [chordTones, setChordTones] = useState([false,false,false,false,false,false,false,false,false,false,false,false])
   const [root, setRoot] = useState("")
   const [quality, setQuality] = useState("")
@@ -216,11 +216,11 @@ const Home = () =>{
     for(let i=0;i<n;i++){
       newStrings.push("A")
     }
-    setstrings(newStrings)
+    setStrings(newStrings)
   }
 
   const changeOpen = (index, newOpen) => { 
-    setstrings(prevStrings =>{
+    setStrings(prevStrings =>{
       const newStrings = prevStrings.slice()
       newStrings[index] = newOpen
       return newStrings
@@ -258,6 +258,7 @@ const Home = () =>{
               n={numStringSelects}
               setAb={setAb} setBb={setBb} setDb={setDb} setEb={setEb} setGb={setGb}
               enharmonics = {enharmonics}
+              setStrings = {setStrings}
             >
             </InputSection>
           </div>
@@ -289,6 +290,7 @@ const Home = () =>{
               n={numStringSelects}
               setAb={setAb} setBb={setBb} setDb={setDb} setEb={setEb} setGb={setGb}
               enharmonics = {enharmonics}
+              setStrings = {setStrings}
 
             >
             </InputSection>

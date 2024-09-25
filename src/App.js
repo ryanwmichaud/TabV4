@@ -9,35 +9,44 @@ import { Profile } from './pages/Profile'
 const ip = process.env.REACT_APP_IP
 export const GlobalContext  = createContext()
 
-export const getProfile = async (profileEmail) => {
-  const req = {
-      profileEmail: profileEmail
-  }
+export const getProfile = async (token) => {
+  console.log("getting profile w token", token)
+ 
   try{
+    
       const response = await fetch(`http://localhost:8000/get-profile`, {
-          method: 'POST',
-          headers: {
-              'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(req),
-          })
-      if (!response.ok) { 
-          throw new Error('network response not ok')
-      }
-      const data = await response.json()
-      return data
+          headers: { Authorization: `Bearer ${token}` },
+      })
+      
+      const profileData = await response.json()
+      return profileData
 
   }catch (error){
-      console.error("fetch error:", error)
+      console.error("error fetching profile:", error)
   }
-  
+}
 
+export const getPrefereces = async (token) => {
+  console.log("getting preferences w token", token)
+  try{
+    
+      const response = await fetch(`http://localhost:8000/get-preferences`, {
+          headers: { Authorization: `Bearer ${token}` },
+      })
+      
+      const preferences = await response.json()
+      return preferences
+
+  }catch (error){
+      console.error("error fetching preferences:", error)
+  }
 }
 
 export const GlobalProvider = ({ children }) => {
   const [isMobileView, setisMobileView] = useState(false)
   const [isMobileMenuVisible, setIsMobileMenuVisible] = useState(false)
   const [ profile, setProfile ] = useState(null)
+
   //get height
    useEffect(() => {
   
@@ -63,6 +72,32 @@ export const GlobalProvider = ({ children }) => {
       window.removeEventListener('orientationchange', handleResize)
     }
   }, [])
+
+  useEffect( ()=>{
+    
+    //set preferences on profile change
+    async function getPreferecesCallback(){
+      const token = localStorage.getItem('token')
+      if (profile){
+        const response = await getPrefereces(token)
+        const preferences = response.preferences 
+      
+        for(const preference of preferences){
+          if (preference.preference_key === 'color'){
+            document.documentElement.style.setProperty('--primary-color', `var(--${preference.preference_value})`)
+          }
+        }
+      }else{
+        document.documentElement.style.setProperty('--primary-color', `var(--blue)`)
+        console.log('logging out and removing token')
+        localStorage.removeItem('token')
+
+      }
+      
+    }
+    getPreferecesCallback()
+    
+  }, [profile])
 /*
   useEffect(()=>{
     if(profile && !profile.username){

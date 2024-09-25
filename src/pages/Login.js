@@ -3,7 +3,7 @@ import { Navbar } from '../components/Navbar'
 import "../App.css"
 import { GoogleLogin, googleLogout } from '@react-oauth/google'
 import {jwtDecode} from 'jwt-decode'
-import { GlobalContext, getProfile} from '../App'
+import { GlobalContext, getProfile, getPrefereces} from '../App'
 import { useContext, useState} from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 
@@ -53,8 +53,6 @@ const Login = ()=>{
             }) 
     }
 
-
-
     const lookupEmail = (req)=>{
         fetch(`http://${ip}:8000/lookup-email`, {
             method: 'POST',
@@ -77,9 +75,6 @@ const Login = ()=>{
             console.error(error.message)
             }) 
     }
-
-
-
 
     const onGoogleSuccess = (res)=>{
         const data = jwtDecode(res.credential)
@@ -127,9 +122,11 @@ const Login = ()=>{
                 setLoginFailed(true)
             }else{
                 try{
-                    const profileData = await getProfile(email)
-                    console.log(profileData)
-                    setProfile(profileData.profile)
+                    localStorage.setItem('token', data.token)
+
+                    const profileData = await getProfile(data.token)
+                    await setProfile(profileData.profile)
+                    
                     navigate('/')
                 } catch (error){
                         console.error("error during fetch profile", error)
@@ -140,6 +137,7 @@ const Login = ()=>{
             console.error("fetch error auth",error.message)
         }
     }
+
 
 
 
@@ -157,37 +155,31 @@ const Login = ()=>{
             <Navbar></Navbar>
             <div id='login-main'>
                 <p className='signin-title'>Sign In</p>
-                {profile ? (
-                    <div>
-                        <p>{`Hello, ${profile.given_name}`}</p>
-                        <button onClick={logout}>Logout</button>
-                    </div>
-                    
-                ):(
-                    <div>
-                        <div id='signin-options'>
-                            <div className='google-signin'>
-                                <p id='google-signin-title'>Sign in with Google</p>
-                                <GoogleLogin onSuccess={onGoogleSuccess} onError={onError}/>
-                            </div>
-                            <div id='custom-signin'>
-                                <p id='custom-signin-title'>Sign in</p>
-                                <input type="email" id="signin-email" placeholder="Email" required onChange={changeEmail}/>
-                                <input type="password" id="signin-password" placeholder="Password" required onChange={changePassword}/>
-                                <button id="signup-button" type="submit"  onClick={customSignin}>Sign In</button>
-                            </div>
-                            <div id='login-signup'>
-                                <Link id='login-signup-link' to={"/signup"}> Create an Account </Link>
-                            </div>
+                
+                <div>
+                    <div id='signin-options'>
+                        <div className='google-signin'>
+                            <p id='google-signin-title'>Sign in with Google</p>
+                            <GoogleLogin onSuccess={onGoogleSuccess} onError={onError}/>
                         </div>
-                        {loginFailed &&
-                            <div> 
-                                <p>{`Incorrect Password`}</p>
-                            </div>
-                        }
+                        <div id='custom-signin'>
+                            <p id='custom-signin-title'>Sign in</p>
+                            <input type="email" id="signin-email" placeholder="Email" required onChange={changeEmail}/>
+                            <input type="password" id="signin-password" placeholder="Password" required onChange={changePassword}/>
+                            <button id="signup-button" type="submit"  onClick={customSignin}>Sign In</button>
+                        </div>
+                        <div id='login-signup'>
+                            <Link id='login-signup-link' to={"/signup"}> Create an Account </Link>
+                        </div>
                     </div>
+                    {loginFailed &&
+                        <div> 
+                            <p>{`Incorrect Email and Password`}</p>
+                        </div>
+                    }
+                </div>
 
-                )}
+                
             </div>
         </div>
         

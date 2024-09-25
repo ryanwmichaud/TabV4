@@ -10,23 +10,18 @@ const Profile = () =>{
     const {profile}= useContext(GlobalContext)
 
 
-    const  changeColor = async (e) => {
+    const   changeColor = async (e) => {
         console.log(e.target.value)
-        let color
-        if(e.target.value === "red"){
-            color = "rgb(204, 110, 110)"
-        }else if(e.target.value === "green"){
-            color = "rgb(124, 178, 130)" 
-        }else if(e.target.value === "blue"){
-            color = "rgb(91, 169, 218)"
-        }
-        document.documentElement.style.setProperty('--primary-color', color)
+        let color = e.target.value
+      
+        document.documentElement.style.setProperty('--primary-color', `var(--${color})`)
 
         const req = {
-            user_id: profile.user_id, 
+            token: localStorage.getItem('token'),
             preference_key: "color", 
             preference_value: e.target.value
         }
+        console.log("sending req", req)
 
         fetch(`http://${ip}:8000/change-preference`, {
             method: 'POST',

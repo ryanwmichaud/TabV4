@@ -3,7 +3,8 @@ import { Navbar } from '../components/Navbar'
 import "../App.css"
 import { useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { GlobalContext } from "../App"
+import { GlobalContext, getProfile} from '../App'
+
 
 
 
@@ -57,38 +58,48 @@ const Signup = ()=>{
 
         const ip = process.env.REACT_APP_IP
 
-
-        fetch(`http://${ip}:8000/createaccount`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(req),
+        try{
+            const response = await fetch(`http://${ip}:8000/create-account`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(req),
             })
-            .then(response => {
             if (!response.ok) { 
                 throw new Error('Network response was not ok')
             }
-            return response.json()
-            })
-            .then(data => {
-                console.log(data)
-                if(!data.usernameTaken && !data.emailTaken){ 
-                    console.log(data)
-                    setProfile(data.profile)
-                    setEmailTaken(false)
-                    setUsernameTaken(false)
-                    navigate('/')
-                }else {
-                    (data.usernameTaken ? setUsernameTaken(true) : setUsername(false))
-                    (data.emailTaken ? setEmailTaken(true) : setEmailTaken(false))
-        
-                }
+            const data = await response.json()
+            console.log(data)
             
-            })
-            .catch(error => {
+            if(!data.usernameTaken && !data.emailTaken){ 
+          
+                const profileData = await getProfile(data.token)
+                localStorage.setItem('token', data.token)
 
-            }) 
+                console.log("signup getprofile",profileData)
+
+                console.log(profileData)
+                setProfile(profileData.profile)
+                setEmailTaken(false)
+                setUsernameTaken(false)
+                navigate('/')
+            }else {
+                (data.usernameTaken ? setUsernameTaken(true) : setUsername(false))
+                (data.emailTaken ? setEmailTaken(true) : setEmailTaken(false))
+    
+            }
+
+        }catch{
+
+        }
+
+        
+       
+           
+                
+            
+          
     }
         
       

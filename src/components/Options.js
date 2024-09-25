@@ -32,6 +32,30 @@ const Options = ({setAb, setBb, setDb, setEb, setGb, enharmonics })=>{
     return(
         <div className="options-section">
 
+        
+            
+
+            <div id= "enharmonics-section">
+                Enharmonics: 
+                <div id="enharmonic-boxes">
+                    {names.map((noteName,index)=>(
+                            <button id={noteName} key={index} className="enharmonic-box" onClick={handleClick}>{enharmonics[index] ? flatNames[index] : sharpNames[index]}</button> 
+                    ))}
+                </div>
+                
+                
+            </div>
+
+       
+              
+
+        </div>
+    )
+}
+
+export {Options}
+
+/*
             <div id="doubling-section">
                 <label htmlFor="doubling-button">Doubling:</label>
                 <input id="doubling-button" type="checkbox"></input>
@@ -46,24 +70,4 @@ const Options = ({setAb, setBb, setDb, setEb, setGb, enharmonics })=>{
                 <label htmlFor="no-string-skipping-button">No String Skipping:</label>
                 <input id="no-string-skipping-button" type="checkbox"></input>
             </div>
-
-            <div id= "enharmonics-section">
-                Enharmonics: 
-                
-                {names.map((noteName,index)=>(
-                        <button id={noteName} key={index} className="enharmonic-box" onClick={handleClick}>{enharmonics[index] ? flatNames[index] : sharpNames[index]}</button>
-                    
-                ))}
-            </div>
-
-            <div id="color-section">
-                <label htmlFor="color-selector">Color:</label>
-                <input id="color-selector" type="color"></input>
-            </div>
-              
-
-        </div>
-    )
-}
-
-export {Options}
+*/

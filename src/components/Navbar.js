@@ -19,7 +19,7 @@ const Navbar = () => {
     setIsProfileMenuOpen(!isProfileMenuOpen);
   };
 
-  console.log(profile)
+  //console.log(profile)
   return(
       <div className="navbar" >  
       { location.pathname === '/' &&
