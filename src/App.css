@@ -7,26 +7,36 @@
 
 :root {
   /*
-  rgb(204, 110, 110)
-  rgb(91, 169, 218)
+  rgb(204, 110, 110) red
+  rgb(91, 169, 218) blue
+  rgb(124, 178, 130) green
+  125, 101, 142 purple
   
   */
-  --primary-color: rgb(124, 178, 130);
+  --primary-color: rgb(91, 169, 218);
   --secondary-color: grey;
-  --input-primary-color: rgb(218, 217, 217);
-  --input-secondary-color: rgb(44, 48, 55);
+  --input-text-color: rgb(218, 217, 217);
+  --input-background-color: rgb(44, 48, 55);
+  --nav-text-color: white;
 
   --maple: rgb(250, 208, 158);
   --rosewood: rgb(126, 81, 60);
 
+  --red: rgb(204, 110, 110);
+  --blue: rgb(91, 169, 218);
+  --green: rgb(124, 178, 130);
+  --purple: rgb(125, 101, 142 );
 
 }
 
 a{
   text-decoration: none;
+
 }
 
 .navbar {
+  position: relative;
+  
   background-color: var(--secondary-color);
   height: calc(var(--vh, 1vh) * 15);
 
@@ -43,10 +53,58 @@ a{
   margin: 0;
   padding: 0;
 
- 
-
+}
+.nav-user{
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  position: absolute;
+  right: 20px;
+}
+.nav-name{
+  font-size: 15px;
+  color: var(--nav-text-color);
+}
+.nav-picture{
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
 }
 
+
+.nav-login-link{
+  position: absolute;
+  right: 20px;
+  color: var(--nav-text-color)
+}
+
+#nav-profile-menu{
+  position: absolute;
+  top: 100%;
+  right: 10px;
+  background-color: var(--secondary-color);
+  border-style: solid;
+  border-color: black;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+}
+#nav-profile-menu a, #nav-profile-menu p{
+  cursor: pointer;
+  padding: 10px;
+  box-sizing: border-box;
+  border: 2px solid transparent; /* Set an initial transparent border */
+  margin: 0;
+  color: var(--input-text-color);
+  background-color: var(--secondary-color);
+
+}
+#nav-profile-menu a:hover, #nav-profile-menu p:hover {
+  background-color: var(--primary-color);
+  border-style: solid;
+  border-color: var(--input-text-color);
+  color: black;
+}
 
 
 .title{
@@ -63,7 +121,6 @@ a{
   position: absolute;
   left: 10px; 
 
-
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -75,12 +132,15 @@ a{
 
 }
 
+
+
 .toggle-menu-bar{
   width: 30px;
   height: 3px;
-  background-color: var(--input-primary-color);
+  background-color: var(--nav-text-color);
   border-radius: 2px;
 }
+
 
 
 .toggle-menu-close{
@@ -88,7 +148,7 @@ a{
   width: 45px;
   height: 45px;
   margin-left: 5%; 
-  color: var(--input-primary-color);
+  color: var(--input-text-color);
   font-size: 26px;
   border: none;
   cursor: pointer;
@@ -116,8 +176,8 @@ a{
 
 .input{
   padding-top: 5%;
-  background-color: var(--input-secondary-color);
-  color: var(--input-primary-color);
+  background-color: var(--input-background-color);
+  color: var(--input-text-color);
   width: 25%;
 
   position: relative;
@@ -130,8 +190,8 @@ a{
   opacity: 80%;
   
   padding-top: 5%;
-  background-color: var(--input-secondary-color);
-  color: var(--input-primary-color);
+  background-color: var(--input-background-color);
+  color: var(--input-text-color);
   width: 50%;
   height: 100%;
 
@@ -174,7 +234,7 @@ a{
   border-style: double;
   border-width: 5px;
   border-radius: 3px;
-  border-color: var(--input-primary-color);
+  border-color: var(--input-text-color);
 }
 
 .stretch-input, .string-input, .ctinput, .chord-quality, .options-section{
@@ -191,13 +251,7 @@ a{
   
 }
 
-.doubling-section{
- flex: row;
- justify-content: center;
- justify-items: center;
- align-items: center;
- align-content: center;
-}
+
 
 #root-select{
   width: 50%;
@@ -217,10 +271,7 @@ a{
   cursor: pointer;
 
 }
-.ctinput{
-  padding-top: 0;
-  margin-top: 0;
-}
+
 
 .stringselect{
   width: 100%;
@@ -263,13 +314,22 @@ a{
 }
 
 
+
 .enharmonic-box{
   cursor: pointer;
 }
 
-#doubling-button{
+#doubling-button, #use-open-button, #no-string-skipping-button, #color-selector {
   cursor: pointer;
 }
+
+#doubling-section, #use-open-section, #no-string-skipping-section, #enharmonics-section, #color-section {
+  margin-top: 5px;
+  margin-bottom: 5px;
+
+}
+
+
 
 
 .diagram, .results-title, .error-message{
@@ -372,16 +432,93 @@ a{
   border-radius: 50%; 
 }
 
-.login-main{
+
+
+
+#login-main, #signup-main, #profile-main{
+
   background-color: var(--primary-color);
   display: flex;
-  
+  flex-direction: column;
+  align-items: center;
+
   overflow: hidden;
   position: relative;
-
 
   height: calc(var(--vh, 1vh) * 85);
 
   margin: 0;
   padding: 0;
+}
+
+.signin-title, #signin-options, #custom-signup, #signup-title{
+  display: flex;
+  flex-direction: column;
+  font-weight: bold;
+  font-size: 25px;
+  border-style: double;
+  border-color: black;
+  border-radius: 3px;
+  border-width: 5px;
+  background-color: var(--secondary-color);
+  padding: 10px;
+}
+
+
+
+.google-signin, #custom-signin, #custom-signup,  #login-signup{
+
+  margin-bottom: 20px;
+  font-size: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-items: center;
+}
+
+#login-signup-link{
+  background-color: var(--input-text-color);
+  color: black;
+  border-style: solid;
+  padding: 10px;
+}
+
+#signup-email, #signup-username, #signup-firstname, #signup-lastname, #signup-password,
+#signin-email, #signin-password {
+  
+  margin: 2px;
+  overflow: scroll;
+}
+
+#custom-signin-title, #google-signin-title{
+  margin-bottom: 5px;
+}
+
+#signup-button, #signin-button{
+  margin-top: 5px;
+
+}
+
+
+.signin-options{
+  background-color: var(--secondary-color);
+  padding: 20px;
+
+}
+
+#profile-main{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start
+}
+
+#profile-preferences, #edit-profile{
+  /*color: var(--input-text-color);
+  background-color: var(--input-background-color);*/
+  padding: 10px;
+}
+
+#profile-preferences p, #edit-profile p{
+  /*color: var(--input-text-color);
+  background-color: var(--input-background-color);*/
 }

@@ -15,7 +15,7 @@ const Box = ({ text }) => {
   
 const Row = ({stretch, rowData, enharmonics}) => {
 
-  let boxes = [];
+  let boxes = []
   for(let i=0;i<stretch;i++){
     let noteName = rowData[1]
     //console.log(noteName, Db)
@@ -35,9 +35,9 @@ const Row = ({stretch, rowData, enharmonics}) => {
       noteName = "Bb"      
     }
     if(i === rowData[0]){  //if ct is there, add it. else blank box
-      boxes = boxes.concat(<Box text={noteName} key={i}></Box>);
+      boxes = boxes.concat(<Box text={noteName} key={i}></Box>)
     }else{
-      boxes = boxes.concat(<Box text="" key={i}></Box>);
+      boxes = boxes.concat(<Box text="" key={i}></Box>)
     }
   }
 
@@ -51,7 +51,7 @@ const Row = ({stretch, rowData, enharmonics}) => {
 
 const Diagram = ({diagram_data, stretch, enharmonics}) => {
     
-    let rows = [];
+    let rows = []
     for(let i=1; i<diagram_data.length;i++){
       rows = rows.concat(<Row stretch={stretch} rowData={diagram_data[i]} key={i} enharmonics={enharmonics}></Row>)
     }

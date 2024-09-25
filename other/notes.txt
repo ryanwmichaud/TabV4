@@ -1,5 +1,9 @@
 notes 
 
+
+state holds
+id, username, email, first_name, last_name, picture, created_at
+
 hashmaps can be enum - numbers are consecutive...
 
 musicstring class doesnt really need hashmaps either - just open string
@@ -47,29 +51,165 @@ using slice?
 
 
 FRONT END
-
-bugs - ios screen height 
-when no resuts, title is squisked
-
-when it gets too narrow switch to mobile - hide and show left side menu
-when it gets to one column of ct checkboxes - strighten left align
-think about verticle squish too
-
+bugs - ios screen height is still kind of slow 
 lines btwn boxes
 
 FEATURES
 
-no string skips
-bass note 
-doubling. minimum --> what can I add
-toggle enharmic equivalents
-toggle box w text or string w circle note view?
-drop down to view notes names or scale degree view w any given root
-position markers. could be customizable
-only choose certain string sets to look at - tuning select ignore!
+results
+    no string skips
+    open strings
+    bass note 
+    doubling. 
+        minimum --> what can I add
+        position at position --> every ct in that position
+    whole neck view with just every way at once. up to like 12 or 15 frets or something
+    drop down to view notes names or scale degree view w any given root
 
-use chord qulaities as well as cts
+visual
+    position markers. could be customizable
+    custom color
+    vertical diagrams --> better for showing a lot at once
+    enharmonic splits box in half. choose one
+    show notes - and if root selected - also show intervals 
 
 
-enahrmoincic toggle can cahnge the ct lables too. 
-enharms could be an array of bools tomake simpler. 
+
+    
+
+reorder the most important parts of input
+give info when hover on how to use it
+have common tunings 
+
+
+
+
+
+
+
+
+DB 
+
+user table with profile details
+
+saved diagrams with user associated
+
+preferences in user table? or in own table w user id
+access type
+
+
+
+
+
+users
+    id
+    username
+    email
+    first_name
+    last_name
+    password --hashed
+    picture
+    created_at
+
+google-users    
+    id
+    google_id  --sub
+    email
+    first_name
+    last_name
+    picture
+    created_at
+
+
+preferences 
+    user_id
+    doubling
+    useopenstrings
+    color 
+    enharmonics
+    position markings?
+
+
+tunings
+	user id 
+	tuning
+
+chords 
+    user_id
+    tuning
+    position
+    chord
+
+
+
+CREATE TABLE testusers2 (
+    id SERIAL PRIMARY KEY,
+    username VARCHAR(255) UNIQUE,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    first_name VARCHAR(255),
+    last_name VARCHAR(255),
+    password VARCHAR(255) NOT NULL,
+    picture TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+);
+
+
+INSERT INTO testusers (username, email, first_name, last_name, password)
+VALUES ('testuname', 'test@gmail.com', 'rn', 'mich', 'poop1234');
+
+INSERT INTO testusers (username, email, first_name, last_name, password)
+VALUES ('testun2', 'test2@gmail.com', 'rn2', 'm2ich', 'po2op1234_2');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+catch (err) {
+      if (err.code === 'ER_DUP_ENTRY') {
+        let message = err.sqlMessage
+        
+
+        if (message.includes('email')) { 
+            console.log("dema - Email duplication detected");
+            const response = {
+                duplicate: 'email'
+            };
+            console.log("Response being sent for email:", response);
+            res.json(response); // Send the constructed response object
+        }
+        else if (message.includes('username')) { 
+            console.log("dusenm - Username duplication detected");
+            const response = {
+                duplicate: 'username'
+            };
+            console.log("Response being sent for username:", response);
+            res.json(response); // Send the constructed response object
+        } else {
+            // Debugging: Handle unexpected cases
+            console.log("Neither email nor username found in the error message.");
+            res.json({ error: 'Unexpected error structure' });
+        }
+        
+        
+      } else {
+        res.json({error: "server error"});
+      }
+    } 
+
+
+
+
+    Redirect to the login page if not signed in
+    Change preferences should verify with token
+    handle token expires
+
+    

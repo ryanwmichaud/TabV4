@@ -1,15 +1,17 @@
-import '../App.css';
-import {Diagram} from '../components/Diagram.js';
-import { ChordToneInput } from '../components/ChordTone.js';
-import { StretchInput } from '../components/Stretch.js';
-import { StringInput,  } from '../components/String.js';
-import { Options } from '../components/Options.js';
-import { MenuButtonClose} from '../components/MenuButton.js';
-import React, { useCallback, useEffect, useState } from 'react';
-import { ChordQuality } from '../components/ChordQuality.js';
+import '../App.css'
+import {Diagram} from '../components/Diagram.js'
+import { ChordToneInput } from '../components/ChordTone.js'
+import { StretchInput } from '../components/Stretch.js'
+import { StringInput,  } from '../components/String.js'
+import { Options } from '../components/Options.js'
+import { MenuButtonClose} from '../components/MenuButton.js'
+import React, { useCallback, useEffect, useState, useContext } from 'react'
+import { ChordQuality } from '../components/ChordQuality.js'
 import { Navbar } from "../components/Navbar.js"
+import { GlobalContext } from '../App.js'
 
-const ip = process.env.REACT_APP_IP;
+
+const ip = process.env.REACT_APP_IP
 
 const nameMap = Object.freeze({
   "C":0,
@@ -28,15 +30,15 @@ const nameMap = Object.freeze({
 
 
 
-const InputSection = ({changeStretch, changeNumStrings, addChordTone, removeChordTone, changeOpen, stretch, strings, chordTones, n, root, quality, setRoot, setQuality, setAb, setBb, setDb, setEb, setGb, enharmonics}) => {
+const InputSection = ({changeStretch, changeNumStrings, addChordTone, removeChordTone, changeOpen, stretch, strings, chordTones, n, root, quality, setRoot, setQuality, setAb, setBb, setDb, setEb, setGb, enharmonics, setStrings}) => {
   return(
       <div >
         <div className='input-title'> Input: </div>
         <StretchInput changeStretch={changeStretch} stretch={stretch}></StretchInput>
-        <button className='toggle-chordtone-mode'></button>
+        
         <ChordToneInput addChordTone={addChordTone} removeChordTone={removeChordTone} chordTones={chordTones} enharmonics={enharmonics}></ChordToneInput>
         <ChordQuality  addChordTone={addChordTone} removeChordTone={removeChordTone} chordTones={chordTones} root={root} quality={quality} setRoot={setRoot} setQuality={setQuality} enharmonics={enharmonics}></ChordQuality>
-        <StringInput strings={strings} n={n} changeNumStrings={changeNumStrings} changeOpen={changeOpen} enharmonics={enharmonics}></StringInput>
+        <StringInput strings={strings} n={n} changeNumStrings={changeNumStrings} changeOpen={changeOpen} enharmonics={enharmonics} setStrings={setStrings}></StringInput>
         <Options setAb={setAb} setBb={setBb} setDb={setDb} setEb={setEb} setGb={setGb} enharmonics={enharmonics}></Options>
       </div>
       
@@ -46,30 +48,30 @@ const InputSection = ({changeStretch, changeNumStrings, addChordTone, removeChor
 
 const ResultsSection = ({res, stretch, strings, chordTones, error, enharmonics}) => {
 
-  let data = res;
+  let data = res
 
-  const noChordTones = chordTones.every(ct => ct !== true);
+  const noChordTones = chordTones.every(ct => ct !== true)
 
 
   if(error){
-    console.log("error", error);
-    return <div className='error-message'> Error: check network connection and try again </div>;
+    console.log("error", error)
+    return <div className='error-message'> Error: check network connection and try again </div>
     
   }
   else if (!data | noChordTones) {
     // Render a loading state while waiting for the data
-    return <div className='error-message'> Enter some chord tones to see how you can voice them on your instrument </div>;
+    return <div className='error-message'> Enter some chord tones to see how you can voice them on your instrument </div>
   } 
   else{
-    let diagrams = [];
+    let diagrams = []
     
 
     for(let i=0;i<data.length;i++){
-      diagrams = diagrams.concat(<Diagram stretch={stretch} diagram_data={data[i]} key={i} enharmonics={enharmonics}/>);
+      diagrams = diagrams.concat(<Diagram stretch={stretch} diagram_data={data[i]} key={i} enharmonics={enharmonics}/>)
     }
     
     if(diagrams.length === 0){
-      return  <div className='error-message'>  No possible voicings - try changing the input </div>;
+      return  <div className='error-message'>  No possible voicings - try changing the input </div>
 
     }else{
       return(
@@ -79,7 +81,7 @@ const ResultsSection = ({res, stretch, strings, chordTones, error, enharmonics})
             {diagrams}
           </div>
         </div>
-      );
+      )
     }
     
   }
@@ -91,10 +93,12 @@ const ResultsSection = ({res, stretch, strings, chordTones, error, enharmonics})
 
 
 
-const Home = ({isMobileView, setIsMobileView, isMobileMenuVisible, setIsMobileMenuVisible}) =>{
+const Home = () =>{
 
+
+  const {isMobileView, isMobileMenuVisible, setIsMobileMenuVisible, closeMobileMenu } = useContext(GlobalContext)
   const [stretch, setStretch] = useState(4)
-  const [strings, setstrings] = useState(["E","A","D","G","B","E"])
+  const [strings, setStrings] = useState(["E","A","D","G","B","E"])
   const [chordTones, setChordTones] = useState([false,false,false,false,false,false,false,false,false,false,false,false])
   const [root, setRoot] = useState("")
   const [quality, setQuality] = useState("")
@@ -116,7 +120,6 @@ const Home = ({isMobileView, setIsMobileView, isMobileMenuVisible, setIsMobileMe
   //memoize handlePostRequest which dep on stretch, cts, and strs
   //now, useEffect only dep on handlePostReq
   const handlePostRequest = useCallback(async () => { //call from top level not input section
-    
     const req = {
       stretch: stretch,
       strings: strings,
@@ -127,15 +130,14 @@ const Home = ({isMobileView, setIsMobileView, isMobileMenuVisible, setIsMobileMe
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        // Add any other headers if needed
       },
       body: JSON.stringify(req),
     })
     .then(response => {
       if (!response.ok) { 
-        throw new Error('Network response was not ok');
+        throw new Error('Network response was not ok')
       }
-      return response.json();
+      return response.json()
     })
     .then(data => {
       setRes(data.message)
@@ -143,7 +145,6 @@ const Home = ({isMobileView, setIsMobileView, isMobileMenuVisible, setIsMobileMe
       
     })
     .catch(error => {
-      // Handle and store the error
       setRes(null)
       setError(error.message)
     })
@@ -191,7 +192,7 @@ const Home = ({isMobileView, setIsMobileView, isMobileMenuVisible, setIsMobileMe
   }
 
   const addChordTone = (index) => {
-    //const newChordTones = chordTones.map((value, i) => (i === index ? true : value)); //if i is the index, make it true, else keep it
+    //const newChordTones = chordTones.map((value, i) => (i === index ? true : value)) //if i is the index, make it true, else keep it
     setChordTones(prev => {
       let newChordTones = prev.slice()
       newChordTones[index] = true
@@ -215,17 +216,17 @@ const Home = ({isMobileView, setIsMobileView, isMobileMenuVisible, setIsMobileMe
     for(let i=0;i<n;i++){
       newStrings.push("A")
     }
-    setstrings(newStrings)
+    setStrings(newStrings)
   }
 
   const changeOpen = (index, newOpen) => { 
-    
-    setstrings(prevStrings =>{
+    setStrings(prevStrings =>{
       const newStrings = prevStrings.slice()
-      prevStrings[index] = newOpen
+      newStrings[index] = newOpen
       return newStrings
     })
   }
+
 
   
   
@@ -257,6 +258,7 @@ const Home = ({isMobileView, setIsMobileView, isMobileMenuVisible, setIsMobileMe
               n={numStringSelects}
               setAb={setAb} setBb={setBb} setDb={setDb} setEb={setEb} setGb={setGb}
               enharmonics = {enharmonics}
+              setStrings = {setStrings}
             >
             </InputSection>
           </div>
@@ -267,7 +269,7 @@ const Home = ({isMobileView, setIsMobileView, isMobileMenuVisible, setIsMobileMe
      
 
 
-        <div className="main"> 
+        <div className="main" onClick={closeMobileMenu}> 
 
 
           {isMobileView &&<
@@ -288,6 +290,7 @@ const Home = ({isMobileView, setIsMobileView, isMobileMenuVisible, setIsMobileMe
               n={numStringSelects}
               setAb={setAb} setBb={setBb} setDb={setDb} setEb={setEb} setGb={setGb}
               enharmonics = {enharmonics}
+              setStrings = {setStrings}
 
             >
             </InputSection>
@@ -311,4 +314,4 @@ const Home = ({isMobileView, setIsMobileView, isMobileMenuVisible, setIsMobileMe
 }
 
 
-export default Home;
+export default Home
