@@ -14,7 +14,7 @@ If you:
 then I hope you find this app helpful!
 
     
-### To Run:
+### To Run Locally:
 
 - Make sure you have Node.js and npm installed
 - Clone this repository
