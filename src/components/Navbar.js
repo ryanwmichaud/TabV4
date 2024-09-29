@@ -34,7 +34,7 @@ const Navbar = () => {
         <Link className='title' to={"/"}> Fretbchord Explchorder </Link>
         {profile ? (
             <div className="nav-user" onClick={toggleProfileMenu}>
-              <img className="nav-picture" src={(profile.profile_photo ? profile.picture : defaultPicture)} alt="profile"></img>
+              <img className="nav-picture" src={(profile.profile_photo ? profile.profile_photo : defaultPicture)} alt="profile"></img>
               <div className="nav-name" >{profile.first_name}</div>
             </div>
 

@@ -52,21 +52,25 @@ app.post('/create-account', async (req,res) => {
     
     try {
 
-        const passwordHash = await hashPassword(data.password)
+        //hash password and compare it
+        const passwordHash = await hashPassword(data.password)  
     
         const [result] = await connection.execute(
           'INSERT INTO users3 (username, email, first_name, last_name)  VALUES (?, ?, ?, ?);',
           [data.username, data.email, data.first_name, data.last_name]
         )
 
-        const userID = result.insertId
-        console.log("putting in creds",userID, passwordHash)
+
+        //get userid back and insert it w hash
+        const userID = result.insertId  
 
         await connection.execute(
             'INSERT INTO UserCredentials (user_id, password_hash)  VALUES (?, ?);',
             [userID, passwordHash]
         )
-        
+
+
+        //send back token
         const token = jwt.sign({userID: userID}, JWT_SECRET, {expiresIn: '1hr'})
 
 
@@ -102,30 +106,55 @@ app.post('/create-account', async (req,res) => {
       
 })
 
-/*
+app.post('/lookup-google-id', async(req, res) => { //if find account, send token. 
+    const google_id = req.body.google_id
+    const [result] = await connection.execute(
+        'SELECT user_id FROM users3 WHERE google_id = ? ;',
+        [google_id]
+      )
+    console.log(result)
+    console.log(result.length)
+    if (result.length === 1){
+        const token = jwt.sign({userID: result[0].user_id}, JWT_SECRET, {expiresIn: '1hr'})
+
+        res.json({found: true, token: token})
+    }else{
+        res.json({found: false})
+    }
+})
+
+
 app.post('/create-account-from-google', async (req,res) => {
     const data=req.body
     
     try {
-        const [results, fields] = await connection.execute(
-          'INSERT INTO testusers2 (email, first_name, last_name, password_hash, picture)  VALUES (?, ?, ?, ?, ?);',
-          [data.email, data.first_name, data.last_name, data.password, data.picture]
-        )
-      
-        response = {
-            message: "User successfully created",
-            error: "none"
-        }
-        res.json(response)
+        //google has verified its them and we haven't found an account for them
+        //make and account and send a token
 
-    }catch (error) {
-        res.json({error: error})
+        console.log(data.email, data.email, data.first_name, data.last_name, data.profile_photo, data.google_id)
+       
+        const [result] = await connection.execute(
+            'INSERT INTO users3 (email, username, first_name, last_name, profile_photo, google_id) VALUES (?, ?, ?, ?, ?, ?)',
+            [data.email, data.email, data.first_name, data.last_name, data.profile_photo, data.google_id]
+        )
+        const userID = result.insertId 
+        console.log(userID)
+
+        const token = jwt.sign({userID: userID}, JWT_SECRET, {expiresIn: '1hr'})
+
+        res.json({token: token})
+        //if already used, get them a token, get  profile with it on the front end
+        //if not, make account - ask for a username
         
       } 
+    catch(error){
+        console.log(error)
+
+    }
       
 })
 
-*/
+
 
 app.get('/get-preferences', async (req, res)=>{
 

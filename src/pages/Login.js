@@ -27,75 +27,103 @@ const Login = ()=>{
     const [password, setPassword] = useState(null)
     const [loginFailed, setLoginFailed] = useState(null)
 
-    const createAccountFromGoogle = async (req)=>{
-        fetch(`http://${ip}:8000/create-account-from-google`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(req),
-            })
-            .then(response => {
-                if (!response.ok) { 
-                    throw new Error('Network response was not ok')
-                }
-                return response.json()
-            })
-            .then(data => {
-                console.log(data)
-                if(!data.duplicate){ 
-                    setProfile(req)
-                    navigate('/')
-                }
-            })
-            .catch(error => {
-            console.error(error.message)
-            }) 
-    }
 
-    const lookupEmail = (req)=>{
-        fetch(`http://${ip}:8000/lookup-email`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(req),
-            })
-            .then(response => {
-                if (!response.ok) { 
-                    throw new Error('Network response was not ok')
-                }
-                return response.json()
-            })
-            .then(data => {
-                console.log(data)
-                
-            })
-            .catch(error => {
-            console.error(error.message)
-            }) 
-    }
 
-    const onGoogleSuccess = (res)=>{
-        const data = jwtDecode(res.credential)
+    const onGoogleSuccess = async (res)=>{
+        
 
-        //check if google email already used
-        //if already used, set profile from db and credential
+        //google has verified its them
+        //check if googleid is in my table
+        //if already used, get them a token, get  profile with it on the front end
         //if not, make account - ask for a username
+        
+  
 
+        const data = jwtDecode(res.credential)
+        console.log(data)
+        const google_id = data.sub
 
-        const req = {
-            email: data.email,
-            first_name: data.given_name,
-            last_name: data.family_name,
-            password: "google-auth",
-            picture: data.picture
+        try{
+            const response = await lookupGoogleId(google_id)
+            //if there is already an account, log it in
+            if (response.found){
+                localStorage.setItem('token', response.token)
+                const profileData = await getProfile(response.token)
+                await setProfile(profileData.profile)
+                navigate('/')
+            }
+            else{
+                const req = {
+                    email: data.email,
+                    first_name: data.given_name,
+                    last_name: data.family_name,
+                    profile_photo: data.picture,
+                    google_id: google_id,
+                    username: data.email
+                    //no username yet, password will be null
+                }
+                createAccountFromGoogle(req)
+            }
+            
+        } 
+        catch(error){
+            console.log("error lookingup google id", error)
         }
 
-        lookupEmail({email: data.email})
-        createAccountFromGoogle(req)
+        
+        //createAccountFromGoogle(req)
 
 
+    }
+
+
+    const createAccountFromGoogle = async (req)=>{ //returns token
+        const response = await fetch(`http://${ip}:8000/create-account-from-google`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(req),
+            })
+        const data = await response.json()
+        
+        console.log(data)
+        localStorage.setItem('token', data.token)
+
+        const profileData = await getProfile(data.token)
+        await setProfile(profileData.profile)
+        navigate('/')
+    
+           
+    }
+        
+
+    const lookupGoogleId = async (google_id)=>{
+        console.log('lookingup google id')
+        try{
+            
+            const response = await fetch(`http://${ip}:8000/lookup-google-id`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({google_id: google_id}),
+                })
+
+            if (!response.ok) { 
+                throw new Error(`Network response was not ok:${response.statusText}`)
+            }
+            const data = await response.json();  // Parse the JSON response
+            console.log('Lookup result:', data);  // Log the result
+
+            return data;
+
+        }catch(error){
+            console.log(error)
+        }
+        
+        
+        
     }
 
 
