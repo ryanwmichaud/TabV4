@@ -175,7 +175,7 @@ a{
 
 
 .input{
-  padding-top: 5%;
+  padding-top: 1%;
   background-color: var(--input-background-color);
   color: var(--input-text-color);
   width: 25%;

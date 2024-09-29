@@ -43,7 +43,13 @@ const Profile = () =>{
             console.error(error.message)
             }) 
 
+            
     }
+
+    let color = document.documentElement.style.getPropertyValue('--primary-color').trim();
+    color= color.replace('var(--', '').replace(')', '').trim()
+    color = color.charAt(0).toUpperCase() + color.slice(1)
+    console.log(color)
 
 
     return(
@@ -62,6 +68,7 @@ const Profile = () =>{
                     <p>Preferences</p>
                     <p>Change Color</p>
                     <select id="color-select" onChange={changeColor}>
+                        <option value="" selected disabled hidden>{color}</option>
                         <option value={"blue"}>Blue</option>
                         <option value={"red"}>Red</option>
                         <option value={"green"}>Green</option>

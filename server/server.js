@@ -61,17 +61,17 @@ app.post('/create-account', async (req,res) => {
         )
 
 
-        //get userid back and insert it w hash
-        const userID = result.insertId  
+        //get user_id back and insert it w hash
+        const user_id = result.insertId  
 
         await connection.execute(
             'INSERT INTO UserCredentials (user_id, password_hash)  VALUES (?, ?);',
-            [userID, passwordHash]
+            [user_id, passwordHash]
         )
 
 
         //send back token
-        const token = jwt.sign({userID: userID}, JWT_SECRET, {expiresIn: '1hr'})
+        const token = jwt.sign({user_id: user_id}, JWT_SECRET, {expiresIn: '1hr'})
 
 
         res.json({
@@ -115,7 +115,7 @@ app.post('/lookup-google-id', async(req, res) => { //if find account, send token
     console.log(result)
     console.log(result.length)
     if (result.length === 1){
-        const token = jwt.sign({userID: result[0].user_id}, JWT_SECRET, {expiresIn: '1hr'})
+        const token = jwt.sign({user_id: result[0].user_id}, JWT_SECRET, {expiresIn: '1hr'})
 
         res.json({found: true, token: token})
     }else{
@@ -137,10 +137,10 @@ app.post('/create-account-from-google', async (req,res) => {
             'INSERT INTO users3 (email, username, first_name, last_name, profile_photo, google_id) VALUES (?, ?, ?, ?, ?, ?)',
             [data.email, data.email, data.first_name, data.last_name, data.profile_photo, data.google_id]
         )
-        const userID = result.insertId 
-        console.log(userID)
+        const user_id = result.insertId 
+        console.log(user_id)
 
-        const token = jwt.sign({userID: userID}, JWT_SECRET, {expiresIn: '1hr'})
+        const token = jwt.sign({user_id: user_id}, JWT_SECRET, {expiresIn: '1hr'})
 
         res.json({token: token})
         //if already used, get them a token, get  profile with it on the front end
@@ -167,7 +167,7 @@ app.get('/get-preferences', async (req, res)=>{
 
     try{
         const decoded = jwt.verify(token, JWT_SECRET)
-        const results = await connection.execute( `SELECT * FROM UserPreferences WHERE user_id = ?`, [decoded.userID])
+        const results = await connection.execute( `SELECT * FROM UserPreferences WHERE user_id = ?`, [decoded.user_id])
 
         
         if (results.length === 0) {
@@ -203,7 +203,7 @@ app.get('/get-profile', async (req, res) => {
 
         const [results, fields] = await connection.execute(
             'SELECT * FROM Users3 WHERE user_id = ?',
-            [decoded.userID]
+            [decoded.user_id]
         )
         
         if (results.length === 0) {
@@ -246,7 +246,7 @@ app.post('/custom-signin', async (req, res) =>{
 
         const match = await bcrypt.compare(req.body.password, results[0].password_hash);
         if(results.length == 1 && match){
-            const token = jwt.sign({userID: results[0].user_id}, JWT_SECRET, {expiresIn: '1hr'})
+            const token = jwt.sign({user_id: results[0].user_id}, JWT_SECRET, {expiresIn: '1hr'})
             res.json({success: true, token: token})
         }else{
             res.json({success: false})
@@ -272,7 +272,7 @@ app.post('/change-preference', async (req, res) => {
         `INSERT INTO UserPreferences (user_id, preference_key, preference_value)
         VALUES (?, ?, ?)
         ON DUPLICATE KEY UPDATE preference_value = ?;`,
-          [decoded.userID, req.body.preference_key, req.body.preference_value,req.body.preference_value]
+          [decoded.user_id, req.body.preference_key, req.body.preference_value,req.body.preference_value]
         )
         res.json({profile: results[0]})
     }catch (error) {

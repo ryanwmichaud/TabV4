@@ -31,7 +31,6 @@ const nameMap = Object.freeze({
 const InputSection = ({changeStretch, changeNumStrings, addChordTone, removeChordTone, changeOpen, stretch, strings, chordTones, n, root, quality, setRoot, setQuality, setAb, setBb, setDb, setEb, setGb, enharmonics, setStrings}) => {
   return(
       <div >
-        <div className='input-title'> Input: </div>
         
         <ChordToneInput addChordTone={addChordTone} removeChordTone={removeChordTone} chordTones={chordTones} enharmonics={enharmonics} root={root} quality={quality} setRoot={setRoot} setQuality={setQuality}></ChordToneInput>
         <StringInput strings={strings} n={n} changeNumStrings={changeNumStrings} changeOpen={changeOpen} enharmonics={enharmonics} setStrings={setStrings}></StringInput>
