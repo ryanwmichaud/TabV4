@@ -72,7 +72,7 @@ const Signup = ()=>{
             const data = await response.json()
             console.log(data)
             
-            if(!data.usernameTaken && !data.emailTaken){  //if not taken,  made a profile and returned a token. store it
+            if(!data.usernameTaken && !data.emailTaken){  //if not taken,  made a profile and returned a token. store it and go home
           
                 const profileData = await getProfile(data.token)
                 localStorage.setItem('token', data.token)

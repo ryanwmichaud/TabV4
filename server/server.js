@@ -19,6 +19,7 @@ app.use(express.json())
 app.use(express.static(path.join(__dirname, '..','build')))
 
 const JWT_SECRET = process.env.JWT_SECRET
+console.log(JWT_SECRET)
 
 const connection = await mysql.createConnection({  //auto releases connection
     host: process.env.MYSQL_HOST,
