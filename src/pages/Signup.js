@@ -72,19 +72,18 @@ const Signup = ()=>{
             const data = await response.json()
             console.log(data)
             
-            if(!data.usernameTaken && !data.emailTaken){ 
+            if(!data.usernameTaken && !data.emailTaken){  //if not taken,  made a profile and returned a token. store it
           
                 const profileData = await getProfile(data.token)
                 localStorage.setItem('token', data.token)
 
-                console.log("signup getprofile",profileData)
-
-                console.log(profileData)
+                console.log("getting profile on signup", profileData)
                 setProfile(profileData.profile)
                 setEmailTaken(false)
                 setUsernameTaken(false)
                 navigate('/')
             }else {
+                //taken, didnt make a profile, prompt for change
                 (data.usernameTaken ? setUsernameTaken(true) : setUsername(false))
                 (data.emailTaken ? setEmailTaken(true) : setEmailTaken(false))
     

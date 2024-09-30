@@ -46,6 +46,7 @@ const hashPassword = async (password) => {
 
 
 app.post('/create-account', async (req,res) => {
+    console.log("creating with",req.body)
     const data = req.body
     let emailTaken = false
     let usernameTaken = false
@@ -112,8 +113,6 @@ app.post('/lookup-google-id', async(req, res) => { //if find account, send token
         'SELECT user_id FROM users3 WHERE google_id = ? ;',
         [google_id]
       )
-    console.log(result)
-    console.log(result.length)
     if (result.length === 1){
         const token = jwt.sign({user_id: result[0].user_id}, JWT_SECRET, {expiresIn: '1hr'})
 
@@ -131,14 +130,12 @@ app.post('/create-account-from-google', async (req,res) => {
         //google has verified its them and we haven't found an account for them
         //make and account and send a token
 
-        console.log(data.email, data.email, data.first_name, data.last_name, data.profile_photo, data.google_id)
        
         const [result] = await connection.execute(
             'INSERT INTO users3 (email, username, first_name, last_name, profile_photo, google_id) VALUES (?, ?, ?, ?, ?, ?)',
             [data.email, data.email, data.first_name, data.last_name, data.profile_photo, data.google_id]
         )
         const user_id = result.insertId 
-        console.log(user_id)
 
         const token = jwt.sign({user_id: user_id}, JWT_SECRET, {expiresIn: '1hr'})
 
@@ -173,7 +170,6 @@ app.get('/get-preferences', async (req, res)=>{
         if (results.length === 0) {
             return res.status(404).json({ message: 'no preferences found' });
         }else{
-            console.log(results[0])
             res.json({ preferences: results[0] });
         }
 
@@ -264,9 +260,7 @@ ON DUPLICATE KEY UPDATE preference_value = 'testvalue';
 */
 
 app.post('/change-preference', async (req, res) => {  
-    console.log(req.body)
     try {
-        console.log('req:',req.body)
         const decoded = jwt.verify(req.body.token, JWT_SECRET)
         const [results, fields] = await connection.execute(
         `INSERT INTO UserPreferences (user_id, preference_key, preference_value)
