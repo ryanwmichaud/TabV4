@@ -52,12 +52,12 @@ const ResultsSection = ({res, stretch, strings, chordTones, error, enharmonics})
 
   if(error){
     console.log("error", error)
-    return <div className='error-message'> Error: check network connection and try again </div>
+    return <p className='error-message'> Error: check network connection and try again </p>
     
   }
   else if (!data | noChordTones) {
     // Render a loading state while waiting for the data
-    return <div className='error-message'> Enter some chord tones to see how you can voice them on your instrument </div>
+    return <p className='error-message'> Enter some chord tones to see how you can voice them on your instrument </p>
   } 
   
   else{

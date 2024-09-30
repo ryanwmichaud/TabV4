@@ -26,7 +26,7 @@
 
 }
 
-p, a, select, button, input{
+a, select, button, input, p{
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 
 }
@@ -395,6 +395,7 @@ a{
 }
 
 .error-message{
+  padding: 10px;
   display: flex;
   margin: 5% 16% 0px 16%;
   justify-content: center;
