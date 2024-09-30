@@ -519,6 +519,7 @@ a{
   background-color: var(--input-text-color);
   border: solid black 1px;
   padding: 10px;
+  color: black;
 }
 
 #signup-email, #signup-username, #signup-firstname, #signup-lastname, #signup-password,
