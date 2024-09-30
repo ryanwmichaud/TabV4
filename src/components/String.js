@@ -89,7 +89,7 @@ const StringInput = ({changeNumStrings, changeOpen, n, strings, enharmonics, set
     return( 
     <div className="string-input">
       <p className="input-subtitle">Strings</p>
-      <div>
+      <div id="number-of-strings-section">
         <p className="input-subsubtitle"> Number of Strings: </p>
         <select id="num-strings-select" value={n} onChange={handleNumStringsChange}>
           <option value={2}>2</option>
@@ -103,6 +103,8 @@ const StringInput = ({changeNumStrings, changeOpen, n, strings, enharmonics, set
         </select>
       </div>
       <div>
+        <p className="input-subsubtitle"> Tuning: </p>
+
           {stringSelects}
       </div>
 

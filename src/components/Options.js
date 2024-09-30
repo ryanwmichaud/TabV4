@@ -15,7 +15,7 @@ const StretchInput = ({changeStretch, stretch}) => {
 
     return (
 
-      <div className='stretch-input'>
+      <div className='stretch-section'>
         <p className="input-subsubtitle"> Max number of frets: </p>
         <select id='stretch-select' onChange={handleChangeStretch} value={stretch}>  
         <option value={2}>2</option>

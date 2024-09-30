@@ -1,9 +1,6 @@
-.app, .home, .navbar,  button{
-  text-align: center;
-  height: 100%;
-  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  
-}
+
+
+
 
 :root {
   /*
@@ -26,6 +23,11 @@
   --blue: rgb(91, 169, 218);
   --green: rgb(124, 178, 130);
   --purple: rgb(125, 101, 142 );
+
+}
+
+p, a, select, button, input{
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 
 }
 
@@ -205,6 +207,7 @@ a{
 }
 
 .mobile-input{
+  text-align: center;
  
   opacity: 0.8;
   
@@ -248,21 +251,8 @@ a{
 */
 
 
-.input-title{
-  margin: 8%;
-  margin-bottom: 8%;
-  font-size: 1rem;
-  border-style: double;
-  border-width: 5px;
-  border-radius: 3px;
-  border-color: var(--input-text-color);
-}
 
-.input-subsubtitle{
-  margin-bottom: 3px;
-  margin-top: 6px;
-  color: var(--primary-color);
-}
+
 
 
 .string-input, .ctinput, .options-section{
@@ -276,11 +266,6 @@ a{
   font-size: 0.90rem;
 }
 
-.input-subtitle{
-  margin: 0;
-  font-size: 1rem;
-}
-
 .options-section{
   margin-bottom: 50px;
   
@@ -288,32 +273,51 @@ a{
 
 
 
+.input-subtitle{
+  margin: 0;
+  font-size: 1rem;
+}
+
+.input-subsubtitle{
+  margin-bottom: 3px;
+  margin-top: 6px;
+  color: var(--primary-color);
+}
+
+#root-select, #quality-select, .stringselect, #num-strings-select, #stretch-select, #tuning-presets{
+  cursor: pointer;
+  
+}
+
 #root-select{
   width: 50%;
   max-width: 40px;
-  cursor: pointer;
 
 }
 #quality-select{
   width: 100%;
   max-width: 100px;
-  cursor: pointer;
-
 } 
 
-.toggle-chordtone-mode{
-  height: 10px;
-  cursor: pointer;
 
-}
-
-
-.stringselect{
+.stringselect, #tuning-presets{
   width: 100%;
-  cursor: pointer;
-
 }
 
+
+
+
+#number-of-strings-section, .stretch-section{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+}
+#num-strings-select, #stretch-select{
+  max-height: 20px;
+  margin-left: 4px;
+
+}
 
 .ct-boxes{
   display: flex;
@@ -342,15 +346,8 @@ a{
 }
 
 
-#num-strings-select, #stretch-select{
-  margin-left: 5px;
-  cursor: pointer;
 
-}
 
-#tuning-presets{
-  width: 100%;
-}
 
 
 
@@ -367,12 +364,18 @@ a{
 
 
 
+
 .diagram, .results-title, .error-message{
   border-style:double;
   border-width: 10px;
   border-radius: 3px;
   border-color: black;
   background-color: var(--secondary-color);
+}
+
+.error-message{
+  padding: 3px;
+  text-align: center;
 }
 
 .results-title{
@@ -520,22 +523,31 @@ a{
   border: solid black 1px;
   padding: 10px;
   color: black;
+  font-weight:bold;
+  border-radius: 3%;
+
 }
 
 #signup-email, #signup-username, #signup-firstname, #signup-lastname, #signup-password,
 #signin-email, #signin-password {
   
-  margin: 2px;
+  margin-top: 5px;
   overflow: scroll;
+  width: 70%;
+  border: solid black 1px;
+  
+
 }
 
 #custom-signin-title, #google-signin-title{
-  margin-bottom: 5px;
+  margin-bottom: 3px;
 }
 
-#signup-button, #signin-button, input{
+#signin-button{
   margin-top: 5px;
-  border: solid black 1px;
+  font-weight: bold;
+  border: 1px solid black;
+  border-radius: 7%;
 
 }
 
