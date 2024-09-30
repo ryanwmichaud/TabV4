@@ -19,7 +19,6 @@ app.use(express.json())
 app.use(express.static(path.join(__dirname, '..','build')))
 
 const JWT_SECRET = process.env.JWT_SECRET
-console.log(JWT_SECRET)
 
 const connection = await mysql.createConnection({  //auto releases connection
     host: process.env.MYSQL_HOST,
@@ -40,7 +39,7 @@ const hashPassword = async (password) => {
         const hashedPassword = await bcrypt.hash(password, salt);
         return hashedPassword;
     } catch (error) {
-        throw new Error('Error hashing password:', error);
+        console.error("error hashing password:", error)
     }
 }
 
@@ -74,7 +73,7 @@ app.post('/create-account', async (req,res) => {
 
         //send back token
         const token = jwt.sign({user_id: user_id}, JWT_SECRET, {expiresIn: '1hr'})
-        console
+        
 
 
         res.json({
@@ -86,6 +85,8 @@ app.post('/create-account', async (req,res) => {
         })
 
     }catch (error) {
+        console.error("error creating account:", error)
+
 
         if (error.code === 'ER_DUP_ENTRY') {
             
@@ -147,7 +148,8 @@ app.post('/create-account-from-google', async (req,res) => {
         
       } 
     catch(error){
-        console.log(error)
+        console.error("error creating account from google:", error)
+
 
     }
       
@@ -176,6 +178,8 @@ app.get('/get-preferences', async (req, res)=>{
         }
 
     } catch (err) {
+        console.error("error getting preferences:", error)
+
         if (err.name === 'JsonWebTokenError') {
             return res.status(403).json({ message: 'Invalid token.', err });
         } else {
@@ -190,7 +194,7 @@ app.get('/get-preferences', async (req, res)=>{
 app.get('/get-profile', async (req, res) => {  
     
     const token = req.headers['authorization']?.split(' ')[1];
-    console.log("getting profile", token)
+    console.log("getting profile w token", token)
 
     if (!token) {
         return res.status(401).json({ message: 'No token - Access denied' });
@@ -212,6 +216,8 @@ app.get('/get-profile', async (req, res) => {
         }
 
     } catch (err) {
+        console.error("error getting profile:", error)
+
         if (err.name === 'JsonWebTokenError') {
             return res.status(403).json({ message: 'Invalid token.' });
         } else {
@@ -251,7 +257,8 @@ app.post('/custom-signin', async (req, res) =>{
         }
 
     }catch (error) {
-        console.error(error)
+        console.error("error signing in", error)
+
         res.json({success: false})
     }
 })
@@ -272,7 +279,8 @@ app.post('/change-preference', async (req, res) => {
         )
         res.json({profile: results[0]})
     }catch (error) {
-        console.error(error)
+        console.error("error changing preferences:", error)
+
         res.json({error: error})
         
       } 
