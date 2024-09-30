@@ -58,7 +58,7 @@ app.post('/create-account', async (req,res) => {
         const passwordHash = await hashPassword(data.password)  
     
         const [result] = await connection.execute(
-          'INSERT INTO users3 (username, email, first_name, last_name)  VALUES (?, ?, ?, ?);',
+          'INSERT INTO users (username, email, first_name, last_name)  VALUES (?, ?, ?, ?);',
           [data.username, data.email, data.first_name, data.last_name]
         )
 
@@ -74,6 +74,7 @@ app.post('/create-account', async (req,res) => {
 
         //send back token
         const token = jwt.sign({user_id: user_id}, JWT_SECRET, {expiresIn: '1hr'})
+        console
 
 
         res.json({
@@ -111,7 +112,7 @@ app.post('/create-account', async (req,res) => {
 app.post('/lookup-google-id', async(req, res) => { //if find account, send token. 
     const google_id = req.body.google_id
     const [result] = await connection.execute(
-        'SELECT user_id FROM users3 WHERE google_id = ? ;',
+        'SELECT user_id FROM users WHERE google_id = ? ;',
         [google_id]
       )
     if (result.length === 1){
@@ -133,7 +134,7 @@ app.post('/create-account-from-google', async (req,res) => {
 
        
         const [result] = await connection.execute(
-            'INSERT INTO users3 (email, username, first_name, last_name, profile_photo, google_id) VALUES (?, ?, ?, ?, ?, ?)',
+            'INSERT INTO users (email, username, first_name, last_name, profile_photo, google_id) VALUES (?, ?, ?, ?, ?, ?)',
             [data.email, data.email, data.first_name, data.last_name, data.profile_photo, data.google_id]
         )
         const user_id = result.insertId 
@@ -199,7 +200,7 @@ app.get('/get-profile', async (req, res) => {
         const decoded = jwt.verify(token, JWT_SECRET)
 
         const [results, fields] = await connection.execute(
-            'SELECT * FROM Users3 WHERE user_id = ?',
+            'SELECT * FROM users WHERE user_id = ?',
             [decoded.user_id]
         )
         
@@ -236,7 +237,7 @@ app.post('/custom-signin', async (req, res) =>{
         const [results] = await connection.execute(
           `SELECT UserCredentials.user_id, password_hash 
           FROM UserCredentials
-          INNER JOIN USERS3 ON UserCredentials.user_id = Users3.user_id 
+          INNER JOIN users ON UserCredentials.user_id = users.user_id 
           WHERE email = ?`,
           [email]
         )
