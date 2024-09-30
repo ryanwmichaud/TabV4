@@ -191,6 +191,7 @@ a{
 
 
 .input{
+  text-align: center;
   padding-top: 1%;
   background-color: var(--input-background-color);
   color: var(--input-text-color);
@@ -311,6 +312,7 @@ a{
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: center;
 
 }
 #num-strings-select, #stretch-select{
@@ -347,12 +349,16 @@ a{
 
 
 
+#enharmonic-boxes{
 
+}
 
 
 
 .enharmonic-box{
   cursor: pointer;
+  width: 30px;;
+
 }
 
 #doubling-button, #use-open-button, #no-string-skipping-button, #color-selector {

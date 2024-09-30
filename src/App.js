@@ -56,7 +56,7 @@ export const GlobalProvider = ({ children }) => {
       const vh = window.innerHeight * 0.01 //calc vh accounting for mobile toolbars
       document.documentElement.style.setProperty('--vh', `${vh}px`)
 
-      if (window.innerWidth < 860) {
+      if (window.innerWidth < 965) {
         setisMobileView(false)
       } else {
         setisMobileView(true)
