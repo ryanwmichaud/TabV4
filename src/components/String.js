@@ -112,7 +112,7 @@ const StringInput = ({changeNumStrings, changeOpen, n, strings, enharmonics, set
         <p className="input-subsubtitle"> 
           Tuning Preset:
         </p>
-        <select id="tuning-presets" onClick={handleTuningPresetChange}>
+        <select id="tuning-presets" onChange={handleTuningPresetChange}>
           <option value={"Standard Guitar"}>Standard Guitar</option>
           <option value={"DADGAD"}>DADGAD</option>
           <option value={"Open E Guitar"}>Open E Guitar</option>
