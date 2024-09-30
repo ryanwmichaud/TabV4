@@ -42,7 +42,7 @@ a{
 
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
 
   box-sizing: border-box;
@@ -54,6 +54,26 @@ a{
   padding: 0;
 
 }
+
+.title{
+  font-size: 35px;
+  font-weight: bold;
+  color: white;
+
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+
+.nav-login-link{
+
+  color: var(--nav-text-color);
+  margin-left: auto;
+  margin-right: 10px;
+}
+
+
 .nav-user{
   display: flex;
   flex-direction: column;
@@ -71,12 +91,6 @@ a{
   border-radius: 50%;
 }
 
-
-.nav-login-link{
-  position: absolute;
-  right: 20px;
-  color: var(--nav-text-color)
-}
 
 #nav-profile-menu{
   position: absolute;
@@ -107,15 +121,7 @@ a{
 }
 
 
-.title{
-  font-size: 35px;
-  font-weight: bold;
-  color: white;
 
-  flex: 1;
-  text-align: center; /* Center text within its flex item */
-  margin: 0; 
-}
 
 .toggle-menu{
   position: absolute;
@@ -187,7 +193,7 @@ a{
 
 .mobile-input{
  
-  opacity: 80%;
+  opacity: 0.8;
   
   padding-top: 5%;
   background-color: var(--input-background-color);

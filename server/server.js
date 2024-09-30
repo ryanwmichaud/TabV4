@@ -177,13 +177,13 @@ app.get('/get-preferences', async (req, res)=>{
             res.json({ preferences: results[0] });
         }
 
-    } catch (err) {
+    } catch (error) {
         console.error("error getting preferences:", error)
 
-        if (err.name === 'JsonWebTokenError') {
-            return res.status(403).json({ message: 'Invalid token.', err });
+        if (error.name === 'JsonWebTokenError') {
+            return res.status(403).json({ message: 'Invalid token.', error });
         } else {
-            return res.status(500).json({ message: 'Internal server error', err});
+            return res.status(500).json({ message: 'Internal server error', error});
         }
     }
     
@@ -215,10 +215,10 @@ app.get('/get-profile', async (req, res) => {
             res.json({ profile: results[0] });
         }
 
-    } catch (err) {
+    } catch (error) {
         console.error("error getting profile:", error)
 
-        if (err.name === 'JsonWebTokenError') {
+        if (error.name === 'JsonWebTokenError') {
             return res.status(403).json({ message: 'Invalid token.' });
         } else {
             return res.status(500).json({ message: 'Internal server error' });
@@ -237,16 +237,18 @@ app.get('/get-profile', async (req, res) => {
 app.post('/custom-signin', async (req, res) =>{
 
     const { email, password } = req.body;
+    
 
     try {
 
-        const [results] = await connection.execute(
+        const [results] = await connection.execute(  //get passwordhash and user_id matching email
           `SELECT user_credentials.user_id, password_hash 
           FROM user_credentials
           INNER JOIN users ON user_credentials.user_id = users.user_id 
           WHERE email = ?`,
           [email]
         )
+        console.log(results)
 
         const match = await bcrypt.compare(req.body.password, results[0].password_hash);
         if(results.length == 1 && match){

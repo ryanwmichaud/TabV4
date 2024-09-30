@@ -3,7 +3,7 @@ import { Navbar } from '../components/Navbar'
 import "../App.css"
 import { GoogleLogin, googleLogout } from '@react-oauth/google'
 import {jwtDecode} from 'jwt-decode'
-import { GlobalContext, getProfile, getPrefereces} from '../App'
+import { GlobalContext, getProfile} from '../App'
 import { useContext, useState} from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 
@@ -21,7 +21,7 @@ const Login = ()=>{
         setPassword(e.target.value)
     }
     
-    const {profile, setProfile  } = useContext(GlobalContext)
+    const { setProfile  } = useContext(GlobalContext)
     const navigate = useNavigate()
     const [email,setEmail] = useState(null)
     const [password, setPassword] = useState(null)

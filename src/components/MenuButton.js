@@ -22,7 +22,7 @@ const MenuButtonClose = ({isMobileMenuVisible, setIsMobileMenuVisible}) => {
             className='toggle-menu-close' 
             onClick={() => setIsMobileMenuVisible(!isMobileMenuVisible)}
         >
-             ✖
+             X
         </button> 
     )
 }

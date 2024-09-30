@@ -22,10 +22,14 @@ const StringInput = ({changeNumStrings, changeOpen, n, strings, enharmonics, set
           changeNumStrings(6)
           setStrings(["D","A","D","G","A","D"])
           break;
-          case "Mandolin":
-            changeNumStrings(4)
-            setStrings(["G","D","A","E"])
-            break;
+        case "Open E Guitar":
+          changeNumStrings(6)
+          setStrings(["E","B","E","G#","B","E"])
+          break;
+        case "Mandolin":
+          changeNumStrings(4)
+          setStrings(["G","D","A","E"])
+          break;
         default:
           console.error("Error -", e.target.value, "not recognized");
           
@@ -69,6 +73,7 @@ const StringInput = ({changeNumStrings, changeOpen, n, strings, enharmonics, set
         <select id="tuning-presets" onClick={handleTuningPresetChange}>
           <option value={"Standard Guitar"}>Standard Guitar</option>
           <option value={"DADGAD"}>DADGAD</option>
+          <option value={"Open E Guitar"}>Open E Guitar</option>
           <option value={"Mandolin"}>Mandolin</option>
         </select>
       </div>
