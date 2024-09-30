@@ -47,17 +47,21 @@ const Navbar = () => {
 
         {isProfileMenuOpen && 
           <div id="nav-profile-menu">
-            <Link id="nav-profile-menu-profile"to={"/Profile"} > Profile </Link>
+            <dic className="nav-profile-menu-link-container">
+              <Link id="nav-profile-menu-profile" className="nav-profile-menu-item" to={"/Profile"} > Profile </Link>
 
-            <p id="nav-profile-menu-logout"
-              onClick = {()=>{ 
-                        googleLogout()
-                        setProfile(null)
-                        setIsProfileMenuOpen(false)
-                        navigate('/login')
-              }}>
-              Logout
-            </p>
+              <a id="nav-profile-menu-logout"
+              className="nav-profile-menu-item"
+                onClick = {()=>{ 
+                          googleLogout()
+                          setProfile(null)
+                          setIsProfileMenuOpen(false)
+                          navigate('/login')
+                }}>
+                Logout
+              </a>
+            </dic>
+            
           </div>
         }
         

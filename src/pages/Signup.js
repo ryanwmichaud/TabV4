@@ -112,7 +112,7 @@ const Signup = ()=>{
             <div id='signup-main'>
                 <p id='signup-title'>Sign Up</p>
                 
-                    <div >
+                    <div className='signup-container'>
                         
                         <form id='custom-signup' onSubmit={handlePostReq}>
                             <p>Create an Account</p>

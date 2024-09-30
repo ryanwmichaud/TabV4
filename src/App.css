@@ -1,4 +1,4 @@
-.app, .home, .navbar{
+.app, .home, .navbar,  button{
   text-align: center;
   height: 100%;
   font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
@@ -70,7 +70,7 @@ a{
 
   color: var(--nav-text-color);
   margin-left: auto;
-  margin-right: 10px;
+  margin-right: 15px;
 }
 
 
@@ -92,32 +92,40 @@ a{
 }
 
 
+
 #nav-profile-menu{
   position: absolute;
   top: 100%;
   right: 10px;
   background-color: var(--secondary-color);
-  border-style: solid;
+  border: solid;
   border-color: black;
+  border-width: 2px;
   z-index: 2;
   display: flex;
   flex-direction: column;
+  width: 200px;
+  border-radius: 2%;
 }
-#nav-profile-menu a, #nav-profile-menu p{
+.nav-profile-menu-link-container{
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+}
+.nav-profile-menu-item{
   cursor: pointer;
   padding: 10px;
   box-sizing: border-box;
-  border: 2px solid transparent; /* Set an initial transparent border */
+  border-bottom: 2px solid rgb(101, 101, 101); /* Set an initial transparent border */
   margin: 0;
   color: var(--input-text-color);
   background-color: var(--secondary-color);
 
 }
-#nav-profile-menu a:hover, #nav-profile-menu p:hover {
-  background-color: var(--primary-color);
-  border-style: solid;
-  border-color: var(--input-text-color);
-  color: black;
+.nav-profile-menu-item:hover {
+  color: var(--primary-color);
 }
 
 
@@ -191,6 +199,11 @@ a{
   overflow-x: hidden;
 }
 
+@keyframes slidein {
+  from {left: -100%;}
+  to {left: 0;}
+}
+
 .mobile-input{
  
   opacity: 0.8;
@@ -208,6 +221,8 @@ a{
 
   display: flex;
   flex-direction: column;
+  animation-name: slidein;
+  animation-duration: .1s;
 
 }
 
@@ -331,6 +346,10 @@ a{
   margin-left: 5px;
   cursor: pointer;
 
+}
+
+#tuning-presets{
+  width: 100%;
 }
 
 
@@ -492,10 +511,13 @@ a{
   justify-items: center;
 }
 
+#google-signin-button-container{
+  margin-top: 3px;
+}
+
 #login-signup-link{
   background-color: var(--input-text-color);
-  color: black;
-  border-style: solid;
+  border: solid black 1px;
   padding: 10px;
 }
 
@@ -510,15 +532,35 @@ a{
   margin-bottom: 5px;
 }
 
-#signup-button, #signin-button{
+#signup-button, #signin-button, input{
   margin-top: 5px;
+  border: solid black 1px;
 
 }
 
 
+#signup-title{
+  margin-top: 5%;
+
+}
+
+#signup-email, #signup-username, #signup-firstname, #signup-lastname, #signup-password{
+  margin-bottom: 4px;
+}
+
+
+
+.signin-container{
+  min-width: 270px;
+}
+
+.signup-container{
+  width: 250px;
+}
 .signin-options{
   background-color: var(--secondary-color);
   padding: 20px;
+  width: 8000px;
 
 }
 

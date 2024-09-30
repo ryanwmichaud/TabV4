@@ -184,17 +184,20 @@ const Login = ()=>{
             <div id='login-main'>
                 <p className='signin-title'>Sign In</p>
                 
-                <div>
+                <div className='signin-container'>
                     <div id='signin-options'>
                         <div className='google-signin'>
                             <p id='google-signin-title'>Sign in with Google</p>
-                            <GoogleLogin onSuccess={onGoogleSuccess} onError={onError}/>
+                            
+                            <div id="google-signin-button-container">
+                                <GoogleLogin  onSuccess={onGoogleSuccess} onError={onError}/>
+                            </div>
                         </div>
                         <div id='custom-signin'>
                             <p id='custom-signin-title'>Sign in</p>
                             <input type="email" id="signin-email" placeholder="Email" required onChange={changeEmail}/>
                             <input type="password" id="signin-password" placeholder="Password" required onChange={changePassword}/>
-                            <button id="signup-button" type="submit"  onClick={customSignin}>Sign In</button>
+                            <button id="signin-button" type="submit"  onClick={customSignin}>Sign In</button>
                         </div>
                         <div id='login-signup'>
                             <Link id='login-signup-link' to={"/signup"}> Create an Account </Link>
