@@ -22,13 +22,53 @@ const StringInput = ({changeNumStrings, changeOpen, n, strings, enharmonics, set
           changeNumStrings(6)
           setStrings(["D","A","D","G","A","D"])
           break;
+        case "Open G Guitar":
+          changeNumStrings(6)
+          setStrings(["D","B","D","G","B","D"])
+          break;
+        case "Open D Guitar":
+          changeNumStrings(6)
+          setStrings(["D","A","D","F#","A","D"])
+          break;
         case "Open E Guitar":
           changeNumStrings(6)
           setStrings(["E","B","E","G#","B","E"])
           break;
+        case "Bass":
+          changeNumStrings(4)
+          setStrings(["E","A","D","G"])
+          break;
         case "Mandolin":
           changeNumStrings(4)
           setStrings(["G","D","A","E"])
+          break;
+        case "Mandola":
+          changeNumStrings(4)
+          setStrings(["C","G","D","A"])
+          break;
+        case "Cross A":
+          changeNumStrings(4)
+          setStrings(["A","E","A","E"])
+          break;
+        case "ADAE":
+          changeNumStrings(4)
+          setStrings(["A","D","A","E"])
+          break;
+        case "Irish Bouzouki":
+          changeNumStrings(4)
+          setStrings(["G","D","A","D"])
+          break;
+        case "7 String Guitar":
+          changeNumStrings(7)
+          setStrings(["B","E","A","D","G","B","E"])
+          break;
+        case "8 String Guitar":
+          changeNumStrings(8)
+          setStrings(["F#","B","E","A","D","G","B","E"])
+          break;
+        case "9 String Guitar":
+          changeNumStrings(9)
+          setStrings(["F#","B","E","A","D","G","B","E","A"])
           break;
         default:
           console.error("Error -", e.target.value, "not recognized");
@@ -74,7 +114,18 @@ const StringInput = ({changeNumStrings, changeOpen, n, strings, enharmonics, set
           <option value={"Standard Guitar"}>Standard Guitar</option>
           <option value={"DADGAD"}>DADGAD</option>
           <option value={"Open E Guitar"}>Open E Guitar</option>
+          <option value={"Open G Guitar"}>Open G Guitar</option>
+          <option value={"Open D Guitar"}>Open D Guitar</option>
+          <option value={"Bass"}>Bass</option>
           <option value={"Mandolin"}>Mandolin</option>
+          <option value={"Mandola"}>Mandola</option>
+          <option value={"Cross A"}>Cross A</option>
+          <option value={"ADAE"}>ADAE</option>
+          <option value={"Irish Bouzouki"}>Irish Bouzouki</option>
+          <option value={"7 String Guitar"}>7 String Guitar</option>
+          <option value={"8 String Guitar"}>8 String Guitar</option>
+          <option value={"9 String Guitar"}>9 String Guitar</option>
+
         </select>
       </div>
       
