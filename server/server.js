@@ -67,7 +67,7 @@ app.post('/create-account', async (req,res) => {
         const user_id = result.insertId  
 
         await connection.execute(
-            'INSERT INTO UserCredentials (user_id, password_hash)  VALUES (?, ?);',
+            'INSERT INTO user_credentials (user_id, password_hash)  VALUES (?, ?);',
             [user_id, passwordHash]
         )
 
@@ -166,7 +166,7 @@ app.get('/get-preferences', async (req, res)=>{
 
     try{
         const decoded = jwt.verify(token, JWT_SECRET)
-        const results = await connection.execute( `SELECT * FROM UserPreferences WHERE user_id = ?`, [decoded.user_id])
+        const results = await connection.execute( `SELECT * FROM user_preferences WHERE user_id = ?`, [decoded.user_id])
 
         
         if (results.length === 0) {
@@ -235,9 +235,9 @@ app.post('/custom-signin', async (req, res) =>{
     try {
 
         const [results] = await connection.execute(
-          `SELECT UserCredentials.user_id, password_hash 
-          FROM UserCredentials
-          INNER JOIN users ON UserCredentials.user_id = users.user_id 
+          `SELECT user_credentials.user_id, password_hash 
+          FROM user_credentials
+          INNER JOIN users ON user_credentials.user_id = users.user_id 
           WHERE email = ?`,
           [email]
         )
@@ -256,7 +256,7 @@ app.post('/custom-signin', async (req, res) =>{
     }
 })
 /*
-INSERT INTO UserPreferences (user_id, preference_key, preference_value)
+INSERT INTO user_preferences (user_id, preference_key, preference_value)
 VALUES (71, "testkey", "testvalue")
 ON DUPLICATE KEY UPDATE preference_value = 'testvalue';
 */
@@ -265,7 +265,7 @@ app.post('/change-preference', async (req, res) => {
     try {
         const decoded = jwt.verify(req.body.token, JWT_SECRET)
         const [results, fields] = await connection.execute(
-        `INSERT INTO UserPreferences (user_id, preference_key, preference_value)
+        `INSERT INTO user_preferences (user_id, preference_key, preference_value)
         VALUES (?, ?, ?)
         ON DUPLICATE KEY UPDATE preference_value = ?;`,
           [decoded.user_id, req.body.preference_key, req.body.preference_value,req.body.preference_value]
