@@ -59,6 +59,7 @@ const ResultsSection = ({res, stretch, strings, chordTones, error, enharmonics})
     // Render a loading state while waiting for the data
     return <div className='error-message'> Enter some chord tones to see how you can voice them on your instrument </div>
   } 
+  
   else{
     let diagrams = []
     

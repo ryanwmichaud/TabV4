@@ -1,4 +1,5 @@
-import React, {useContext} from "react"
+import React, {useContext, useEffect} from "react"
+import { useNavigate } from 'react-router-dom'
 
 import { Navbar } from '../components/Navbar'
 import { GlobalContext } from "../App"
@@ -8,6 +9,15 @@ const ip = process.env.REACT_APP_IP
 const Profile = () =>{
 
     const {profile}= useContext(GlobalContext)
+    const navigate = useNavigate()
+
+    useEffect(()=>{
+        console.log(profile)
+        if(profile === null){
+            navigate('/login')
+        }
+    })
+
 
 
     const   changeColor = async (e) => {
@@ -57,18 +67,11 @@ const Profile = () =>{
             <Navbar></Navbar>
             <div id='profile-main'>
 
-                <div id='edit-profile'>
-                        <p>Edit Profile</p>
-                        <p>Change Username</p>
-                        <p>Change Password</p>
-                        <p>Change Email</p>
-                        <p>Change Picture</p>
-                </div>
+
                 <div id='profile-preferences'>
                     <p>Preferences</p>
                     <p>Change Color</p>
-                    <select id="color-select" onChange={changeColor}>
-                        <option value="" selected disabled hidden>{color}</option>
+                    <select id="color-select" defaultValue={color} onChange={changeColor}>
                         <option value={"blue"}>Blue</option>
                         <option value={"red"}>Red</option>
                         <option value={"green"}>Green</option>
@@ -83,3 +86,13 @@ const Profile = () =>{
 }
 
 export {Profile}
+
+/*
+<div id='edit-profile'>
+    <p>Edit Profile</p>
+    <p>Change Username</p>
+    <p>Change Password</p>
+    <p>Change Email</p>
+    <p>Change Picture</p>
+</div>
+ */
