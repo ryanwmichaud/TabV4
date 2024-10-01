@@ -444,9 +444,9 @@ a{
 }
 .string-visible{
   position: absolute;
-  top: 12px;
-  height: 3px;
-  background-color: gray;
+  top: 10px;
+  background-color: #383838;
+  border-top: 2px black solid;
   z-index: 1;
   display: flex;
   flex-direction: column;
@@ -490,7 +490,7 @@ a{
 
 .fret{
   position: relative;
-  width: 5px;
+  width: 3px;
   height: 100%;
   margin: 0;
   padding: 0;
