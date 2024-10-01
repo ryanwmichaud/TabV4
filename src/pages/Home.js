@@ -74,7 +74,7 @@ const ResultsSection = ({res, stretch, strings, chordTones, error, enharmonics})
     }else{
       return(
         <div>
-          <div className='results-title'> Results: </div>
+          <p className='results-title'> Results: </p>
           <div>
             {diagrams}
           </div>

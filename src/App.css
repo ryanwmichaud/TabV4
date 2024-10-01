@@ -220,7 +220,7 @@ a{
   height: 100%;
 
   position: fixed;
-  z-index: 2;
+  z-index: 3;
   overflow-y: auto;
   overflow-x: hidden;
 
@@ -382,7 +382,6 @@ a{
 
 .error-message{
   padding: 3px;
-  text-align: center;
 }
 
 .results-title{
@@ -392,6 +391,7 @@ a{
   margin-top: 5%;
   font-size: 1.5rem;
   font-weight: bold;
+  text-align: center;
 
 }
 
@@ -403,6 +403,7 @@ a{
   align-items: center;
   width: 90%;
   height: 10%;
+  text-align: center;
 
 }
 
@@ -416,12 +417,12 @@ a{
 }
 
 .position-marker{
-  margin-left: .5cm;
+  margin-left: 15px;
 }
 
 .diagram_box {
-  text-align: center;
-  margin-left: .5cm;
+  width: 100%;
+  margin-left: 15px;
   margin-bottom: 45px;
   border-width: 3px;
   border-style: solid;
@@ -437,33 +438,79 @@ a{
   justify-content: flex-start;
   gap: 0;
 }
+.string-container {
+  position: relative;
+  height: 0px;
+}
+.string-visible{
+  position: absolute;
+  top: 12px;
+  height: 3px;
+  background-color: gray;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border-radius: 2%;
 
-.box {
-  background-color: var(--maple);
-  
-  border-left: 2px solid black;
-  border-right: 2px solid black;
+}
+
+.box-container {
+  position: relative;
   width: 100%;
   min-height: 26px;
   margin: 0;
   padding: 0;
-}
-
-.string {
-  z-index: 0; /*below text*/
-  position: relative;
   
-  top: 50%;
-  height: 2px; /* tring thickness*/
-
-  background-color: gray;
 }
+.box{
+  position: relative;
+  top: 0%;
+  width: 100%;
+  height: 100%;
+  background-color: var(--maple);
+  z-index: 0;
+  margin: 0;
+  padding: 0;
+
+}
+
+.fret-container{
+  z-index: 0;
+  position: relative;
+  width: 5px;
+  min-height: 26px;
+  margin: 0;
+  padding: 0;
+  border-left: black solid 1px;
+  border-right: black solid 1px;
+}
+
+
+
+.fret{
+  position: relative;
+  width: 5px;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: silver;
+  z-index: 1;
+
+}
+
+
+
+
+
 
 .note {
   font-size: .9rem;
   
-  z-index: 1;  /*above string*/
+  z-index: 2;  /*above string*/
   position: relative;
+  top: -100%;
+
 
   display: flex;
   align-items: center;

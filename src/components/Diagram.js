@@ -6,13 +6,14 @@ import React from 'react'
   
 const Box = ({ text }) => {
   return (
-    <div className='box'>
-      <div className='string'></div>
+    <div className='box-container'>
+      <div className='box'></div>
       {text && <div className='note'>{text}</div>}
     </div>
   )
 }
   
+
 const Row = ({stretch, rowData, enharmonics}) => {
 
   let boxes = []
@@ -39,6 +40,15 @@ const Row = ({stretch, rowData, enharmonics}) => {
     }else{
       boxes = boxes.concat(<Box text="" key={i}></Box>)
     }
+
+    if(i !== stretch-1){  //if ct is there, add it. else blank box
+      boxes = boxes.concat(
+      <div className='fret-container'>
+        <div className='fret'>
+        </div>
+      </div>)
+    }
+    
   }
 
   return(
@@ -53,7 +63,9 @@ const Diagram = ({diagram_data, stretch, enharmonics}) => {
     
     let rows = []
     for(let i=1; i<diagram_data.length;i++){
+      rows = rows.concat(<div className='string-container'> <dic className='string-visible'></dic></div>)
       rows = rows.concat(<Row stretch={stretch} rowData={diagram_data[i]} key={i} enharmonics={enharmonics}></Row>)
+
     }
   
     return(
