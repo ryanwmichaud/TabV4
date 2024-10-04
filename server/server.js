@@ -3,7 +3,7 @@ import express, { response }  from 'express'
 import cors from 'cors'
 import  path from "path"
 import { fileURLToPath } from 'url'
-const mysql = require('mysql2/promise')
+import mysql from 'mysql2/promise'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
@@ -71,15 +71,13 @@ app.post('/create-account', async (req,res) => {
     const data = req.body
     let emailTaken = false
     let usernameTaken = false
-    
+
+    const connection = await pool.getConnection();
     try {
 
         //hash password and compare it
         const passwordHash = await hashPassword(data.password)  
 
-        const connection = await pool.getConnection();
-
-    
         const [result] = await connection.execute(
           'INSERT INTO users (username, email, first_name, last_name)  VALUES (?, ?, ?, ?);',
           [data.username, data.email, data.first_name, data.last_name]
@@ -139,9 +137,9 @@ app.post('/create-account', async (req,res) => {
 
 app.post('/lookup-google-id', async(req, res) => { //if find account, send token. 
     
-    try{
-        const connection = await pool.getConnection();
-        
+    const connection = await pool.getConnection();
+
+    try{        
         const google_id = req.body.google_id
         const [result] = await connection.execute(
             'SELECT user_id FROM users WHERE google_id = ? ;',
@@ -165,14 +163,14 @@ app.post('/lookup-google-id', async(req, res) => { //if find account, send token
 
 app.post('/create-account-from-google', async (req,res) => {
     const data=req.body
+
+    const connection = await pool.getConnection()
+
     
     try {
         //google has verified its them and we haven't found an account for them
         //make and account and send a token
 
-        const connection = await pool.getConnection()
-
-       
         const [result] = await connection.execute(
             'INSERT INTO users (email, username, first_name, last_name, profile_photo, google_id) VALUES (?, ?, ?, ?, ?, ?)',
             [data.email, data.email, data.first_name, data.last_name, data.profile_photo, data.google_id]
@@ -208,8 +206,10 @@ app.get('/get-preferences', async (req, res)=>{
         return res.status(401).json({ message: 'No token - Access denied' });
     }
 
+    const connection = await pool.getConnection()
+
+
     try{
-        const connection = await pool.getConnection()
         const decoded = jwt.verify(token, JWT_SECRET)
         const results = await connection.execute( `SELECT * FROM user_preferences WHERE user_id = ?`, [decoded.user_id])
 
@@ -246,9 +246,10 @@ app.get('/get-profile', async (req, res) => {
         return res.status(401).json({ message: 'No token - Access denied' });
     }
 
+    const connection = await pool.getConnection()
+
     try{
         const decoded = jwt.verify(token, JWT_SECRET)
-        const connection = await pool.getConnection()
 
         const [results, fields] = await connection.execute(
             'SELECT * FROM users WHERE user_id = ?',
@@ -288,9 +289,9 @@ app.post('/custom-signin', async (req, res) =>{
 
     const { email, password } = req.body;
     
+    const connection = await pool.getConnection()
 
     try {
-        const connection = await pool.getConnection()
         const [results] = await connection.execute(  //get passwordhash and user_id matching email
           `SELECT user_credentials.user_id, password_hash 
           FROM user_credentials
@@ -313,6 +314,7 @@ app.post('/custom-signin', async (req, res) =>{
 
         res.json({success: false})
     }finally{
+        
         connection.release()
     }
 })
@@ -323,8 +325,9 @@ ON DUPLICATE KEY UPDATE preference_value = 'testvalue';
 */
 
 app.post('/change-preference', async (req, res) => {  
+
+    const connection = await pool.getConnection()
     try {
-        const connection = await pool.getConnection()
         const decoded = jwt.verify(req.body.token, JWT_SECRET)
         const [results, fields] = await connection.execute(
         `INSERT INTO user_preferences (user_id, preference_key, preference_value)
