@@ -3,7 +3,7 @@ import express, { response }  from 'express'
 import cors from 'cors'
 import  path from "path"
 import { fileURLToPath } from 'url'
-import mysql from 'mysql2/promise'
+const mysql = require('mysql2/promise')
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
@@ -20,12 +20,33 @@ app.use(express.static(path.join(__dirname, '..','build')))
 
 const JWT_SECRET = process.env.JWT_SECRET
 
-const connection = await mysql.createConnection({  //auto releases connection
+
+
+
+const pool = mysql.createPool({
     host: process.env.MYSQL_HOST,
-    user: process.env.MYSQL_USER, // Your MySQL username
-    password: process.env.MYSQL_PASSWORD, // Your MySQL password
-    database: process.env.MYSQL_DATABASE_NAME // Your database name
+    user: process.env.MYSQL_USER, 
+    password: process.env.MYSQL_PASSWORD,  
+    database: process.env.MYSQL_DATABASE_NAME,
+    waitForConnections: true,
+    connectionLimit: 2,
+    queueLimit: 0
 })
+
+setInterval(async () => {
+    try {
+      await pool.query('SELECT 1'); // Simple keep-alive query
+      console.log('Keep-alive query executed');
+    } catch (err) {
+      console.error('Keep-alive query failed:', err);
+    }
+  }, 6 * 60 * 60 * 1000); //every 6 hrs
+
+
+pool.on('error', (err) => {
+    console.error('Database connection error:', err);
+    // reconnect?
+  })
 
 app.post('/calculate', async (req, res) => {
     const data = solve(req.body.strings, req.body.chordTones,req.body.stretch)
@@ -55,6 +76,9 @@ app.post('/create-account', async (req,res) => {
 
         //hash password and compare it
         const passwordHash = await hashPassword(data.password)  
+
+        const connection = await pool.getConnection();
+
     
         const [result] = await connection.execute(
           'INSERT INTO users (username, email, first_name, last_name)  VALUES (?, ?, ?, ?);',
@@ -106,23 +130,36 @@ app.post('/create-account', async (req,res) => {
                 usernameTaken: usernameTaken
             })
         }
-      } 
+      } finally{
+        connection.release()
+
+      }
       
 })
 
 app.post('/lookup-google-id', async(req, res) => { //if find account, send token. 
-    const google_id = req.body.google_id
-    const [result] = await connection.execute(
-        'SELECT user_id FROM users WHERE google_id = ? ;',
-        [google_id]
-      )
-    if (result.length === 1){
-        const token = jwt.sign({user_id: result[0].user_id}, JWT_SECRET, {expiresIn: '1hr'})
+    
+    try{
+        const connection = await pool.getConnection();
+        
+        const google_id = req.body.google_id
+        const [result] = await connection.execute(
+            'SELECT user_id FROM users WHERE google_id = ? ;',
+            [google_id]
+        )
+        if (result.length === 1){
+            const token = jwt.sign({user_id: result[0].user_id}, JWT_SECRET, {expiresIn: '1hr'})
 
-        res.json({found: true, token: token})
-    }else{
-        res.json({found: false})
-    }
+            res.json({found: true, token: token})
+        }else{
+            res.json({found: false})
+        }
+    }catch(error){
+        console.error(error)
+    }finally{
+        connection.release()
+
+      }
 })
 
 
@@ -132,6 +169,8 @@ app.post('/create-account-from-google', async (req,res) => {
     try {
         //google has verified its them and we haven't found an account for them
         //make and account and send a token
+
+        const connection = await pool.getConnection()
 
        
         const [result] = await connection.execute(
@@ -151,6 +190,9 @@ app.post('/create-account-from-google', async (req,res) => {
         console.error("error creating account from google:", error)
 
 
+    }finally{
+        connection.release()
+
     }
       
 })
@@ -167,6 +209,7 @@ app.get('/get-preferences', async (req, res)=>{
     }
 
     try{
+        const connection = await pool.getConnection()
         const decoded = jwt.verify(token, JWT_SECRET)
         const results = await connection.execute( `SELECT * FROM user_preferences WHERE user_id = ?`, [decoded.user_id])
 
@@ -185,6 +228,9 @@ app.get('/get-preferences', async (req, res)=>{
         } else {
             return res.status(500).json({ message: 'Internal server error', error});
         }
+    }finally{
+        connection.release()
+
     }
     
 
@@ -202,6 +248,7 @@ app.get('/get-profile', async (req, res) => {
 
     try{
         const decoded = jwt.verify(token, JWT_SECRET)
+        const connection = await pool.getConnection()
 
         const [results, fields] = await connection.execute(
             'SELECT * FROM users WHERE user_id = ?',
@@ -223,6 +270,9 @@ app.get('/get-profile', async (req, res) => {
         } else {
             return res.status(500).json({ message: 'Internal server error' });
         }
+    }finally{
+        connection.release()
+
     }
     
 
@@ -240,7 +290,7 @@ app.post('/custom-signin', async (req, res) =>{
     
 
     try {
-
+        const connection = await pool.getConnection()
         const [results] = await connection.execute(  //get passwordhash and user_id matching email
           `SELECT user_credentials.user_id, password_hash 
           FROM user_credentials
@@ -262,6 +312,8 @@ app.post('/custom-signin', async (req, res) =>{
         console.error("error signing in", error)
 
         res.json({success: false})
+    }finally{
+        connection.release()
     }
 })
 /*
@@ -272,6 +324,7 @@ ON DUPLICATE KEY UPDATE preference_value = 'testvalue';
 
 app.post('/change-preference', async (req, res) => {  
     try {
+        const connection = await pool.getConnection()
         const decoded = jwt.verify(req.body.token, JWT_SECRET)
         const [results, fields] = await connection.execute(
         `INSERT INTO user_preferences (user_id, preference_key, preference_value)
@@ -285,7 +338,10 @@ app.post('/change-preference', async (req, res) => {
 
         res.json({error: error})
         
-      } 
+    }finally{
+        connection.release()
+
+    }
 })
 
 
