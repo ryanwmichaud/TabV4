@@ -40,7 +40,6 @@ const Login = ()=>{
   
 
         const data = jwtDecode(res.credential)
-        console.log(data)
         const google_id = data.sub
 
         try{
@@ -67,7 +66,7 @@ const Login = ()=>{
             
         } 
         catch(error){
-            console.log("error lookingup google id", error)
+            console.error("error lookingup google id", error)
         }
 
         
@@ -87,7 +86,6 @@ const Login = ()=>{
             })
         const data = await response.json()
         
-        console.log(data)
         localStorage.setItem('token', data.token)
 
         const profileData = await getProfile(data.token)
@@ -99,7 +97,7 @@ const Login = ()=>{
         
 
     const lookupGoogleId = async (google_id)=>{
-        console.log('lookingup google id')
+        //console.log('lookingup google id')
         try{
             
             const response = await fetch(`http://${ip}:8000/lookup-google-id`, {
@@ -114,12 +112,11 @@ const Login = ()=>{
                 throw new Error(`Network response was not ok:${response.statusText}`)
             }
             const data = await response.json();  // Parse the JSON response
-            console.log('Lookup result:', data);  // Log the result
 
             return data;
 
         }catch(error){
-            console.log(error)
+            console.error(error)
         }
         
         
@@ -171,7 +168,7 @@ const Login = ()=>{
 
 
     const onError = (error)=>{
-        console.log(error)
+        console.error(error)
     }
     const logout = ()=>{
         googleLogout()

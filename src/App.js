@@ -11,7 +11,7 @@ const ip = process.env.REACT_APP_IP
 export const GlobalContext  = createContext()
 
 export const getProfile = async (token) => {
-  console.log("getting profile w token", token)
+  //console.log("getting profile w token", token)
  
   try{
     
@@ -28,7 +28,7 @@ export const getProfile = async (token) => {
 }
 
 export const getPrefereces = async (token) => {
-  console.log("getting preferences w token", token)
+  //console.log("getting preferences w token", token)
   try{
     
       const response = await fetch(`http://${ip}:8000/get-preferences`, {
@@ -90,7 +90,7 @@ export const GlobalProvider = ({ children }) => {
         }
       }else{
         document.documentElement.style.setProperty('--primary-color', `var(--blue)`)
-        console.log('logging out and removing token')
+        //console.log('logging out and removing token')
         localStorage.removeItem('token')
 
       }
@@ -113,7 +113,7 @@ export const GlobalProvider = ({ children }) => {
   */
 
   const closeMobileMenu = ()=>{
-    console.log("closing mobile menu")
+    //console.log("closing mobile menu")
     setIsMobileMenuVisible(false)
   }
 

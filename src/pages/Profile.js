@@ -12,7 +12,7 @@ const Profile = () =>{
     const navigate = useNavigate()
 
     useEffect(()=>{
-        console.log(profile)
+        //console.log(profile)
         if(profile === null){
             navigate('/login')
         }
@@ -21,7 +21,6 @@ const Profile = () =>{
 
 
     const   changeColor = async (e) => {
-        console.log(e.target.value)
         let color = e.target.value
       
         document.documentElement.style.setProperty('--primary-color', `var(--${color})`)
@@ -31,7 +30,6 @@ const Profile = () =>{
             preference_key: "color", 
             preference_value: e.target.value
         }
-        console.log("sending req", req)
 
         fetch(`http://${ip}:8000/change-preference`, {
             method: 'POST',
@@ -59,7 +57,6 @@ const Profile = () =>{
     let color = document.documentElement.style.getPropertyValue('--primary-color').trim();
     color= color.replace('var(--', '').replace(')', '').trim()
     color = color.charAt(0).toUpperCase() + color.slice(1)
-    console.log(color)
 
 
     return(

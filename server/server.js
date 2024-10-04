@@ -36,9 +36,9 @@ const pool = mysql.createPool({
 setInterval(async () => {
     try {
       await pool.query('SELECT 1'); // Simple keep-alive query
-      console.log('Keep-alive query executed');
+      console.log('Keep alive query');
     } catch (err) {
-      console.error('Keep-alive query failed:', err);
+      console.error('Keep alive query failed:', err);
     }
   }, 6 * 60 * 60 * 1000); //every 6 hrs
 
@@ -67,7 +67,6 @@ const hashPassword = async (password) => {
 
 
 app.post('/create-account', async (req,res) => {
-    console.log("creating with",req.body)
     const data = req.body
     let emailTaken = false
     let usernameTaken = false
@@ -200,7 +199,6 @@ app.post('/create-account-from-google', async (req,res) => {
 app.get('/get-preferences', async (req, res)=>{
 
     const token = req.headers['authorization']?.split(' ')[1];
-    console.log("getting preferences", token)
 
     if (!token) {
         return res.status(401).json({ message: 'No token - Access denied' });
@@ -238,9 +236,10 @@ app.get('/get-preferences', async (req, res)=>{
 })
 
 app.get('/get-profile', async (req, res) => {  
+
+
     
     const token = req.headers['authorization']?.split(' ')[1];
-    console.log("getting profile w token", token)
 
     if (!token) {
         return res.status(401).json({ message: 'No token - Access denied' });
@@ -259,7 +258,7 @@ app.get('/get-profile', async (req, res) => {
         if (results.length === 0) {
             return res.status(404).json({ message: 'Profile not found' });
         }else{
-            
+            console.log("sending back user_id", decoded.user_id)
             res.json({ profile: results[0] });
         }
 
@@ -288,6 +287,8 @@ app.get('/get-profile', async (req, res) => {
 app.post('/custom-signin', async (req, res) =>{
 
     const { email, password } = req.body;
+
+    console.log("signin req from", email)
     
     const connection = await pool.getConnection()
 
@@ -299,7 +300,6 @@ app.post('/custom-signin', async (req, res) =>{
           WHERE email = ?`,
           [email]
         )
-        console.log(results)
 
         const match = await bcrypt.compare(req.body.password, results[0].password_hash);
         if(results.length == 1 && match){
@@ -314,7 +314,6 @@ app.post('/custom-signin', async (req, res) =>{
 
         res.json({success: false})
     }finally{
-        
         connection.release()
     }
 })
