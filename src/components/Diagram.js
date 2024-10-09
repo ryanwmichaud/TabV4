@@ -63,7 +63,7 @@ const Diagram = ({diagram_data, stretch, enharmonics}) => {
     
     let rows = []
     for(let i=1; i<diagram_data.length;i++){
-      rows = rows.concat(<div className='string-container'> <dic className='string-visible'></dic></div>)
+      rows = rows.concat(<div className='string-container'> <div className='string-visible'></div></div>)
       rows = rows.concat(<Row stretch={stretch} rowData={diagram_data[i]} key={i} enharmonics={enharmonics}></Row>)
 
     }
