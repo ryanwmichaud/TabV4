@@ -509,7 +509,7 @@ a{
   
   z-index: 2;  /*above string*/
   position: relative;
-  top: -100%;
+  top: -90%;
 
 
   display: flex;

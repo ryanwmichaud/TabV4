@@ -11,6 +11,9 @@ import jwt from 'jsonwebtoken'
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
+const port = process.env.REACT_APP_PORT
+
+
 const app = express()
 
 
@@ -353,8 +356,8 @@ app.get('*', async (req,res)=>{
 })
 
 
-app.listen(80, () => {
-    console.log("listening on 80")
+app.listen(port, () => {
+    console.log(`listening on ${port}`)
   })
 
 
