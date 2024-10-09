@@ -24,6 +24,8 @@
   --green: rgb(124, 178, 130);
   --purple: rgb(125, 101, 142 );
 
+  --main-min-width: 400px;
+
 }
 
 a, select, button, input, p{
@@ -55,6 +57,9 @@ a{
   
   margin: 0;
   padding: 0;
+  min-width: var(--main-min-width);
+  min-height: 60px;
+
 
 }
 
@@ -181,8 +186,9 @@ a{
   overflow: hidden;
   position: relative;
 
-
   height: calc(var(--vh, 1vh) * 85);
+  min-width: var(--main-min-width);
+
 
   margin: 0;
   padding: 0;
@@ -233,13 +239,22 @@ a{
 
 
 
-.results{
-
-  display: flex;
+.results-section{
+  
   overflow: auto; /*scroll inside*/
   width: 100%;
-  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
+}
+
+.results-container{
+  padding-left: 4%;
+  padding-right: 4%;
+  justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
 }
 /*
 @media (max-width: 600px) {
@@ -350,11 +365,6 @@ a{
 
 
 
-#enharmonic-boxes{
-
-}
-
-
 
 .enharmonic-box{
   cursor: pointer;
@@ -373,7 +383,7 @@ a{
 
 
 .diagram, .results-title, .error-message{
-  border-style:double;
+  border-style: double;
   border-width: 10px;
   border-radius: 3px;
   border-color: black;
@@ -385,7 +395,6 @@ a{
 }
 
 .results-title{
-  margin: auto;
   min-width: 90px;
   width: 50%;
   margin-top: 5%;
@@ -401,7 +410,7 @@ a{
   margin: 5% 16% 0px 16%;
   justify-content: center;
   align-items: center;
-  width: 90%;
+  width: 40%;
   height: 10%;
   text-align: center;
 
@@ -410,59 +419,104 @@ a{
 
 
 .diagram{
-  margin-top: 3%;
+  margin: 3%;
   text-align: left;
   justify-content: center;
-  width: 100%;
+ 
+
 }
 
 .position-marker{
   margin-left: 15px;
 }
 
-.diagram_box {
-  width: 100%;
-  margin-left: 15px;
-  margin-bottom: 45px;
+.diagram-box-h, .diagram-box-v{
+  margin: 15px;
   border-width: 3px;
   border-style: solid;
   border-color: black;
   border-radius: 5px;
-  width: 40vw;
 }
-
-.row {
+.diagram-box-v{
   display: flex;
   flex-direction: row;
+
+  
+}
+
+.diagram-box-h{
+  display: flex;
+  flex-direction: column;
+
+
+}
+
+
+
+.row-v{
+  display: flex;
+  flex-direction: column;
   align-items: stretch;
   justify-content: flex-start;
+
+}
+
+.row-h{
+  display: flex;
+  flex-direction: row;
+
+  align-items: stretch;
+  justify-content: flex-start;
+
   gap: 0;
 }
-.string-container {
+
+.string-container-v{
+  position: relative;
+  width: 0px;
+}
+.string-container-h{
   position: relative;
   height: 0px;
 }
-.string-visible{
+.string-visible-v{
+  position: absolute;
+  left: 12px;
+  background-color: #383838;
+  z-index: 1;
+  height: 100%;
+  width: 3px;
+
+}
+
+.string-visible-h{
   position: absolute;
   top: 12px;
   background-color: #383838;
-  border-top: 2px black solid;
   z-index: 1;
-  display: flex;
-  flex-direction: column;
   width: 100%;
-  border-radius: 2%;
-
+  height: 3px;
 }
 
-.box-container {
+.box-container-v {
   position: relative;
-  width: 100%;
   min-height: 26px;
+  min-width: 26px;
   margin: 0;
   padding: 0;
-  
+  height: 7vh;
 }
+.box-container-h {
+  position: relative;
+  min-height: 26px;
+  min-width: 26px;
+  margin: 0;
+  padding: 0;
+  width: 12vw;
+  min-width: 40px;
+  max-width: 100px;
+}
+
 .box{
   position: relative;
   top: 0%;
@@ -475,31 +529,44 @@ a{
 
 }
 
-.fret-container{
+.fret-container-v, .fret-container-h{
   z-index: 0;
   position: relative;
-  width: 5px;
-  min-height: 26px;
   margin: 0;
   padding: 0;
+
+  margin: 0;
+  padding: 0;
+
+
+
+
+}
+.fret-container-v{
+  height: 3px;
+  min-width: 2px;
+  border-top: black solid 1px;
+  border-bottom: black solid 1px;
+
+}
+.fret-container-h{
+  width: 3px;
+  min-height: 26px;
+
   border-left: black solid 1px;
   border-right: black solid 1px;
 }
 
-
-
-.fret{
+.fret-v, .fret-h{
   position: relative;
-  width: 3px;
   height: 100%;
+  width: 100%;
   margin: 0;
   padding: 0;
   background-color: silver;
-  z-index: 1;
+  z-index: 0;
 
 }
-
-
 
 
 

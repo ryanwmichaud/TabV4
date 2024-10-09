@@ -1,4 +1,5 @@
 
+import { click } from "@testing-library/user-event/dist/click"
 import React from "react"
 
 const names = ["G#/Ab","A#/Bb","C#/Db","D#/Eb","F#/Gb"]
@@ -32,9 +33,15 @@ const StretchInput = ({changeStretch, stretch}) => {
 
 
 
-const Options = ({changeStretch, stretch, setAb, setBb, setDb, setEb, setGb, enharmonics })=>{
+const Options = ({changeStretch, stretch, setAb, setBb, setDb, setEb, setGb, enharmonics, vertical, setVertical })=>{
     
-    const handleClick = (e)=>{
+
+    const verticalClick = (e) =>{
+        setVertical(!vertical)
+        console.log('click')
+    }
+
+    const enharmonicClick = (e)=>{
         if(e.target.id === "G#/Ab"){
             setAb(!enharmonics[0])
         }
@@ -60,13 +67,19 @@ const Options = ({changeStretch, stretch, setAb, setBb, setDb, setEb, setGb, enh
             <StretchInput changeStretch={changeStretch} stretch={stretch}></StretchInput>
 
             
-                <p className="input-subsubtitle"> Enharmonics:</p>
+            <p className="input-subsubtitle"> Enharmonics:</p>
 
-                <div id="enharmonic-boxes">
-                    {names.map((noteName,index)=>(
-                            <button id={noteName} key={index} className="enharmonic-box" onClick={handleClick}>{enharmonics[index] ? flatNames[index] : sharpNames[index]}</button> 
-                    ))}
-                </div>
+            <div id="enharmonic-boxes">
+                {names.map((noteName,index)=>(
+                        <button id={noteName} key={index} className="enharmonic-box" onClick={enharmonicClick}>{enharmonics[index] ? flatNames[index] : sharpNames[index]}</button> 
+                ))}
+            </div>
+
+            <p className="input-subsubtitle"> Vertical Diagrams:</p>
+
+            <div id="vertical-diagrams">
+                <input type="checkbox" onClick={verticalClick}/>
+            </div>
            
 
        
