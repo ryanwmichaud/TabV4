@@ -31,7 +31,7 @@ const Profile = () =>{
             preference_value: e.target.value
         }
 
-        fetch(`http://${ip}:8000/change-preference`, {
+        fetch(`http://${ip}:${port}/change-preference`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

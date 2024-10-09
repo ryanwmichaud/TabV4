@@ -59,7 +59,7 @@ const Signup = ()=>{
         const ip = process.env.REACT_APP_IP
 
         try{
-            const response = await fetch(`http://${ip}:8000/create-account`, {
+            const response = await fetch(`http://${ip}:${port}/create-account`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

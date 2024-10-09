@@ -124,7 +124,7 @@ const Home = () =>{
       chordTones: chordTones,
     }
 
-    fetch(`http://${ip}:8000/calculate`, {
+    fetch(`http://${ip}:${port}/calculate`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

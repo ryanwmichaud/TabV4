@@ -8,6 +8,7 @@ import { Profile } from './pages/Profile'
 
 
 const ip = process.env.REACT_APP_IP
+const port = process.env.REACT_APP_PORT
 export const GlobalContext  = createContext()
 
 export const getProfile = async (token) => {
@@ -15,7 +16,7 @@ export const getProfile = async (token) => {
  
   try{
     
-      const response = await fetch(`http://${ip}:8000/get-profile`, {
+      const response = await fetch(`http://${ip}:${port}/get-profile`, {
           headers: { Authorization: `Bearer ${token}` },
       })
       
@@ -31,7 +32,7 @@ export const getPrefereces = async (token) => {
   //console.log("getting preferences w token", token)
   try{
     
-      const response = await fetch(`http://${ip}:8000/get-preferences`, {
+      const response = await fetch(`http://${ip}:${port}/get-preferences`, {
           headers: { Authorization: `Bearer ${token}` },
       })
       
