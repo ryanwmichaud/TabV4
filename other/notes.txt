@@ -213,3 +213,8 @@ catch (err) {
     handle token expires
 
     
+
+
+diagram data like:
+[5, [X,X], [2,'G'], [0,'E'], [X,X]] 
+position, then [relative-fret, note]

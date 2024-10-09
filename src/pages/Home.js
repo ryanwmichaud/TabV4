@@ -13,6 +13,7 @@ const ip = process.env.REACT_APP_IP
 const port = process.env.REACT_APP_PORT
 
 
+
 const nameMap = Object.freeze({
   "C":0,
   "C#":1,
@@ -30,14 +31,15 @@ const nameMap = Object.freeze({
 
 
 
-const InputSection = ({changeStretch, changeNumStrings, addChordTone, removeChordTone, changeOpen, stretch, strings, chordTones, n, root, quality, setRoot, setQuality, setAb, setBb, setDb, setEb, setGb, enharmonics, setStrings}) => {
+const InputSection = ({changeStretch, changeNumStrings, addChordTone, removeChordTone, changeOpen, stretch, strings, chordTones, n, root, quality, setRoot, setQuality, setAb, setBb, setDb, setEb, setGb, enharmonics, setStrings, vertical, setVertical}) => {
   return(
       <div >
         
         <ChordToneInput addChordTone={addChordTone} removeChordTone={removeChordTone} chordTones={chordTones} enharmonics={enharmonics} root={root} quality={quality} setRoot={setRoot} setQuality={setQuality}></ChordToneInput>
         <StringInput strings={strings} n={n} changeNumStrings={changeNumStrings} changeOpen={changeOpen} enharmonics={enharmonics} setStrings={setStrings}></StringInput>
         <Options  changeStretch={changeStretch} stretch={stretch}
-                  setAb={setAb} setBb={setBb} setDb={setDb} setEb={setEb} setGb={setGb} enharmonics={enharmonics}>
+                  setAb={setAb} setBb={setBb} setDb={setDb} setEb={setEb} setGb={setGb} enharmonics={enharmonics}
+                  vertical={vertical} setVertical={setVertical}>
         </Options>
       </div>
       
@@ -45,7 +47,7 @@ const InputSection = ({changeStretch, changeNumStrings, addChordTone, removeChor
   
 }
 
-const ResultsSection = ({res, stretch, strings, chordTones, error, enharmonics}) => {
+const ResultsSection = ({res, stretch, strings, chordTones, error, enharmonics, vertical}) => {
 
   let data = res
 
@@ -67,7 +69,8 @@ const ResultsSection = ({res, stretch, strings, chordTones, error, enharmonics})
     
 
     for(let i=0;i<data.length;i++){
-      diagrams = diagrams.concat(<Diagram stretch={stretch} diagram_data={data[i]} key={i} enharmonics={enharmonics}/>)
+      diagrams = diagrams.concat(<Diagram stretch={stretch} diagram_data={data[i]} key={i} enharmonics={enharmonics} vertical={vertical}/>)
+      console.log(data[i])
     }
     
     if(diagrams.length === 0){
@@ -75,9 +78,9 @@ const ResultsSection = ({res, stretch, strings, chordTones, error, enharmonics})
 
     }else{
       return(
-        <div>
+        <div className="results-section">
           <p className='results-title'> Results: </p>
-          <div>
+          <div className='results-container'>
             {diagrams}
           </div>
         </div>
@@ -103,6 +106,9 @@ const Home = () =>{
   const [root, setRoot] = useState("")
   const [quality, setQuality] = useState("")
   const [numStringSelects, setNumStringSelects] = useState(6)
+
+  const [vertical, setVertical] = useState(false)
+
   
   const [res, setRes] = useState(null)
   const [error, setError] = useState(null)
@@ -228,6 +234,8 @@ const Home = () =>{
   }
 
 
+
+
   
   
   return (
@@ -259,6 +267,8 @@ const Home = () =>{
               setAb={setAb} setBb={setBb} setDb={setDb} setEb={setEb} setGb={setGb}
               enharmonics = {enharmonics}
               setStrings = {setStrings}
+              vertical={vertical}
+              setVertical={setVertical}
             >
             </InputSection>
           </div>
@@ -291,23 +301,25 @@ const Home = () =>{
               setAb={setAb} setBb={setBb} setDb={setDb} setEb={setEb} setGb={setGb}
               enharmonics = {enharmonics}
               setStrings = {setStrings}
-
+              vertical={vertical}
+              setVertical={setVertical}
             >
             </InputSection>
           </div>
           }
           
-          <div className="results"> 
-            <ResultsSection
-              chordTones={chordTones} 
-              stretch={stretch}
-              strings={strings}
-              res={res} 
-              error={error}
-              enharmonics={enharmonics}
-            >
-            </ResultsSection>
-          </div>
+          
+          <ResultsSection
+            chordTones={chordTones} 
+            stretch={stretch}
+            strings={strings}
+            res={res} 
+            error={error}
+            enharmonics={enharmonics}
+            vertical={vertical}
+          >
+          </ResultsSection>
+       
         </div>
       </div>
     )

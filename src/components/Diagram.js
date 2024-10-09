@@ -4,9 +4,9 @@ import React from 'react'
 
 
   
-const Box = ({ text }) => {
+const Box = ({ text }, vertical) => {
   return (
-    <div className='box-container'>
+    <div className={`box-container-${vertical ? 'v' : 'h'}`}>
       <div className='box'></div>
       {text && <div className='note'>{text}</div>}
     </div>
@@ -14,7 +14,7 @@ const Box = ({ text }) => {
 }
   
 
-const Row = ({stretch, rowData, enharmonics}) => {
+const Row = ({stretch, rowData, enharmonics, vertical}) => {
 
   let boxes = []
   for(let i=0;i<stretch;i++){
@@ -36,15 +36,15 @@ const Row = ({stretch, rowData, enharmonics}) => {
       noteName = "Bb"      
     }
     if(i === rowData[0]){  //if ct is there, add it. else blank box
-      boxes = boxes.concat(<Box text={noteName} key={i}></Box>)
+      boxes = boxes.concat(<Box text={noteName} vertical={vertical} key={i}></Box>)
     }else{
-      boxes = boxes.concat(<Box text="" key={i}></Box>)
+      boxes = boxes.concat(<Box text="" vertical={vertical} key={i}></Box>)
     }
 
     if(i !== stretch-1){  //if ct is there, add it. else blank box
       boxes = boxes.concat(
-      <div className='fret-container'>
-        <div className='fret'>
+      <div className={`fret-container-${vertical ? 'v' : 'h'}`} key={'fret-container'+i}>
+        <div className={`fret-${vertical ? 'v' : 'h'}`}>
         </div>
       </div>)
     }
@@ -52,26 +52,37 @@ const Row = ({stretch, rowData, enharmonics}) => {
   }
 
   return(
-    <div className='row'>
+    <div className={`row-${vertical ? 'v' : 'h'}`}>
         {boxes}
     </div>
   )
 }
   
 
-const Diagram = ({diagram_data, stretch, enharmonics}) => {
+const Diagram = ({diagram_data, stretch, enharmonics, vertical}) => {
     
     let rows = []
-    for(let i=1; i<diagram_data.length;i++){
-      rows = rows.concat(<div className='string-container'> <div className='string-visible'></div></div>)
-      rows = rows.concat(<Row stretch={stretch} rowData={diagram_data[i]} key={i} enharmonics={enharmonics}></Row>)
-
+    if (vertical){
+      for(let i=diagram_data.length-1; i>0; i--){
+        rows = rows.concat(<div className={`string-container-${vertical ? 'v' : 'h'}`} key={'string-container'+i}> 
+          <div className={`string-visible-${vertical ? 'v' : 'h'}`} key={'string-visible'+i}></div>
+        </div>)
+        rows = rows.concat(<Row stretch={stretch} rowData={diagram_data[i]} key={'row'+i} enharmonics={enharmonics} vertical={vertical}></Row>)
+      }
+    }else{
+      for(let i=1; i<diagram_data.length;i++){
+        rows = rows.concat(<div className={`string-container-${vertical ? 'v' : 'h'}`} key={'string-container'+i}> 
+          <div className={`string-visible-${vertical ? 'v' : 'h'}`} key={'string-visible'+i}></div>
+        </div>)
+        rows = rows.concat(<Row stretch={stretch} rowData={diagram_data[i]} key={'row'+i} enharmonics={enharmonics} vertical={vertical}></Row>)
+      }
     }
+
   
     return(
       <div className='diagram'>
         <p className='position-marker'>{"Position " + diagram_data[0]}</p>
-        <div className='diagram_box'>
+        <div className={`diagram-box-${vertical ? 'v' : 'h'}`}>
             {rows}
         </div>
       </div> 
