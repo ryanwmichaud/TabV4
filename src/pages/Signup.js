@@ -5,7 +5,8 @@ import { useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { GlobalContext, getProfile} from '../App'
 
-
+const ip = process.env.REACT_APP_IP
+const port = process.env.REACT_APP_PORT
 
 
 
@@ -56,7 +57,8 @@ const Signup = ()=>{
             password: password
         }
 
-        const ip = process.env.REACT_APP_IP
+
+
 
         try{
             const response = await fetch(`http://${ip}:${port}/create-account`, {

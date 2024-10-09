@@ -9,6 +9,7 @@ import { useNavigate, Link } from 'react-router-dom'
 
 
 const ip = process.env.REACT_APP_IP
+const port = process.env.REACT_APP_PORT
 
 
 

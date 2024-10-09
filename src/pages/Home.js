@@ -10,6 +10,8 @@ import { GlobalContext } from '../App.js'
 
 
 const ip = process.env.REACT_APP_IP
+const port = process.env.REACT_APP_PORT
+
 
 const nameMap = Object.freeze({
   "C":0,

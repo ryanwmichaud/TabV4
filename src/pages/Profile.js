@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom'
 import { Navbar } from '../components/Navbar'
 import { GlobalContext } from "../App"
 const ip = process.env.REACT_APP_IP
+const port = process.env.REACT_APP_PORT
+
 
 
 const Profile = () =>{
