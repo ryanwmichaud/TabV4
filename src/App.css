@@ -444,7 +444,7 @@ a{
 }
 .string-visible{
   position: absolute;
-  top: 10px;
+  top: 12px;
   background-color: #383838;
   border-top: 2px black solid;
   z-index: 1;
@@ -509,7 +509,7 @@ a{
   
   z-index: 2;  /*above string*/
   position: relative;
-  top: -90%;
+  top: -91%;
 
 
   display: flex;

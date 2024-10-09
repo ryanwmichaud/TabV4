@@ -43,7 +43,7 @@ const Row = ({stretch, rowData, enharmonics}) => {
 
     if(i !== stretch-1){  //if ct is there, add it. else blank box
       boxes = boxes.concat(
-      <div className='fret-container'>
+      <div className='fret-container' key={"fret-container"+i}>
         <div className='fret'>
         </div>
       </div>)
@@ -63,8 +63,8 @@ const Diagram = ({diagram_data, stretch, enharmonics}) => {
     
     let rows = []
     for(let i=1; i<diagram_data.length;i++){
-      rows = rows.concat(<div className='string-container'> <dic className='string-visible'></dic></div>)
-      rows = rows.concat(<Row stretch={stretch} rowData={diagram_data[i]} key={i} enharmonics={enharmonics}></Row>)
+      rows = rows.concat(<div className='string-container' key={"string-container"+i}> <div className='string-visible' key={'string-visible'+i}></div></div>)
+      rows = rows.concat(<Row stretch={stretch} rowData={diagram_data[i]} key={"row"+i} enharmonics={enharmonics}></Row>)
 
     }
   
