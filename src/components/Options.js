@@ -60,13 +60,19 @@ const Options = ({changeStretch, stretch, setAb, setBb, setDb, setEb, setGb, enh
             <StretchInput changeStretch={changeStretch} stretch={stretch}></StretchInput>
 
             
-                <p className="input-subsubtitle"> Enharmonics:</p>
+            <p className="input-subsubtitle"> Enharmonics:</p>
 
-                <div id="enharmonic-boxes">
-                    {names.map((noteName,index)=>(
-                            <button id={noteName} key={index} className="enharmonic-box" onClick={handleClick}>{enharmonics[index] ? flatNames[index] : sharpNames[index]}</button> 
-                    ))}
-                </div>
+            <div id="enharmonic-boxes">
+                {names.map((noteName,index)=>(
+                        <button id={noteName} key={index} className="enharmonic-box" onClick={handleClick}>{enharmonics[index] ? flatNames[index] : sharpNames[index]}</button> 
+                ))}
+            </div>
+
+            <p className="input-subsubtitle"> Vertical Diagrams:</p>
+
+            <div id="vertical-diagrams">
+                <input type="checkbox"/>
+            </div>
            
 
        

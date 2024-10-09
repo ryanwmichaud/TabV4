@@ -47,7 +47,7 @@ const Navbar = () => {
 
         {isProfileMenuOpen && 
           <div id="nav-profile-menu">
-            <dic className="nav-profile-menu-link-container">
+            <div className="nav-profile-menu-link-container">
               <Link id="nav-profile-menu-profile" className="nav-profile-menu-item" to={"/Profile"} > Profile </Link>
 
               <a id="nav-profile-menu-logout"
@@ -60,7 +60,7 @@ const Navbar = () => {
                 }}>
                 Logout
               </a>
-            </dic>
+            </div>
             
           </div>
         }
