@@ -75,7 +75,7 @@ const ResultsSection = ({res, stretch, strings, chordTones, error, enharmonics, 
 
     for(let i=0;i<data.length;i++){
       diagrams = diagrams.concat(<Diagram stretch={stretch} diagram_data={data[i]} key={i} enharmonics={enharmonics} vertical={vertical}/>)
-      console.log(data[i])
+      
     }
     
     if(diagrams.length === 0){

@@ -20,7 +20,6 @@ const Row = ({stretch, rowData, enharmonics, vertical}) => {
   let boxes = []
   for(let i=0;i<stretch;i++){
     let noteName = rowData[1]
-    //console.log(noteName, Db)
     if(noteName==="C#" && enharmonics[2]){
       noteName = "Db"      
     }
