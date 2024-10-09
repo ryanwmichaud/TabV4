@@ -24,6 +24,8 @@
   --green: rgb(124, 178, 130);
   --purple: rgb(125, 101, 142 );
 
+  --main-min-width: 400px;
+
 }
 
 a, select, button, input, p{
@@ -55,6 +57,9 @@ a{
   
   margin: 0;
   padding: 0;
+  min-width: var(--main-min-width);
+  min-height: 60px;
+
 
 }
 
@@ -180,11 +185,10 @@ a{
   
   overflow: hidden;
   position: relative;
-  justify-content: center;
-
-
 
   height: calc(var(--vh, 1vh) * 85);
+  min-width: var(--main-min-width);
+
 
   margin: 0;
   padding: 0;
