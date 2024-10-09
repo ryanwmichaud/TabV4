@@ -353,8 +353,8 @@ app.get('*', async (req,res)=>{
 })
 
 
-app.listen(8000, () => {
-    console.log("listening on 8000")
+app.listen(80, () => {
+    console.log("listening on 80")
   })
 
 
