@@ -70,7 +70,6 @@ const Signup = ()=>{
                 throw new Error('Network response was not ok')
             }
             const data = await response.json()
-            console.log(data)
             
             if(!data.usernameTaken && !data.emailTaken){  //if not taken,  made a profile and returned a token. store it and go home
           
