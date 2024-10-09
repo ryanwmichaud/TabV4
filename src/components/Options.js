@@ -38,7 +38,6 @@ const Options = ({changeStretch, stretch, setAb, setBb, setDb, setEb, setGb, enh
 
     const verticalClick = (e) =>{
         setVertical(!vertical)
-        console.log('click')
     }
 
     const enharmonicClick = (e)=>{
