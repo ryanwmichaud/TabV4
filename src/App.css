@@ -246,7 +246,8 @@ a{
 }
 
 .results-container{
-  width: 80%;
+  padding-left: 4%;
+  padding-right: 4%;
   justify-content: center;
   display: flex;
   flex-wrap: wrap;
@@ -358,11 +359,6 @@ a{
   color: white;
 }
 
-
-
-#enharmonic-boxes{
-
-}
 
 
 
@@ -504,6 +500,7 @@ a{
   min-width: 26px;
   margin: 0;
   padding: 0;
+  height: 7vh;
 }
 .box-container-h {
   position: relative;
@@ -511,6 +508,9 @@ a{
   min-width: 26px;
   margin: 0;
   padding: 0;
+  width: 12vw;
+  min-width: 40px;
+  max-width: 100px;
 }
 
 .box{

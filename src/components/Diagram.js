@@ -4,7 +4,7 @@ import React from 'react'
 
 
   
-const Box = ({ text }, vertical) => {
+const Box = ({ text, vertical }) => {
   return (
     <div className={`box-container-${vertical ? 'v' : 'h'}`}>
       <div className='box'></div>
@@ -15,6 +15,7 @@ const Box = ({ text }, vertical) => {
   
 
 const Row = ({stretch, rowData, enharmonics, vertical}) => {
+  
 
   let boxes = []
   for(let i=0;i<stretch;i++){
