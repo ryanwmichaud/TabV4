@@ -17,7 +17,7 @@ const StretchInput = ({changeStretch, stretch}) => {
     return (
 
       <div className='stretch-section'>
-        <p className="input-subsubtitle"> Max number of frets: </p>
+        <p className="input-subsubtitle"> Max Number of Frets: </p>
         <select id='stretch-select' onChange={handleChangeStretch} value={stretch}>  
         <option value={2}>2</option>
         <option value={3}>3</option>
@@ -66,7 +66,7 @@ const Options = ({changeStretch, stretch, setAb, setBb, setDb, setEb, setGb, enh
             <StretchInput changeStretch={changeStretch} stretch={stretch}></StretchInput>
 
             
-            <p className="input-subsubtitle"> Enharmonics:</p>
+            <p className="input-subsubtitle">Toggle Sharp/Flats:</p>
 
             <div id="enharmonic-boxes">
                 {names.map((noteName,index)=>(
@@ -74,12 +74,11 @@ const Options = ({changeStretch, stretch, setAb, setBb, setDb, setEb, setGb, enh
                 ))}
             </div>
 
-            <div className="vertical-option-line">
-                <p className="input-subsubtitle"> Vertical Diagrams:</p>
+            <div className="input-subsubtitle" id="vertical-container">
+                <p className="vertical-label"> Vertical Diagrams:</p>
 
-                <div id="vertical-diagrams">
-                    <input type="checkbox" onClick={verticalClick}/>
-                </div>
+                <input className="vertical-box" type="checkbox" onClick={verticalClick}/>
+                
 
             </div>
             

@@ -287,13 +287,19 @@ a{
   margin-bottom: 50px;
   
 }
-.vertical-option-line{
+#vertical-container{
   display: flex;
   flex-direction: row;
-  align-items: end;
+  align-items: flex-end;
   justify-content: center;
 }
 
+.vertical-label, .vertical-box {
+  margin: 0;
+}
+.vertical-box{
+  margin-left: 3px;
+}
 
 .input-subtitle{
   margin: 0;
