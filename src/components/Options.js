@@ -74,11 +74,15 @@ const Options = ({changeStretch, stretch, setAb, setBb, setDb, setEb, setGb, enh
                 ))}
             </div>
 
-            <p className="input-subsubtitle"> Vertical Diagrams:</p>
+            <div className="vertical-option-line">
+                <p className="input-subsubtitle"> Vertical Diagrams:</p>
 
-            <div id="vertical-diagrams">
-                <input type="checkbox" onClick={verticalClick}/>
+                <div id="vertical-diagrams">
+                    <input type="checkbox" onClick={verticalClick}/>
+                </div>
+
             </div>
+            
            
 
        

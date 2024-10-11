@@ -75,10 +75,10 @@ a{
 
 
 .nav-login-link{
-
+  position: absolute;
+  right: 20px;
   color: var(--nav-text-color);
-  margin-left: auto;
-  margin-right: 15px;
+  
 }
 
 
@@ -287,7 +287,12 @@ a{
   margin-bottom: 50px;
   
 }
-
+.vertical-option-line{
+  display: flex;
+  flex-direction: row;
+  align-items: end;
+  justify-content: center;
+}
 
 
 .input-subtitle{
