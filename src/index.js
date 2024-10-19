@@ -5,7 +5,7 @@ import App from './App'
 import reportWebVitals from './reportWebVitals'
 import { GoogleOAuthProvider } from '@react-oauth/google'
 
-const id = "504190667265-1cjktd0sv05379lf3tte68h82n6l4vbh" //google client id
+const id = process.env.REACT_APP_CLIENT_ID //google client id
 const root = ReactDOM.createRoot(document.getElementById('root'))
  
 root.render(
