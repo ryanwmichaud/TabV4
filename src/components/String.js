@@ -38,6 +38,18 @@ const StringInput = ({changeNumStrings, changeOpen, n, strings, enharmonics, set
           changeNumStrings(4)
           setStrings(["E","A","D","G"])
           break;
+          case "5 String Bass":
+            changeNumStrings(5)
+            setStrings(["B","E","A","D","G"])
+            break;
+          case "6 String Bass":
+              changeNumStrings(6)
+              setStrings(["B","E","A","D","G","C"])
+              break;
+        case "Ukulele":
+            changeNumStrings(4)
+            setStrings(["G","C","E","A"])
+            break;
         case "Mandolin":
           changeNumStrings(4)
           setStrings(["G","D","A","E"])
@@ -119,6 +131,9 @@ const StringInput = ({changeNumStrings, changeOpen, n, strings, enharmonics, set
           <option value={"Open G Guitar"}>Open G Guitar</option>
           <option value={"Open D Guitar"}>Open D Guitar</option>
           <option value={"Bass"}>Bass</option>
+          <option value={"5 String Bass"}>Bass</option>
+          <option value={"6 String Bass"}>Bass</option>
+          <option value={"Ukulele"}>Bass</option>
           <option value={"Mandolin"}>Mandolin</option>
           <option value={"Mandola"}>Mandola</option>
           <option value={"Cross A"}>Cross A</option>
