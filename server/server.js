@@ -1,15 +1,12 @@
-import {solve} from './main.js'
-import express, { response }  from 'express'
-import cors from 'cors'
-import  path from "path"
-import { fileURLToPath } from 'url'
-import mysql from 'mysql2/promise'
-import bcrypt from 'bcrypt'
-import jwt from 'jsonwebtoken'
+const { solve } = require('./main'); // No need for .js if you're using .js files
+const express = require('express');
+const cors = require('cors');
+const path = require('path');
+const { fileURLToPath } = require('url');
+const mysql = require('mysql2/promise');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
-
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__filename)
 
 const port = process.env.REACT_APP_PORT
 
