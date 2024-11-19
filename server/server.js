@@ -1,12 +1,11 @@
-const { solve } = require('./main'); // No need for .js if you're using .js files
-const express = require('express');
-const cors = require('cors');
-const path = require('path');
-const { fileURLToPath } = require('url');
-const mysql = require('mysql2/promise');
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-
+const { solve } = require('./main') // No need for .js if you're using .js files
+const express = require('express')
+const cors = require('cors')
+const path = require('path')
+const { fileURLToPath } = require('url')
+const mysql = require('mysql2/promise')
+const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
 
 const port = process.env.REACT_APP_PORT
 
@@ -19,8 +18,6 @@ app.use(express.json())
 app.use(express.static(path.join(__dirname, '..','build')))
 
 const JWT_SECRET = process.env.JWT_SECRET
-
-
 
 
 const pool = mysql.createPool({
@@ -48,7 +45,41 @@ pool.on('error', (err) => {
     // reconnect?
   })
 
-app.post('/calculate', async (req, res) => {
+app.post('/jsonrpc', async (req, res) => {
+
+    console.log('reached jsonrpc')
+    try{
+        const {jsonrpc, method, params, id} = req.body
+        if(jsonrpc !== '2.0'){
+            return res.status(400).json({
+               jsonrpc: '2.0', 
+               error: {code: -32600, message: 'Invalid json-rpc request'},
+               id: null
+            })
+        }
+    
+        if (method === 'calculate'){
+            const {strings, chordTones, stretch} = params
+            const result = solve(strings, chordTones, stretch)
+            return res.json({
+                jsonrpc: '2.0', 
+                result: result, 
+                id: id
+            })
+        }else{
+            return res.json({
+                jsonrpc: "2.0",
+                error: {code: -32601, message: 'Method not found'},
+                id: id            
+            })
+        }
+    }catch(error){
+        return res.status(500).json({
+            jsonrpc: '2.0',
+            error: {code: -32603, message: 'Internal error'},
+            id: null
+        })
+    }
     const data = solve(req.body.strings, req.body.chordTones,req.body.stretch)
     res.json({ message: data})
 })
@@ -196,7 +227,7 @@ app.post('/create-account-from-google', async (req,res) => {
 
 
 
-app.get('/get-preferences', async (req, res)=>{
+app.get('/preferences', async (req, res)=>{
 
     const token = req.headers['authorization']?.split(' ')[1];
 
@@ -235,7 +266,7 @@ app.get('/get-preferences', async (req, res)=>{
 
 })
 
-app.get('/get-profile', async (req, res) => {  
+app.get('/profile', async (req, res) => {  
 
 
     

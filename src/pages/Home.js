@@ -130,44 +130,43 @@ const Home = () =>{
 
 
 
-  //memoize handlePostRequest which dep on stretch, cts, and strs
+  //memoize calculate which dep on stretch, cts, and strs
   //now, useEffect only dep on handlePostReq
-  const handlePostRequest = useCallback(async () => { //call from top level not input section
-    const req = {
-      stretch: stretch,
-      strings: strings,
-      chordTones: chordTones,
-    }
+  const calculate = useCallback(async () => { //call from top level not input section
+    
+    console.log("called calc")
 
-    fetch(`http://${ip}:${port}/calculate`, {
+    const response = await fetch(`http://${ip}:${port}/jsonrpc`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(req),
+      body: JSON.stringify({
+        jsonrpc: "2.0",
+        method: "calculate",
+        params:{
+          stretch: stretch,
+          strings: strings,
+          chordTones: chordTones,
+        },
+        id: 1
+      })
     })
-    .then(response => {
-      if (!response.ok) { 
-        throw new Error('Network response was not ok')
-      }
-      return response.json()
-    })
-    .then(data => {
-      setRes(data.message)
-      setError(null)
-      
-    })
-    .catch(error => {
+    const data = await response.json()
+    if(data.error){
+      console.error("json-rpc error:", data.error)
       setRes(null)
       setError(error.message)
-    })
+    }
+    setRes(data.result)
+    setError(null)
   }, [chordTones, stretch, strings])
 
 
   //resend new req
   useEffect(() =>{
-    handlePostRequest()
-  }, [handlePostRequest])
+    calculate()
+  }, [calculate])
 
 
 
