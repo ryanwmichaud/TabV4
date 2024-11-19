@@ -134,8 +134,6 @@ const Home = () =>{
   //now, useEffect only dep on handlePostReq
   const calculate = useCallback(async () => { //call from top level not input section
     
-    console.log("called calc")
-
     const response = await fetch(`http://${ip}:${port}/jsonrpc`, {
       method: 'POST',
       headers: {
