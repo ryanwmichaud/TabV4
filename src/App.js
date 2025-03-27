@@ -10,13 +10,17 @@ import { Profile } from './pages/Profile'
 const ip = process.env.REACT_APP_IP
 const port = process.env.REACT_APP_PORT
 export const GlobalContext  = createContext()
+const urlBase = window.location.hostname === "localhost"
+  ? `http://${ip}:${port}` // Local testing
+  : "https://chords.ryanwmichaud.com"; // Production
+
 
 export const getProfile = async (token) => {
   //console.log("getting profile w token", token)
  
   try{
     
-      const response = await fetch(`https://${ip}:${port}/profile`, {
+      const response = await fetch(`${urlBase}/profile`, {
           headers: { Authorization: `Bearer ${token}` },
       })
       
@@ -32,7 +36,7 @@ export const getPrefereces = async (token) => {
   //console.log("getting preferences w token", token)
   try{
     
-      const response = await fetch(`https://${ip}:${port}/preferences`, {
+      const response = await fetch(`${urlBase}/preferences`, {
           headers: { Authorization: `Bearer ${token}` },
       })
       

@@ -10,6 +10,9 @@ import { useNavigate, Link } from 'react-router-dom'
 
 const ip = process.env.REACT_APP_IP
 const port = process.env.REACT_APP_PORT
+const urlBase = window.location.hostname === "localhost"
+  ? `http://${ip}:${port}` // Local testing
+  : "https://chords.ryanwmichaud.com"; // Production
 
 
 
@@ -78,7 +81,7 @@ const Login = ()=>{
 
 
     const createAccountFromGoogle = async (req)=>{ //returns token
-        const response = await fetch(`https://${ip}:${port}/create-account-from-google`, {
+        const response = await fetch(`${urlBase}/create-account-from-google`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -101,7 +104,7 @@ const Login = ()=>{
         //console.log('lookingup google id')
         try{
             
-            const response = await fetch(`https://${ip}:${port}/lookup-google-id`, {
+            const response = await fetch(`${urlBase}/lookup-google-id`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -133,7 +136,7 @@ const Login = ()=>{
         }
 
         try{
-            const response = await fetch(`https://${ip}:${port}/custom-signin`, {
+            const response = await fetch(`${urlBase}/custom-signin`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

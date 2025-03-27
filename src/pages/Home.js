@@ -11,6 +11,9 @@ import { GlobalContext } from '../App.js'
 
 const ip = process.env.REACT_APP_IP
 const port = process.env.REACT_APP_PORT
+const urlBase = window.location.hostname === "localhost"
+  ? `http://${ip}:${port}` // Local testing
+  : "https://chords.ryanwmichaud.com"; // Production
 
 
 
@@ -134,7 +137,7 @@ const Home = () =>{
   //now, useEffect only dep on handlePostReq
   const calculate = useCallback(async () => { //call from top level not input section
     
-    const response = await fetch(`https://${ip}:${port}/jsonrpc`, {
+    const response = await fetch(`${urlBase}/jsonrpc`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

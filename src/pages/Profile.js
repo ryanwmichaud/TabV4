@@ -5,6 +5,9 @@ import { Navbar } from '../components/Navbar'
 import { GlobalContext } from "../App"
 const ip = process.env.REACT_APP_IP
 const port = process.env.REACT_APP_PORT
+const urlBase = window.location.hostname === "localhost"
+  ? `http://${ip}:${port}` // Local testing
+  : "https://chords.ryanwmichaud.com"; // Production
 
 
 
@@ -33,7 +36,7 @@ const Profile = () =>{
             preference_value: e.target.value
         }
 
-        fetch(`https://${ip}:${port}/change-preference`, {
+        fetch(`${urlBase}/change-preference`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
