@@ -78,7 +78,7 @@ const Login = ()=>{
 
 
     const createAccountFromGoogle = async (req)=>{ //returns token
-        const response = await fetch(`http://${ip}:${port}/create-account-from-google`, {
+        const response = await fetch(`https://${ip}:${port}/create-account-from-google`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -101,7 +101,7 @@ const Login = ()=>{
         //console.log('lookingup google id')
         try{
             
-            const response = await fetch(`http://${ip}:${port}/lookup-google-id`, {
+            const response = await fetch(`https://${ip}:${port}/lookup-google-id`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -133,7 +133,7 @@ const Login = ()=>{
         }
 
         try{
-            const response = await fetch(`http://${ip}:${port}/custom-signin`, {
+            const response = await fetch(`https://${ip}:${port}/custom-signin`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

@@ -61,7 +61,7 @@ const Signup = ()=>{
 
 
         try{
-            const response = await fetch(`http://${ip}:${port}/create-account`, {
+            const response = await fetch(`https://${ip}:${port}/create-account`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

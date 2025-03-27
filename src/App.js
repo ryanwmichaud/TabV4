@@ -16,7 +16,7 @@ export const getProfile = async (token) => {
  
   try{
     
-      const response = await fetch(`http://${ip}:${port}/profile`, {
+      const response = await fetch(`https://${ip}:${port}/profile`, {
           headers: { Authorization: `Bearer ${token}` },
       })
       
@@ -32,7 +32,7 @@ export const getPrefereces = async (token) => {
   //console.log("getting preferences w token", token)
   try{
     
-      const response = await fetch(`http://${ip}:${port}/preferences`, {
+      const response = await fetch(`https://${ip}:${port}/preferences`, {
           headers: { Authorization: `Bearer ${token}` },
       })
       
