@@ -7,6 +7,9 @@ import { GlobalContext, getProfile} from '../App'
 
 const ip = process.env.REACT_APP_IP
 const port = process.env.REACT_APP_PORT
+const urlBase = window.location.hostname === "localhost"
+  ? `http://${ip}:${port}` // Local testing
+  : "https://chords.ryanwmichaud.com"; // Production
 
 
 
@@ -61,7 +64,7 @@ const Signup = ()=>{
 
 
         try{
-            const response = await `https://${ip}:${port}/create-account`, {
+            const response = await fetch(`${urlBase}/create-account`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
