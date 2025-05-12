@@ -7,7 +7,7 @@ Enter any group of notes and discover every possible way to play them simultaneo
 While other chord-finding applications simply return common voicings of common chords in standard tunings, this program generates every possible diagram of any chord you can imagine in any tuning you can imagine.
 
 If you:
-  - want to explore alternate tunings, but find that none of youur old chord shapes work
+  - want to explore alternate tunings, but find that none of your old chord shapes work
   - need a clever voicing for your chord melody arrangment and are starting to think its impossible to fit all those notes at once
   - play a 5 string bass, a 4 string cello, or an 8-course Renaissance lute and are tired of only seeing guitar focused chord diagrams
 
@@ -36,5 +36,5 @@ then I hope you find this app helpful!
   - `npm start` to enable backend to do calculations
   - `npm run dev` to start a nodemon development server
 
-Feel free to reach out to ryanwilliammichaud@gmail.com with any additional questions!
+Feel free to reach out to ryanwmichaud@gmail.com with any additional questions!
 
